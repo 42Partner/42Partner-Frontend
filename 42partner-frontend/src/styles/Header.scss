@@ -1,12 +1,13 @@
 @font-face {
-	font-family: 'RIDIBatang';
-	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff');
-	font-weight: normal;
-	font-style: normal;
+  font-family: 'RIDIBatang';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
 .header {
-	font-family: 'RIDIBatang';
+  font-family: 'RIDIBatang';
   margin: 0 auto;
   width: 100%;
   height: 130px;
@@ -14,15 +15,28 @@
   text-align: center;
   color: white;
 
+  display: flex;
+  justify-content: center;
+
   h3 {
     margin: 0;
   }
 
+  .text-wrap {
+    margin: auto;
+  }
+
   .logo {
-    display: inline-flex;
+    display: flex;
+    justify-content: center;
   }
 
   .partner-text {
     color: #5e5e5e;
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
   }
 }

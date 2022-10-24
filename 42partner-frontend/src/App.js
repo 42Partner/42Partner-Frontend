@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Header from './pages/Header';
 import Home from './pages/Home';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Header />
@@ -12,6 +12,6 @@ function App() {
       </Routes>
     </div>
   );
-}
+};
 
 export default App;
