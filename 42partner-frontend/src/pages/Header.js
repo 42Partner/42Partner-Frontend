@@ -15,10 +15,7 @@ const Header = () => {
       </div>
       <div className="profile">
         <Link to="/mypage">
-          <img
-            alt="profile_image"
-            src="42partner-frontend/src/resources/images/sss.png"
-          />
+          <img alt="profile_image" src="./images/sample_profile.jpeg" />
         </Link>
       </div>
     </div>

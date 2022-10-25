@@ -38,5 +38,11 @@
   .profile {
     display: flex;
     align-items: center;
+    margin-right: 10px;
+
+    img {
+      width: 70px;
+      height: 70px;
+    }
   }
 }
