@@ -1,15 +1,15 @@
 import React from 'react';
 import LunchPageTemplate from '../components/LunchPageTemplate';
-import RoomList from '../components/RoomList';
+import TempRamdom from '../components/TempRamdom';
 
-const RoomListPage = () => {
+const TempRandom = () => {
   return (
     <div>
       <LunchPageTemplate>
-        <RoomList />
+        <TempRamdom />
       </LunchPageTemplate>
     </div>
   );
 };
 
-export default RoomListPage;
+export default TempRandom;

@@ -3,8 +3,9 @@ import { Route, Routes } from 'react-router-dom';
 import Header from './pages/Header';
 import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
-import LunchPage from './pages/LunchPage';
+import RoomListPage from './pages/RoomListPage';
 import SelectPage from './pages/SelectPage';
+import TempRandom from './pages/TempRandom';
 
 const App = () => {
   return (
@@ -14,7 +15,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="select" element={<SelectPage />} />
         <Route path="login" element={<LoginPage />} />
-        <Route path="lunchPage" element={<LunchPage />} />
+        <Route path="lunch_roomlist" element={<RoomListPage />} />
+        <Route path="lunch_random" element={<TempRandom />} />
       </Routes>
     </div>
   );

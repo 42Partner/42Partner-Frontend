@@ -46,7 +46,7 @@ const LoginForm = () => {
         <img alt="lunch_icon" src="./images/lunch_icon.png" />
         <img alt="study_icon" src="./images/study_icon.jpeg" />
       </div>
-      <div className="login-filed-wrap">
+      <div className="login-filed-wrapper">
         <TextField
           sx={{ m: 1, width: '250px' }}
           id="outlined-textarea"
@@ -56,7 +56,7 @@ const LoginForm = () => {
           onChange={IdHandleChange}
           value={id}
         />
-        <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+        <Box sx={{ display: 'flex', flexwrapper: 'wrapper' }}>
           <div>
             <FormControl sx={{ m: 1, width: '250px' }} variant="outlined">
               <InputLabel htmlFor="outlined-adornment-password">

@@ -6,7 +6,7 @@ import '../styles/Header.scss';
 const Header = () => {
   return (
     <div className="header">
-      <div className="text-wrap">
+      <div className="text-wrapper">
         <span className="logo">
           <h1>42</h1>
           <h1 className="partner-text">Partner</h1>

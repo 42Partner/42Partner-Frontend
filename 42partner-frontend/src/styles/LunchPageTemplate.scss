@@ -1,0 +1,49 @@
+.lunch-page-template {
+  display: flex;
+  width: 100%;
+  padding: 0;
+
+  .matching-wrapper {
+    margin: {
+      top: 15px;
+      right: 15px;
+    }
+    background-color: #e1e1e1;
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+
+    .matching-button {
+      height: 60px;
+      display: flex;
+      margin: {
+        top: 10px;
+        left: 10px;
+      }
+
+      a {
+        width: 150px;
+        padding: 20px;
+        margin: 0;
+        text-decoration: none;
+        color: black;
+        background-color: #9e9e9e;
+        text-align: center;
+        height: 20px;
+        border-radius: 20px 20px 0 0;
+      }
+    }
+
+    // 차후에 무한 스크롤로 바꿀 예정
+    .matching-place {
+      height: 600px;
+      margin: {
+        right: 10px;
+        left: 10px;
+				bottom: 10px;
+      }
+      overflow: hidden;
+      background-color: #cccccc;
+    }
+  }
+}
