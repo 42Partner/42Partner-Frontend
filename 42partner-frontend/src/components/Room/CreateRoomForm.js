@@ -7,7 +7,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
-import '../styles/CreateRoomForm.scss';
+import '../../styles/CreateRoomForm.scss';
 
 const textFieldStyle = {
   mb: 2,

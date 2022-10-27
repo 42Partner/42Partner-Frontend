@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import '../styles/RoomItem.scss';
+import '../../styles/RoomItem.scss';
 import Button from '@mui/material/Button';
-import ModalTemplate from './ModalTemplate';
+import ModalTemplate from '../common/ModalTemplate';
 import RoomDetailForm from './RoomDetailForm';
 
 const RoomItem = () => {

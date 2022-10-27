@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import RoomItem from './RoomItem';
-import ModalTemplate from './ModalTemplate';
+import ModalTemplate from '../common/ModalTemplate';
 import CreateRoomForm from './CreateRoomForm';
 
 const floatingButtonStyle = {

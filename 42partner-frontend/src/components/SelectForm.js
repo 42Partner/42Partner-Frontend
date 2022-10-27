@@ -7,7 +7,7 @@ const SelectForm = () => {
   return (
     <div className="select-form">
       <Link
-        to="/lunch_random"
+        to="/lunch/random"
         style={{ textDecoration: 'none', color: 'black' }}
       >
         <div className="lunch-button">

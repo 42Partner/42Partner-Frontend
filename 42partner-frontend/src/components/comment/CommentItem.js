@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/CommentItem.scss';
+import '../../styles/CommentItem.scss';
 
 const CommentItem = () => {
   return (

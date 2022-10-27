@@ -1,5 +1,5 @@
 import React from 'react';
-import LunchPageTemplate from '../components/LunchPageTemplate';
+import LunchPageTemplate from '../components/common/LunchPageTemplate';
 import TempRamdom from '../components/TempRamdom';
 
 const TempRandom = () => {

@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from '@mui/material/Button';
-import '../styles/RoomDetailForm.scss';
+import '../../styles/RoomDetailForm.scss';
 import TextField from '@mui/material/TextField';
-import CommentLIst from './CommentLIst';
+import CommentLIst from '../comment/CommentLIst';
 
 const RoomDetailForm = () => {
   return (
@@ -25,13 +25,6 @@ const RoomDetailForm = () => {
       <div id="text-part" className="button-wrapper">
         <Button id="button" variant="contained">
           참여
-        </Button>
-        <Button
-          style={{ background: '#cccccc', color: 'black' }}
-          id="button"
-          variant="contained"
-        >
-          취소
         </Button>
       </div>
       <h1 id="text-part">댓글</h1>

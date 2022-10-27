@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../styles/LunchPageTemplate.scss';
+import '../../styles/LunchPageTemplate.scss';
 import PropTypes from 'prop-types';
 import NavigationBar from './NavigationBar';
 
@@ -12,19 +12,19 @@ const LunchPageTemplate = ({ children }) => {
       <NavigationBar />
       <div className="matching-wrapper">
         <div className="matching-button">
-          {location.pathname === '/lunch_random' ? (
-            <Link style={{ background: '#cccccc' }} to="/lunch_random">
+          {location.pathname === '/lunch/random' ? (
+            <Link style={{ background: '#cccccc' }} to="/lunch/random">
               Random Matching
             </Link>
           ) : (
-            <Link to="/lunch_random">Random Matching</Link>
+            <Link to="/lunch/random">Random Matching</Link>
           )}
-          {location.pathname === '/lunch_roomlist' ? (
-            <Link style={{ background: '#cccccc' }} to="/lunch_roomlist">
+          {location.pathname === '/lunch/room' ? (
+            <Link style={{ background: '#cccccc' }} to="/lunch/room">
               Room Matching
             </Link>
           ) : (
-            <Link to="/lunch_roomlist">Room Matching</Link>
+            <Link to="/lunch/room">Room Matching</Link>
           )}
         </div>
         <div className="matching-place">{children}</div>

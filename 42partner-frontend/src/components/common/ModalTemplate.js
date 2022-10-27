@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import PropTypes from 'prop-types';
-import '../styles/ModalTemplate.scss';
+import '../../styles/ModalTemplate.scss';
 
 const ModalTemplate = ({ open, onClose, children }) => {
   return (
