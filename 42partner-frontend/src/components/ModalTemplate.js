@@ -1,17 +1,14 @@
 import React from 'react';
+import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import PropTypes from 'prop-types';
+import '../styles/ModalTemplate.scss';
 
-const ModalTemplate = ({ open, onClose }) => {
+const ModalTemplate = ({ open, onClose, children }) => {
   return (
-    <div>
-      <Modal
-        open={open}
-        onClose={onClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <div>asdf</div>
+    <div className="modal-template">
+      <Modal open={open} onClose={onClose}>
+        <Box className="modal-box">{children}</Box>
       </Modal>
     </div>
   );
@@ -20,6 +17,10 @@ const ModalTemplate = ({ open, onClose }) => {
 ModalTemplate.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };
 
 export default ModalTemplate;

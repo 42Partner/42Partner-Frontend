@@ -3,12 +3,13 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import RoomItem from './RoomItem';
 import ModalTemplate from './ModalTemplate';
+import CreateRoomForm from './CreateRoomForm';
 
 const floatingButtonStyle = {
   margin: 0,
   top: 'auto',
-  right: 40,
-  bottom: 150,
+  right: 50,
+  bottom: 130,
   left: 'auto',
   position: 'fixed',
 };
@@ -32,7 +33,9 @@ const RoomList = () => {
       >
         <AddIcon />
       </Fab>
-      <ModalTemplate open={open} onClose={handleWriteClose} />
+      <ModalTemplate open={open} onClose={handleWriteClose}>
+        <CreateRoomForm />
+      </ModalTemplate>
       <RoomItem />
       <RoomItem />
       <RoomItem />
