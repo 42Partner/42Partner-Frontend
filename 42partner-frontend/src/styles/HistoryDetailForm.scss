@@ -1,0 +1,25 @@
+@import './utils.scss';
+
+.history-detail-form {
+  margin: 3rem;
+
+  .title-info {
+    border-bottom: 1px solid black;
+  }
+
+  .select-info-wrapper {
+    padding-top: 1rem;
+    div + div {
+      margin-top: 10px;
+    }
+  }
+
+  .button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .matching-category {
+    color: $matchingColor;
+  }
+}

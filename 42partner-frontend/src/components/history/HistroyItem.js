@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import '../../styles/HistroyItem.scss';
 import ModalTemplate from '../common/ModalTemplate';
+import HistoryDetailForm from './HistoryDetailForm';
 
 const HistroyItem = () => {
   const [open, setOpen] = useState(false);
@@ -28,7 +29,7 @@ const HistroyItem = () => {
           상세
         </Button>
         <ModalTemplate open={open} onClose={handleDetaileClose}>
-          asdf
+          <HistoryDetailForm />
         </ModalTemplate>
       </div>
     </div>
