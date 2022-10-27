@@ -1,0 +1,27 @@
+.room-detail-form {
+  margin: 2rem;
+
+  #text-part {
+    border-bottom: 1px solid black;
+  }
+
+  .select-info-wrapper {
+    border: 1px solid gray;
+    padding: 1rem;
+    div + div {
+      margin-top: 10px;
+    }
+  }
+
+  .hashtag {
+    color: #218aff;
+  }
+
+  .button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    #button {
+      margin: 10px;
+    }
+  }
+}

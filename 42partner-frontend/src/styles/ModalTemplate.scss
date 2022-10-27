@@ -1,5 +1,14 @@
 .modal-box {
-  width: 60%;
   background-color: #fae8ea;
-  transform: translate(30%, 25%);
+  position: fixed;
+  width: 60%;
+  max-height: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: auto;
+}
+
+.modal-box::-webkit-scrollbar {
+  display: none;
 }

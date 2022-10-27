@@ -1,15 +1,25 @@
 import React, { useState } from 'react';
 import '../styles/RoomItem.scss';
 import Button from '@mui/material/Button';
+import ModalTemplate from './ModalTemplate';
+import RoomDetailForm from './RoomDetailForm';
 
 const RoomItem = () => {
   const [join, setJoin] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const joinRoom = () => {
     setJoin(true);
   };
   const exitRoom = () => {
     setJoin(false);
+  };
+
+  const handleWriteOpen = () => {
+    setOpen(true);
+  };
+  const handleWriteClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -44,9 +54,13 @@ const RoomItem = () => {
             style={{ background: '#cccccc', color: 'black' }}
             id="button"
             variant="contained"
+            onClick={handleWriteOpen}
           >
             상세
           </Button>
+          <ModalTemplate open={open} onClose={handleWriteClose}>
+            <RoomDetailForm />
+          </ModalTemplate>
         </div>
       </div>
     </div>

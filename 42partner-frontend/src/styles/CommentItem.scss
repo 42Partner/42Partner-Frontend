@@ -1,0 +1,14 @@
+.comment-item {
+  border-bottom: 1px solid gray;
+  padding-bottom: 1rem;
+
+  .comment-info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    h3 {
+      margin-right: 10px;
+    }
+  }
+}
