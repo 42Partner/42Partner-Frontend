@@ -1,3 +1,5 @@
+@import './utils.scss';
+
 .room-list {
   .room-item {
     padding: 10px;
@@ -17,7 +19,7 @@
     }
 
     .hashtag {
-      color: #218aff;
+      color: $hashtag;
       overflow: inherit;
       width: 300px;
       height: 30px;

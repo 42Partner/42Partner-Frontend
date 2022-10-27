@@ -6,7 +6,9 @@ import LoginPage from './pages/LoginPage';
 import MatchingHistoryPage from './pages/MatchingHistoryPage';
 import RoomListPage from './pages/RoomListPage';
 import SelectPage from './pages/SelectPage';
+import TempMyPage from './pages/TempMyPage';
 import TempRandom from './pages/TempRandom';
+import TempReview from './pages/TempReview';
 
 const App = () => {
   return (
@@ -18,6 +20,8 @@ const App = () => {
         <Route path="login" element={<LoginPage />} />
         <Route path="lunch/room" element={<RoomListPage />} />
         <Route path="lunch/random" element={<TempRandom />} />
+        <Route path="mypage" element={<TempMyPage />} />
+        <Route path="mypage/review" element={<TempReview />} />
         <Route
           path="mypage/matching_history"
           element={<MatchingHistoryPage />}

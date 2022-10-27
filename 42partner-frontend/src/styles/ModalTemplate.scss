@@ -1,5 +1,7 @@
+@import './utils.scss';
+
 .modal-box {
-  background-color: #fae8ea;
+  background-color: $lightPink;
   position: fixed;
   width: 60%;
   max-height: 80%;
