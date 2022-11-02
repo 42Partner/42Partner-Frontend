@@ -1,0 +1,26 @@
+.content-wrapper {
+	margin-top: 150px;	
+	height: auto;
+  	min-height: 100%;
+	flex: 1;
+	margin-left: 100px;
+	margin-right: 100px;
+}
+
+
+.footer {
+	height: 100%;
+	text-align: center;
+	padding: 24px 50px;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+    background: #f0f2f5;
+	font-weight: 500;
+	font-family: 'ubuntu';
+}
+
+.app-wrapper {
+	display: flex;
+	flex-direction: column;
+	height: 75vh;
+}
