@@ -7,11 +7,11 @@ const SelectForm = () => {
   return (
     <div className="select-form">
       <Link
-        to="/lunch/random"
+        to="/meal/random"
         style={{ textDecoration: 'none', color: 'black' }}
       >
-        <div className="lunch-button">
-          <img alt="lunch_icon" src="./images/lunch_icon.png" />
+        <div className="meal-button">
+          <img alt="meal_icon" src="./images/meal_icon.png" />
           <h1>밥트너 찾기</h1>
           <p>
             랜덤 매칭 - 개인별 옵션에 따른 4명 매칭 가능

@@ -14,7 +14,7 @@ const MyPageTemplate = ({ children }) => {
     <div className="mypage-template">
       <div className="mypage-button">
         {location.pathname === '/mypage' ? (
-          <Link style={buttonStyle} to="/lunch/random">
+          <Link style={buttonStyle} to="/meal/random">
             My Page
           </Link>
         ) : (
@@ -22,7 +22,7 @@ const MyPageTemplate = ({ children }) => {
         )}
 
         {location.pathname === '/mypage/matching_history' ? (
-          <Link style={buttonStyle} to="/lunch/room">
+          <Link style={buttonStyle} to="/meal/room">
             Matching History
           </Link>
         ) : (
@@ -32,7 +32,7 @@ const MyPageTemplate = ({ children }) => {
         )}
 
         {location.pathname === '/mypage/review' ? (
-          <Link style={buttonStyle} to="/lunch/room">
+          <Link style={buttonStyle} to="/meal/room">
             Matching Review
           </Link>
         ) : (

@@ -1,13 +1,13 @@
 import React from 'react';
-import LunchPageTemplate from '../components/common/LunchPageTemplate';
+import MealPageTemplate from '../components/common/MealPageTemplate';
 import RoomList from '../components/Room/RoomList';
 
 const RoomListPage = () => {
   return (
     <div>
-      <LunchPageTemplate>
+      <MealPageTemplate>
         <RoomList />
-      </LunchPageTemplate>
+      </MealPageTemplate>
     </div>
   );
 };

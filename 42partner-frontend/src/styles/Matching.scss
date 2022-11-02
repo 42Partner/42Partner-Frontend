@@ -1,0 +1,27 @@
+body {
+	font-family: 'Ubuntu';
+
+	.matching-btn {
+		padding-top: 10px;
+		padding-right: 40px;
+		margin: 0 20px;
+		float: right;
+	}
+
+	.matching-description {
+		display: flex;
+		justify-content: center;
+		margin-top: 60px;
+	}
+
+	.matching-group {
+		padding-top: 20px;
+	}
+
+	.matching-progress {
+		padding-top : 40px;
+		padding-bottom: 10px;
+		padding-left: 60px;
+		padding-right: 60px;
+	}
+}

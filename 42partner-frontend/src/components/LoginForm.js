@@ -43,7 +43,7 @@ const LoginForm = () => {
   return (
     <div className="login-form">
       <div>
-        <img alt="lunch_icon" src="/images/lunch_icon.png" />
+        <img alt="meal_icon" src="/images/meal_icon.png" />
         <img alt="study_icon" src="/images/study_icon.jpeg" />
       </div>
       <div className="login-filed-wrapper">
