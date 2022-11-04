@@ -3,8 +3,12 @@
 .history-detail-form {
   margin: 3rem;
 
-  .title-info {
-    border-bottom: 1px solid black;
+  .close-button {
+    @include flex-end-sort;
+  }
+
+  .paragraph {
+    border-bottom: 1px solid lightcoral;
   }
 
   .select-info-wrapper {
@@ -14,9 +18,9 @@
     }
   }
 
-  .button-wrapper {
-    display: flex;
-    justify-content: flex-end;
+  .hashtag {
+    color: $hashtag;
+    padding-bottom: 1rem;
   }
 
   .matching-category {

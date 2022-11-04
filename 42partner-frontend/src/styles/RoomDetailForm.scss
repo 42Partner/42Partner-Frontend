@@ -3,12 +3,21 @@
 .room-detail-form {
   margin: 2rem;
 
-  #text-part {
+  #room-detail-form {
+    display: flex;
+  }
+
+  .close-button {
+    @include flex-end-sort;
+  }
+
+  .paragraph {
     border-bottom: 1px solid black;
   }
 
   .select-info-wrapper {
-    border: 1px solid gray;
+    border: 1px solid lightcoral;
+    border-radius: 10px;
     padding: 1rem;
     div + div {
       margin-top: 10px;
@@ -20,10 +29,9 @@
   }
 
   .button-wrapper {
-    display: flex;
-    justify-content: flex-end;
-    #button {
-      margin: 10px;
+    @include flex-end-sort;
+    .join-button {
+      margin: 20px 10px;
     }
   }
 }

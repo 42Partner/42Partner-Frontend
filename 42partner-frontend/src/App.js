@@ -28,10 +28,7 @@ const App = () => {
             <Route path="meal/room" element={<RoomListPage />} />
             <Route path="study/random" element={<StudyRandomPage />} />
             <Route path="mypage" element={<MyPage />} />
-            <Route
-              path="mypage/matching_history"
-              element={<MatchingHistoryPage />}
-            />
+            <Route path="mypage/history" element={<MatchingHistoryPage />} />
           </Routes>
         </div>
         <div className="footer">

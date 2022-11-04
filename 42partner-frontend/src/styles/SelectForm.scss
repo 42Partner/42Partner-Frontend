@@ -5,8 +5,7 @@
   display: flex;
   justify-content: center;
 
-  .meal-button,
-  .study-button {
+  #select-button {
     height: 400px;
     margin: 2rem;
     padding: 7rem;
@@ -18,8 +17,7 @@
     text-align: center;
   }
 
-  .meal-button:hover,
-  .study-button:hover {
+  #select-button:hover {
     filter: grayscale(70%);
     background-color: $gray2;
     color: $lightSliver;

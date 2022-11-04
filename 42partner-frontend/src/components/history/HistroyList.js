@@ -1,9 +1,20 @@
 import React from 'react';
 import HistroyItem from './HistroyItem';
+import '../../styles/HistroyList.scss';
 
 const HistroyList = () => {
   return (
-    <div>
+    <div className="history-list">
+      <HistroyItem />
+      <HistroyItem />
+      <HistroyItem />
+      <HistroyItem />
+      <HistroyItem />
+      <HistroyItem />
+      <HistroyItem />
+      <HistroyItem />
+      <HistroyItem />
+      <HistroyItem />
       <HistroyItem />
       <HistroyItem />
       <HistroyItem />

@@ -1,0 +1,14 @@
+@import './utils.scss';
+
+.history-list {
+  width: 100%;
+  height: 600px;
+  overflow: auto;
+  background-color: $back-pink;
+  border: 0.2px solid lightpink;
+  border-radius: 10px;
+}
+
+.history-list::-webkit-scrollbar {
+  display: none;
+}

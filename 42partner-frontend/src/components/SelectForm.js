@@ -10,23 +10,16 @@ const SelectForm = () => {
         to="/meal/random"
         style={{ textDecoration: 'none', color: 'black' }}
       >
-        <div className="meal-button">
+        <div id="select-button">
           <img alt="meal_icon" src="./images/meal_icon.png" />
-          <h1>밥트너 찾기</h1>
-          <p>
-            랜덤 매칭 - 개인별 옵션에 따른 4명 매칭 가능
-            <br />방 단위 매칭 - 옵션 설정 후 방 생성, 참여 가능
-          </p>
         </div>
       </Link>
       <Link
         to="/study_random"
         style={{ textDecoration: 'none', color: 'black' }}
       >
-        <div className="study-button">
+        <div id="select-button">
           <img alt="study_icon" src="./images/study_icon.jpeg" />
-          <h1>공부트너 찾기</h1>
-          <p>랜덤 매칭 - 개인별 옵션에 따른 4명 매칭 가능</p>
         </div>
       </Link>
     </div>

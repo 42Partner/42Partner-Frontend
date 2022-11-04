@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
+import FormGroup from '@mui/material/FormGroup';
+import Checkbox from '@mui/material/Checkbox';
 import '../../styles/CreateRoomForm.scss';
+import DatePicker from 'react-datepicker';
+import { ko } from 'date-fns/esm/locale';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 const textFieldStyle = {
   mb: 2,
 };
 
 const CreateRoomForm = () => {
-  const [place, setPlace] = useState('');
-
-  const handlePlaceChange = (e) => {
-    setPlace(e.target.value);
-  };
+  const [bookingDate, setBookingDate] = useState(new Date());
 
   return (
     <div className="create-room-form">
@@ -26,42 +25,40 @@ const CreateRoomForm = () => {
         required
         fullWidth
         sx={textFieldStyle}
-        id="title-text"
+        className="title-text"
         variant="standard"
         placeholder="제목을 입력해 주세요"
         inputProps={{ maxLength: 20 }}
       />
       <div className="check-option-wrapper">
-        <div id="option-field">
+        <div className="option-field">
+          <h2>날짜</h2>
+          <DatePicker
+            dateFormat="yyyy년 MM월 dd일"
+            minDate={new Date()}
+            selected={bookingDate}
+            locale={ko}
+            onChange={(date) => setBookingDate(date)}
+          />
+        </div>
+        <div className="option-field">
           <h2>장소</h2>
-          <FormControl>
-            <Select
-              required
-              id="place-select"
-              value={place}
-              onChange={handlePlaceChange}
-              displayEmpty
-            >
-              <MenuItem disabled value="">
-                장소 선택
-              </MenuItem>
-              <MenuItem value="개포">개포</MenuItem>
-              <MenuItem value="서초">서초</MenuItem>
-              <MenuItem value="기타">기타</MenuItem>
-              <MenuItem value="상관없음">상관없음</MenuItem>
-            </Select>
-          </FormControl>
+          <FormGroup row>
+            <FormControlLabel control={<Checkbox />} label="개포" />
+            <FormControlLabel control={<Checkbox />} label="서초" />
+            <FormControlLabel control={<Checkbox />} label="기타 (외부)" />
+          </FormGroup>
         </div>
-        <div id="option-field">
+        <div className="option-field">
           <h2>시간대</h2>
-          <RadioGroup row name="time-radio-group">
-            <FormControlLabel value="아침" control={<Radio />} label="아침" />
-            <FormControlLabel value="점심" control={<Radio />} label="점심" />
-            <FormControlLabel value="저녁" control={<Radio />} label="저녁" />
-            <FormControlLabel value="야식" control={<Radio />} label="야식" />
-          </RadioGroup>
+          <FormGroup row>
+            <FormControlLabel control={<Checkbox />} label="아침" />
+            <FormControlLabel control={<Checkbox />} label="점심" />
+            <FormControlLabel control={<Checkbox />} label="저녁" />
+            <FormControlLabel control={<Checkbox />} label="야식" />
+          </FormGroup>
         </div>
-        <div id="option-field">
+        <div className="option-field">
           <h2>배달여부</h2>
           <RadioGroup row name="takeout-radio-group">
             <FormControlLabel value="배달" control={<Radio />} label="배달" />
@@ -74,7 +71,6 @@ const CreateRoomForm = () => {
         <TextField
           sx={textFieldStyle}
           fullWidth
-          id="room-textarea"
           placeholder="방 설명을 입력해 주세요"
           multiline
           inputProps={{ maxLength: 100 }}
@@ -82,7 +78,6 @@ const CreateRoomForm = () => {
         <TextField
           fullWidth
           sx={textFieldStyle}
-          id="room-textarea"
           placeholder="해시태크를 입력해 주세요"
           inputProps={{ maxLength: 30 }}
         />

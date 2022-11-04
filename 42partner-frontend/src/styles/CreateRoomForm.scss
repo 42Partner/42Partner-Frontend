@@ -3,6 +3,23 @@
 
   .check-option-wrapper {
     margin-bottom: 1rem;
+
+    .option-field {
+      display: flex;
+      align-items: center;
+
+      .react-datepicker-wrapper {
+        width: unset;
+        input {
+          border: 1px solid darkgray;
+          width: 120px;
+          height: 30px;
+          border-radius: 4px;
+          text-align: center;
+          background: none;
+        }
+      }
+    }
   }
 
   .textarea-wrapper {
@@ -19,12 +36,7 @@
     }
   }
 
-  #option-field {
-    display: flex;
-    align-items: center;
-  }
-
-  #title-text {
+  .title-text {
     font-size: 30px;
   }
 

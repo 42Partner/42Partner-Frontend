@@ -15,10 +15,9 @@ const HistroyItem = () => {
 
   return (
     <div className="history-item">
+      <h3>밥트너</h3>
       <h3>랜덤매칭</h3>
-      <h3>20nn-nn-nn</h3>
-      <h3>intra_id1, intra_id2, intra_id3</h3>
-
+      <h3>20yy-mm-dd</h3>
       <div>
         <Button
           style={{ background: '#f1f1f1', color: 'black' }}
@@ -29,7 +28,11 @@ const HistroyItem = () => {
           상세
         </Button>
         <ModalTemplate open={open} onClose={handleDetaileClose}>
-          <HistoryDetailForm />
+          <HistoryDetailForm
+            category="room"
+            open={open}
+            onClose={handleDetaileClose}
+          />
         </ModalTemplate>
       </div>
     </div>
