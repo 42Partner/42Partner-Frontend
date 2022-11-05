@@ -35,3 +35,9 @@
     }
   }
 }
+
+@include mobile {
+  .room-detail-form {
+    margin: 1.5rem;
+  }
+}

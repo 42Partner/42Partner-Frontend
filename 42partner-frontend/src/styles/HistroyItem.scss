@@ -1,11 +1,22 @@
+@import './utils.scss';
+
 .history-item {
   margin: 1rem;
-  border-bottom: 1px solid lightsteelblue;
+  border-bottom: 1px solid lightgray;
   display: flex;
   justify-content: space-around;
   align-items: center;
 
   h3 {
     display: inline;
+  }
+
+  @include mobile {
+    & {
+      padding-bottom: 1rem;
+    }
+    .detail-button {
+      font-size: 12px;
+    }
   }
 }

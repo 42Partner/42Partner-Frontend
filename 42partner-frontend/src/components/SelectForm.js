@@ -6,22 +6,22 @@ const SelectForm = () => {
   // Link들은 임의주소 설정
   return (
     <div className="select-form">
-      <Link
-        to="/meal/random"
-        style={{ textDecoration: 'none', color: 'black' }}
-      >
-        <div id="select-button">
+      <div className="select-button">
+        <Link
+          to="/meal/random"
+          style={{ textDecoration: 'none', color: 'black' }}
+        >
           <img alt="meal_icon" src="./images/meal_icon.png" />
-        </div>
-      </Link>
-      <Link
-        to="/study_random"
-        style={{ textDecoration: 'none', color: 'black' }}
-      >
-        <div id="select-button">
+        </Link>
+      </div>
+      <div className="select-button">
+        <Link
+          to="/study_random"
+          style={{ textDecoration: 'none', color: 'black' }}
+        >
           <img alt="study_icon" src="./images/study_icon.jpeg" />
-        </div>
-      </Link>
+        </Link>
+      </div>
     </div>
   );
 };

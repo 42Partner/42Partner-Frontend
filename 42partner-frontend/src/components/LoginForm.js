@@ -5,7 +5,7 @@ import '../styles/LoginForm.scss';
 const LoginForm = () => {
   return (
     <div className="login-form">
-      <div>
+      <div className="image-wrapper">
         <img alt="meal_icon" src="/images/meal_icon.png" />
         <img alt="study_icon" src="/images/study_icon.jpeg" />
       </div>

@@ -2,11 +2,7 @@ import React from 'react';
 import SelectForm from '../components/SelectForm';
 
 const SelectPage = () => {
-  return (
-    <div>
-      <SelectForm />
-    </div>
-  );
+  return <SelectForm />;
 };
 
 export default SelectPage;

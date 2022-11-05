@@ -1,3 +1,5 @@
+@import './utils.scss';
+
 .create-room-form {
   padding: 3rem;
 
@@ -43,5 +45,11 @@
   h2 {
     display: inline;
     margin-right: 1rem;
+  }
+}
+
+@include mobile {
+  .create-room-form {
+    padding: 1.5rem;
   }
 }

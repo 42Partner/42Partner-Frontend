@@ -27,3 +27,9 @@
     color: $matchingColor;
   }
 }
+
+@include mobile {
+  .history-detail-form {
+    margin: 1.5rem;
+  }
+}

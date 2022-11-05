@@ -11,6 +11,7 @@ import './styles/Layout.scss';
 import Footer from './components/common/Footer';
 import MealRandomPage from './pages/MealRandomPage';
 import StudyRandomPage from './pages/StudyRandomPage';
+import './App.scss';
 
 const App = () => {
   return (

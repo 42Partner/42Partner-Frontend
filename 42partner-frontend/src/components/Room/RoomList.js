@@ -7,15 +7,6 @@ import ModalTemplate from '../common/ModalTemplate';
 import CreateRoomForm from './CreateRoomForm';
 import '../../styles/RoomList.scss';
 
-const floatingButtonStyle = {
-  margin: 0,
-  top: 'auto',
-  right: 25,
-  bottom: 130,
-  left: 'auto',
-  position: 'fixed',
-};
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -37,7 +28,7 @@ const RoomList = () => {
     <div className="room-list">
       <ThemeProvider theme={theme}>
         <Fab
-          style={floatingButtonStyle}
+          className="create-button"
           color="primary"
           aria-label="add"
           onClick={handleWriteOpen}

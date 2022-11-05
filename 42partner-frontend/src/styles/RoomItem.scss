@@ -2,7 +2,7 @@
 
 .room-list {
   .room-item {
-    height: 150px;
+    max-height: 150px;
     margin: 10px;
     padding: 20px;
     display: flex;
@@ -49,6 +49,21 @@
 
     div + div {
       margin-top: 2rem;
+    }
+  }
+
+  @include mobile {
+    .room-item {
+      width: 100px;
+      max-height: 250px;
+    }
+
+    .title-text {
+      font-size: 17px;
+    }
+
+    .hashtag {
+      font-size: 12px;
     }
   }
 }

@@ -1,0 +1,15 @@
+@import './styles/utils.scss';
+
+$wrapper-side-margin: 20px;
+
+.App {
+  @include mobile {
+    .content-wrapper {
+      margin: {
+        top: 120px;
+        left: $wrapper-side-margin;
+        right: $wrapper-side-margin;
+      }
+    }
+  }
+}

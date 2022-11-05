@@ -21,7 +21,7 @@ const HistroyItem = () => {
       <div>
         <Button
           style={{ background: '#f1f1f1', color: 'black' }}
-          id="button"
+          className="detail-button"
           variant="contained"
           onClick={handleDetaileOpen}
         >

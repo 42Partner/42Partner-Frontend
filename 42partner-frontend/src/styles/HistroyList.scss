@@ -2,13 +2,17 @@
 
 .history-list {
   width: 100%;
-  height: 600px;
+  height: 90%;
   overflow: auto;
-  background-color: $back-pink;
-  border: 0.2px solid lightpink;
-  border-radius: 10px;
+  @include pink-border-template;
 }
 
 .history-list::-webkit-scrollbar {
   display: none;
+}
+
+@include mobile {
+  h3 {
+    font-size: 13px;
+  }
 }
