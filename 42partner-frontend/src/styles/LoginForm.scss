@@ -1,0 +1,40 @@
+@import './utils.scss';
+
+$pc-img-size: 150px;
+$mobile-img-size: 70px;
+$tablet-img-size: 120px;
+
+.login-form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  img {
+    width: $pc-img-size;
+    height: $pc-img-size;
+    margin: 4rem;
+  }
+
+  @include mobile {
+    .image-wrapper {
+      display: flex;
+      margin-bottom: 2rem;
+    }
+
+    img {
+      width: $mobile-img-size;
+      height: $mobile-img-size;
+      margin: 1rem;
+    }
+  }
+
+  @include tablet {
+    img {
+      width: $tablet-img-size;
+      height: $tablet-img-size;
+    }
+  }
+}

@@ -1,0 +1,43 @@
+@import './utils.scss';
+
+.room-detail-form {
+  margin: 2rem;
+
+  #room-detail-form {
+    display: flex;
+  }
+
+  .close-button {
+    @include flex-end-sort;
+  }
+
+  .paragraph {
+    border-bottom: 1px solid black;
+  }
+
+  .select-info-wrapper {
+    border: 1px solid lightcoral;
+    border-radius: 10px;
+    padding: 1rem;
+    div + div {
+      margin-top: 10px;
+    }
+  }
+
+  .hashtag {
+    color: $hashtag;
+  }
+
+  .button-wrapper {
+    @include flex-end-sort;
+    .join-button {
+      margin: 20px 10px;
+    }
+  }
+}
+
+@include mobile {
+  .room-detail-form {
+    margin: 1.5rem;
+  }
+}

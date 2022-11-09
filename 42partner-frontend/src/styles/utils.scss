@@ -1,0 +1,51 @@
+$tablet-size: 758px;
+$desktop-size: 1024px;
+
+$lightSliver: #e1e1e1;
+$silver: #cccccc;
+$gray1: #9e9e9e;
+$gray2: #5e5e5e;
+$pink: #f4c8cc;
+$back-pink: #fef8fb;
+$lightPink: #fae8ea;
+$hashtag: #218aff;
+$matchingColor: #2f8f3f;
+
+@mixin mobile {
+  @media (max-width: #{$tablet-size - 1}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-size}) and (max-width: #{$desktop-size}) {
+    @content;
+  }
+}
+
+@mixin flex-center-sort {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-end-sort {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@mixin flex-edge-sort {
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin flex-vertical-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin pink-border-template {
+  background-color: $back-pink;
+  border: 0.2px solid lightpink;
+  border-radius: 10px;
+}

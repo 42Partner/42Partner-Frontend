@@ -1,0 +1,55 @@
+@import './utils.scss';
+
+.create-room-form {
+  padding: 3rem;
+
+  .check-option-wrapper {
+    margin-bottom: 1rem;
+
+    .option-field {
+      display: flex;
+      align-items: center;
+
+      .react-datepicker-wrapper {
+        width: unset;
+        input {
+          border: 1px solid darkgray;
+          width: 120px;
+          height: 30px;
+          border-radius: 4px;
+          text-align: center;
+          background: none;
+        }
+      }
+    }
+  }
+
+  .textarea-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    #button {
+      margin: 10px;
+    }
+  }
+
+  .title-text {
+    font-size: 30px;
+  }
+
+  h2 {
+    display: inline;
+    margin-right: 1rem;
+  }
+}
+
+@include mobile {
+  .create-room-form {
+    padding: 1.5rem;
+  }
+}

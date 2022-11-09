@@ -1,0 +1,35 @@
+@import './utils.scss';
+
+.history-detail-form {
+  margin: 3rem;
+
+  .close-button {
+    @include flex-end-sort;
+  }
+
+  .paragraph {
+    border-bottom: 1px solid lightcoral;
+  }
+
+  .select-info-wrapper {
+    padding-top: 1rem;
+    div + div {
+      margin-top: 10px;
+    }
+  }
+
+  .hashtag {
+    color: $hashtag;
+    padding-bottom: 1rem;
+  }
+
+  .matching-category {
+    color: $matchingColor;
+  }
+}
+
+@include mobile {
+  .history-detail-form {
+    margin: 1.5rem;
+  }
+}
