@@ -1,9 +1,6 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import '../styles/LoginForm.scss';
-import axios from 'axios';
-
-axios.defaults.withCredentials = true;
 
 const LoginForm = () => {
   const requestLogin = () => {
