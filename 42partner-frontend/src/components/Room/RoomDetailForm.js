@@ -1,4 +1,5 @@
 import React from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import '../../styles/RoomDetailForm.scss';
@@ -6,6 +7,14 @@ import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 import CommentLIst from '../comment/CommentLIst';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#ffbfbf',
+    },
+  },
+});
 
 const RoomDetailForm = ({ open, onClose }) => {
   return (
@@ -32,18 +41,26 @@ const RoomDetailForm = ({ open, onClose }) => {
       </div>
       <p className="hashtag">#text1 #text #text #tadsfasdf</p>
       <div className="paragraph button-wrapper">
-        <Button className="join-button" variant="contained">
-          참여
-        </Button>
+        <ThemeProvider theme={theme}>
+          <Button className="join-button" variant="contained">
+            참여
+          </Button>
+        </ThemeProvider>
       </div>
-      <TextField
-        sx={{ mb: 2, mt: 2 }}
-        fullWidth
-        id="room-textarea"
-        placeholder="댓글 내용을 입력해 주세요"
-        multiline
-        inputProps={{ maxLength: 100 }}
-      />
+      <div className="comment-input-wrapper">
+        <TextField
+          sx={{ mb: 2, mt: 2 }}
+          fullWidth
+          placeholder="댓글 내용을 입력해 주세요"
+          multiline
+          inputProps={{ maxLength: 100 }}
+        />
+        <ThemeProvider theme={theme}>
+          <Button className="join-button" variant="contained">
+            입력
+          </Button>
+        </ThemeProvider>
+      </div>
       <CommentLIst />
     </div>
   );
