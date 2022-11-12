@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -6,6 +6,7 @@ import '../../styles/RoomDetailForm.scss';
 import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import CommentLIst from '../comment/CommentLIst';
 
 const theme = createTheme({
@@ -16,7 +17,62 @@ const theme = createTheme({
   },
 });
 
-const RoomDetailForm = ({ open, onClose }) => {
+// eslint-disable-next-line no-unused-vars
+const RoomDetailForm = ({ articleId, open, onClose }) => {
+  const [commentList, setCommentList] = useState({ valueCount: 0, values: [] });
+  const [comment, setComment] = useState('');
+
+  const commentInputHandler = (e) => {
+    setComment(e.target.value);
+  };
+
+  const setCommentListHandler = (valueCount, values) => {
+    setCommentList({
+      valueCount,
+      values,
+    });
+  };
+
+  const getCommentList = async () => {
+    // `http://15.165.146.60:8080/api/articles/{articleId}/opinions`
+    await axios
+      .get(
+        'https://fd1a4853-fb36-418a-bb00-5f83ada7f8b8.mock.pstmn.io/api/articles/asdfasdf/opinions',
+      )
+      .then((res) => {
+        setCommentListHandler(res.data.valueCount, res.data.values);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  useEffect(() => {
+    getCommentList();
+  }, []);
+
+  const addNewComment = async () => {
+    const commentInfo = {
+      articleId,
+      content: comment,
+      level: 1,
+      parentId: '',
+    };
+    console.log(commentInfo);
+    await axios
+      .post(
+        'https://fd1a4853-fb36-418a-bb00-5f83ada7f8b8.mock.pstmn.io/api/opinions',
+        { commentInfo },
+      )
+      .then((res) => {
+        console.log(res);
+        getCommentList();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="room-detail-form">
       <div className="close-button">
@@ -53,20 +109,30 @@ const RoomDetailForm = ({ open, onClose }) => {
           fullWidth
           placeholder="댓글 내용을 입력해 주세요"
           multiline
-          inputProps={{ maxLength: 100 }}
+          inputProps={{ maxLength: 1000, minLength: 1 }}
+          value={comment}
+          onChange={commentInputHandler}
         />
         <ThemeProvider theme={theme}>
-          <Button className="join-button" variant="contained">
+          <Button
+            className="join-button"
+            variant="contained"
+            onClick={addNewComment}
+          >
             입력
           </Button>
         </ThemeProvider>
       </div>
-      <CommentLIst />
+      {commentList.valueCount !== 0 && (
+        <CommentLIst commentList={commentList.values} />
+      )}
     </div>
   );
 };
 
 RoomDetailForm.propTypes = {
+  articleId: PropTypes.string.isRequired,
+  // createComment: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };

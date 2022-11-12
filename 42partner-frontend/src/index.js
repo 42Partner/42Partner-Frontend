@@ -5,12 +5,16 @@ import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 // import { legacy_createStore as createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import rootReducer from './modules';
 
-// const store = createStore(rootReducer);
-const store = configureStore({ reducer: rootReducer });
+// const store = createStore(rootReducer, composeWithDevTools());
+const store = configureStore({
+  reducer: rootReducer,
+  devTools: composeWithDevTools(),
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

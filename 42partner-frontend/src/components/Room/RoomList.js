@@ -39,16 +39,16 @@ const RoomList = () => {
       <ModalTemplate open={open} onClose={handleWriteClose}>
         <CreateRoomForm />
       </ModalTemplate>
-      <RoomItem />
-      <RoomItem />
-      <RoomItem />
-      <RoomItem />
-      <RoomItem />
-      <RoomItem />
-      <RoomItem />
-      <RoomItem />
-      <RoomItem />
-      <RoomItem />
+      <RoomItem articleId="asdfasdf" />
+      <RoomItem articleId="asdfasdf" />
+      <RoomItem articleId="asdfasdf" />
+      <RoomItem articleId="asdfasdf" />
+      <RoomItem articleId="asdfasdf" />
+      <RoomItem articleId="asdfasdf" />
+      <RoomItem articleId="asdfasdf" />
+      <RoomItem articleId="asdfasdf" />
+      <RoomItem articleId="asdfasdf" />
+      <RoomItem articleId="asdfasdf" />
     </div>
   );
 };

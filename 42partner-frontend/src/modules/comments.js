@@ -1,41 +1,26 @@
-const CHANGE_INPUT = 'comment/CHANGE_INPUT';
+import { createAction, handleActions } from 'redux-actions';
+import produce from 'immer';
+
 const CREATE = 'comment/CREATE';
-const VIEWALL = 'comment/VIEWALL';
 const EDIT = 'comment/EDIT';
 const DELETE = 'comment/DELETE';
 
-export const changeInput = (input) => ({ type: CHANGE_INPUT, input });
-export const createComment = (articleId, content, level, parentId) => ({
-  type: CREATE,
-  commentInfo: {
-    articleId,
-    content,
-    level,
-    parentId,
-  },
-});
-export const viewAllComment = (valueCount, values) => ({
-  type: VIEWALL,
-  allComment: {
-    valueCount,
-    values,
-  },
-});
-export const editComment = (opinionId, content) => ({
-  type: EDIT,
+export const createComment = createAction(CREATE, ({ articleId, content }) => ({
+  articleId,
+  content,
+}));
+export const editComment = createAction(EDIT, ({ opinionId, content }) => ({
   opinionId,
   content,
-});
-export const deleteComment = (opinionId) => ({ type: DELETE, opinionId });
+}));
+export const deleteComment = createAction(DELETE, (opinionId) => opinionId);
 
 const initialState = {
-  input: '',
   commentInfo: {
     articleId: '',
     content: '',
     level: 1,
     parentId: '',
-    opinionId: '',
   },
   allComment: {
     valueCount: 0,
@@ -43,43 +28,31 @@ const initialState = {
   },
 };
 
-// eslint-disable-next-line default-param-last
-function comments(state = initialState, action) {
-  switch (action.type) {
-    case CHANGE_INPUT:
-      return {
-        ...state,
-        input: action.input,
-      };
-    case CREATE:
-      return {
-        ...state,
-        commentInfo: action.commentInfo,
-      };
-    case VIEWALL:
-      return {
-        ...state,
-        allComment: action.allComment,
-      };
-    case EDIT:
-      return {
-        ...state,
-        commentInfo: state.commentInfo.map((comment) =>
-          comment.opinionId === action.opinionId
-            ? { ...comment, content: action.content }
-            : comment,
-        ),
-      };
-    case DELETE:
-      return {
-        ...state,
-        commentInfo: state.commentInfo.filter(
-          (comment) => comment.opinionId !== action.opinionId,
-        ),
-      };
-    default:
-      return state;
-  }
-}
+const comments = handleActions(
+  {
+    [CREATE]: (state, { payload: { opinionId, content } }) =>
+      produce(state, (draft) => {
+        // eslint-disable-next-line no-param-reassign
+        draft.commentInfo[opinionId] = opinionId;
+        // eslint-disable-next-line no-param-reassign
+        draft.commentInfo[content] = content;
+      }),
+    [EDIT]: (state, { payload: { opinionId, content } }) =>
+      produce(state, (draft) => {
+        const comment = draft.allComment.values.find(
+          (c) => c.opinionId === opinionId,
+        );
+        comment.content = content;
+      }),
+    [DELETE]: (state, { payload: opinionId }) =>
+      produce(state, (draft) => {
+        const index = draft.allComment.values.findIndex(
+          (c) => c.opinionId === opinionId,
+        );
+        draft.allComment.values.splice(index, 1);
+      }),
+  },
+  initialState,
+);
 
 export default comments;
