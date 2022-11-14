@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import '../../styles/RoomDetailForm.scss';
 import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
+import CircularProgress from '@mui/material/CircularProgress';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 import CommentLIst from '../comment/CommentLIst';
+import {
+  loadCommentList,
+  createComment,
+  setArticleId,
+  resetData,
+} from '../../modules/comments';
 
 const theme = createTheme({
   palette: {
@@ -17,8 +24,14 @@ const theme = createTheme({
   },
 });
 
-// eslint-disable-next-line no-unused-vars
 const RoomDetailForm = ({ articleId, open, onClose }) => {
+  const dispatch = useDispatch();
+  const { allComment, commetLoading } = useSelector(
+    ({ comments, loading }) => ({
+      allComment: comments.allComment,
+      commetLoading: loading['comment/LOADLIST'],
+    }),
+  );
   const [commentList, setCommentList] = useState({ valueCount: 0, values: [] });
   const [comment, setComment] = useState('');
 
@@ -26,52 +39,44 @@ const RoomDetailForm = ({ articleId, open, onClose }) => {
     setComment(e.target.value);
   };
 
-  const setCommentListHandler = (valueCount, values) => {
+  const setCommentListHandler = () => {
+    if (allComment === null) return;
+
     setCommentList({
-      valueCount,
-      values,
+      valueCount: allComment.valueCount,
+      values: allComment.values,
     });
   };
 
-  const getCommentList = async () => {
-    // `http://15.165.146.60:8080/api/articles/{articleId}/opinions`
-    await axios
-      .get(
-        'https://fd1a4853-fb36-418a-bb00-5f83ada7f8b8.mock.pstmn.io/api/articles/asdfasdf/opinions',
-      )
-      .then((res) => {
-        setCommentListHandler(res.data.valueCount, res.data.values);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+  const getCommentList = useCallback(() => {
+    dispatch(loadCommentList({ articleId }));
+    setCommentListHandler();
+  });
 
-  useEffect(() => {
-    getCommentList();
-  }, []);
+  const addNewComment = useCallback(() => {
+    if (comment.length < 1) return;
 
-  const addNewComment = async () => {
     const commentInfo = {
       articleId,
       content: comment,
       level: 1,
       parentId: '',
     };
-    console.log(commentInfo);
-    await axios
-      .post(
-        'https://fd1a4853-fb36-418a-bb00-5f83ada7f8b8.mock.pstmn.io/api/opinions',
-        { commentInfo },
-      )
-      .then((res) => {
-        console.log(res);
-        getCommentList();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+    dispatch(createComment({ commentInfo }));
+    setComment('');
+  });
+
+  useEffect(() => {
+    dispatch(setArticleId(articleId));
+    getCommentList();
+  }, []);
+
+  useEffect(() => {
+    setCommentListHandler();
+    return () => {
+      dispatch(resetData());
+    };
+  }, [allComment]);
 
   return (
     <div className="room-detail-form">
@@ -123,7 +128,14 @@ const RoomDetailForm = ({ articleId, open, onClose }) => {
           </Button>
         </ThemeProvider>
       </div>
-      {commentList.valueCount !== 0 && (
+      {commetLoading && (
+        <div className="loading-icon">
+          <ThemeProvider theme={theme}>
+            <CircularProgress />
+          </ThemeProvider>
+        </div>
+      )}
+      {commentList.values !== undefined && (
         <CommentLIst commentList={commentList.values} />
       )}
     </div>
@@ -132,7 +144,6 @@ const RoomDetailForm = ({ articleId, open, onClose }) => {
 
 RoomDetailForm.propTypes = {
   articleId: PropTypes.string.isRequired,
-  // createComment: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };

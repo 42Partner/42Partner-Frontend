@@ -36,8 +36,12 @@
   .comment-input-wrapper {
     @include flex-center-sort;
     .join-button {
-      height: 56px;      
+      height: 56px;
     }
+  }
+
+  .loading-icon {
+    @include flex-center-sort;
   }
 }
 

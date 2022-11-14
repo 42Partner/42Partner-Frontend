@@ -33,6 +33,7 @@
     "redux": "^4.2.0",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.9",
+    "redux-saga": "^1.2.1",
     "sass": "^1.55.0",
     "web-vitals": "^2.1.0"
   },
@@ -65,5 +66,6 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.7.1"
-  }
+  },
+  "proxy": "https://fd1a4853-fb36-418a-bb00-5f83ada7f8b8.mock.pstmn.io"
 }
