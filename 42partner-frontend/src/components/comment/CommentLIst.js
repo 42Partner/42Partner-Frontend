@@ -33,8 +33,17 @@ const CommentLIst = ({ commentList }) => {
 };
 
 CommentLIst.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  commentList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  commentList: PropTypes.arrayOf(
+    PropTypes.shape({
+      content: PropTypes.string,
+      createdAt: PropTypes.string,
+      level: PropTypes.number,
+      nickname: PropTypes.string,
+      opinionId: PropTypes.string,
+      parentId: PropTypes.string,
+      updatedAt: PropTypes.string,
+    }),
+  ).isRequired,
 };
 
 export default React.memo(CommentLIst);

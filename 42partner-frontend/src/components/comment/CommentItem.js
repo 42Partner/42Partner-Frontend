@@ -12,7 +12,6 @@ import TextField from '@mui/material/TextField';
 import DoneIcon from '@mui/icons-material/Done';
 import '../../styles/CommentItem.scss';
 
-// eslint-disable-next-line react/prop-types
 const CommentItem = ({ commentInfo, onDelete, onEdit }) => {
   const [comfirmOpen, setComfirmOpen] = useState(false);
   const [newContent, setNewContent] = useState(commentInfo.content);
@@ -106,8 +105,17 @@ const CommentItem = ({ commentInfo, onDelete, onEdit }) => {
 };
 
 CommentItem.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  commentInfo: PropTypes.object.isRequired,
+  commentInfo: PropTypes.shape({
+    content: PropTypes.string,
+    createdAt: PropTypes.string,
+    level: PropTypes.number,
+    nickname: PropTypes.string,
+    opinionId: PropTypes.string,
+    parentId: PropTypes.string,
+    updatedAt: PropTypes.string,
+  }).isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
 };
 
 export default React.memo(CommentItem);

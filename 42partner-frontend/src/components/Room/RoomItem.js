@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import '../../styles/RoomItem.scss';
 import Button from '@mui/material/Button';
 import GroupsIcon from '@mui/icons-material/Groups';
-// import PropTypes from 'prop-types';
 import ModalTemplate from '../common/ModalTemplate';
 import RoomDetailForm from './RoomDetailForm';
 
@@ -38,7 +37,6 @@ const RoomItem = () => {
           <ModalTemplate open={open} onClose={handleWriteClose}>
             <RoomDetailForm
               articleId="asdf"
-              // createComment={onCreateComment}
               open={open}
               onClose={handleWriteClose}
             />
@@ -48,9 +46,5 @@ const RoomItem = () => {
     </div>
   );
 };
-
-// RoomItem.propTypes = {
-//   articleId: PropTypes.string.isRequired,
-// };
 
 export default RoomItem;

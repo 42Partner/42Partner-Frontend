@@ -1,5 +1,6 @@
 import client from './client';
 
+// 서버 배포시 콘솔과 주석 삭제, proxy 주소 변경 예정
 // eslint-disable-next-line no-unused-vars
 export const getCommentList = ({ articleId }) => {
   // client.get(`/api/articles/${articleId}/opinions`);
