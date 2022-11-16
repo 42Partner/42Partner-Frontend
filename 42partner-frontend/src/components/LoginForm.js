@@ -1,10 +1,41 @@
-import React from 'react';
+// eslint-disable-next-line no-unused-vars
+import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
+// import useHistory from 'react-router-dom';
 import '../styles/LoginForm.scss';
+// eslint-disable-next-line no-unused-vars
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 const LoginForm = () => {
+  // eslint-disable-next-line no-unused-vars
+  // const history = useHistory();
+
+  const tmp = async () => {
+    await axios
+      .get('/oauth2/authorization/authclient')
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   const requestLogin = () => {
-    window.location.href = process.env.REACT_APP_OAUTH_LOGIN_URL;
+    // window.location.href = process.env.REACT_APP_OAUTH_LOGIN_URL;
+
+    tmp();
+
+    //   const login = window.location.href
+    // if (login) {
+    //   history.push('/test');
+    // } else {
+    //   history.push('/login');
+    // }
+
+    // console.log(a.close);
   };
 
   return (
