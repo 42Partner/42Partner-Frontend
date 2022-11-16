@@ -79,7 +79,7 @@ const Navbar = () => {
     setSidebar(open);
   };
 
-  const condition = (index) => {
+  const condition1 = (index) => {
     return index === 1 ? <GiMeal /> : <GiPencil />;
   };
 
@@ -103,7 +103,7 @@ const Navbar = () => {
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index === 0 ? <BiHome /> : condition(index)}
+                  {index === 0 ? <BiHome /> : condition1(index)}
                 </ListItemIcon>
 
                 <ListItemText primary={text} />

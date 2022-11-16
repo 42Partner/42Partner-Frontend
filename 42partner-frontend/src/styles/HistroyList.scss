@@ -5,6 +5,7 @@
   height: 90%;
   overflow: auto;
   @include pink-border-template;
+  border: 0px;
 }
 
 .history-list::-webkit-scrollbar {
