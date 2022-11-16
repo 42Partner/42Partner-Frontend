@@ -4,7 +4,8 @@ import '../styles/LoginForm.scss';
 
 const LoginForm = () => {
   const requestLogin = () => {
-    window.location.href = process.env.REACT_APP_OAUTH_LOGIN_URL;
+    window.location.href =
+      'http://15.165.146.60:8080/oauth2/authorization/authclient';
   };
 
   return (

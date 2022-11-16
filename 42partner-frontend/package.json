@@ -67,5 +67,5 @@
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.7.1"
   },
-  "proxy": "https://fd1a4853-fb36-418a-bb00-5f83ada7f8b8.mock.pstmn.io"
+  "proxy": "http://15.165.146.60:8080/"
 }

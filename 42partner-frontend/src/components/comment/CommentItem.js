@@ -13,12 +13,13 @@ import DoneIcon from '@mui/icons-material/Done';
 import '../../styles/CommentItem.scss';
 
 const CommentItem = ({ commentInfo, onDelete, onEdit }) => {
+  const { content, createdAt, updatedAt, nickname } = commentInfo;
   const [comfirmOpen, setComfirmOpen] = useState(false);
   const [newContent, setNewContent] = useState(commentInfo.content);
   const [editMode, setEditMode] = useState(false);
 
   const handleEditMode = () => {
-    setNewContent(commentInfo.content);
+    setNewContent(content);
     setEditMode(!editMode);
   };
 
@@ -38,8 +39,12 @@ const CommentItem = ({ commentInfo, onDelete, onEdit }) => {
     setComfirmOpen(false);
   };
 
+  const changeDateFormat = (date) => {
+    return date.substr(0, 10);
+  };
+
   const editComment = () => {
-    if (newContent !== commentInfo.content) {
+    if (newContent !== content) {
       onEdit(newContent, commentInfo.opinionId);
     }
 
@@ -50,11 +55,11 @@ const CommentItem = ({ commentInfo, onDelete, onEdit }) => {
     <div className="comment-item">
       <div className="comment-info">
         <span>
-          <h3>{commentInfo.nickname}</h3>
-          {commentInfo.updatedAt === '' ? (
-            <span>{commentInfo.createdAt}</span>
+          <h3>{nickname}</h3>
+          {createdAt === updatedAt ? (
+            <span>{changeDateFormat(createdAt)}</span>
           ) : (
-            <span>{commentInfo.updatedAt} (수정됨)</span>
+            <span>{changeDateFormat(updatedAt)} (수정됨)</span>
           )}
           <IconButton size="small" onClick={handleEditMode}>
             <CreateOutlinedIcon fontSize="small" />
@@ -98,7 +103,7 @@ const CommentItem = ({ commentInfo, onDelete, onEdit }) => {
           </IconButton>
         </div>
       ) : (
-        <div>{commentInfo.content}</div>
+        <div>{content}</div>
       )}
     </div>
   );

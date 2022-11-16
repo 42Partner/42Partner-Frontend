@@ -1,27 +1,36 @@
 import client from './client';
 
-// 서버 배포시 콘솔과 주석 삭제, proxy 주소 변경 예정
-// eslint-disable-next-line no-unused-vars
 export const getCommentList = ({ articleId }) => {
-  // client.get(`/api/articles/${articleId}/opinions`);
-  console.log('getCommentList');
-  return client.get(`/api/articles/asdfasdf/opinions`);
+  // console.log('getCommentList');
+  return client.get(`/api/articles/${articleId}/opinions`);
 };
 
-export const addNewComment = ({ commentInfo }) => {
-  console.log('addNewComment');
-  // client.post(`/api/opinions`, commentInfo);
-  return getCommentList(commentInfo.articleId);
+export const getCommentInfo = ({ opinionId }) => {
+  // console.log('getCommentInfo');
+  return client.post(`/api/opinions/${opinionId}`);
 };
-// eslint-disable-next-line no-unused-vars
-export const deleteComment = ({ opinionId, articleId }) => {
-  console.log('deleteComment');
-  // client.delete(`/api/opinions/${opinionId}`);
-  return getCommentList(articleId);
+
+export const addNewComment = async ({ commentInfo }) => {
+  // console.log('addNewComment');
+
+  await client.post(`/api/opinions`, commentInfo);
+  const opinionId = await client
+    .post(`/api/opinions`, commentInfo)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+  return getCommentInfo(opinionId);
 };
-// eslint-disable-next-line no-unused-vars
-export const editComment = ({ content, articleId, opinionId }) => {
-  console.log('editComment');
-  // client.put(`/api/opinions/${opinionId}`, content);
-  return getCommentList(articleId);
+
+export const deleteComment = ({ opinionId }) => {
+  // console.log('deleteComment');
+  return client.delete(`/api/opinions/${opinionId}/recoverable-delete`);
+};
+
+export const editComment = ({ content, opinionId }) => {
+  // console.log('editComment');
+  return client.put(`/api/opinions/${opinionId}`, content);
 };

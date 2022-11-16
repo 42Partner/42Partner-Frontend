@@ -1,11 +1,11 @@
 import { createAction, handleActions } from 'redux-actions';
 import { takeLatest } from 'redux-saga/effects';
+import produce from 'immer';
 import createRequestSaga, {
   createRequestActionTypes,
 } from '../api/createRequestSaga';
 import * as commentApi from '../api/comment';
 
-const SETARTICLEID = 'comment/SETARTICLEID';
 const [CREATE, CREATE_SUCCESS, CREATE_FAILURE] =
   createRequestActionTypes('comment/CREATE');
 const [EDIT, EDIT_SUCCESS, EDIT_FAILURE] =
@@ -16,19 +16,14 @@ const [LOADLIST, LOADLIST_SUCCESS, LOADLIST_FAILURE] =
   createRequestActionTypes('comment/LOADLIST');
 const RESETDATA = 'comment/RESETDATA';
 
-export const setArticleId = createAction(
-  SETARTICLEID,
-  (articleId) => articleId,
-);
 export const createComment = createAction(CREATE, (commentInfo) => commentInfo);
-export const editComment = createAction(
-  EDIT,
-  ({ content, articleId, opinionId }) => ({ content, articleId, opinionId }),
-);
-export const deleteComment = createAction(
-  DELETE,
-  ({ opinionId, articleId }) => ({ articleId, opinionId }),
-);
+export const editComment = createAction(EDIT, ({ content, opinionId }) => ({
+  content,
+  opinionId,
+}));
+export const deleteComment = createAction(DELETE, ({ opinionId }) => ({
+  opinionId,
+}));
 export const loadCommentList = createAction(LOADLIST, (articleId) => articleId);
 export const resetData = createAction(RESETDATA);
 
@@ -48,51 +43,62 @@ export function* commentSaga() {
 }
 
 const initialState = {
-  articleId: '',
-  commentInfo: null,
-  allComment: null,
+  commentList: [],
   requestError: null,
 };
 
 const comments = handleActions(
   {
-    [SETARTICLEID]: (state, { payload: articleId }) => ({
+    [LOADLIST_SUCCESS]: (state, { payload: commentList }) => ({
       ...state,
-      articleId,
-    }),
-    [LOADLIST_SUCCESS]: (state, { payload: allComment }) => ({
-      ...state,
-      allComment,
+      commentList: commentList.values,
       requestError: null,
     }),
     [LOADLIST_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
     }),
-    [CREATE_SUCCESS]: (state) => ({
-      ...state,
-      requestError: null,
-    }),
+    // create
+    [CREATE_SUCCESS]: (state, { payload: comment }) =>
+      produce(
+        (state,
+        (draft) => {
+          draft.commentList.push(comment);
+          draft.requestError = null;
+        }),
+      ),
     [CREATE_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
-    }),
-    [EDIT_SUCCESS]: (state) => ({
-      ...state,
-      requestError: null,
-    }),
+    }), // edit
+    [EDIT]: (state, { payload: { content, opinionId } }) =>
+      produce(state, (draft) => {
+        draft.requestError = null;
+        const comment = draft.commentList.find(
+          (c) => c.opinionId === opinionId,
+        );
+        comment.content = content;
+      }),
+    [EDIT_SUCCESS]: (state) =>
+      produce(state, (draft) => {
+        draft.requestError = null;
+      }),
     [EDIT_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
-    }),
-    [DELETE_SUCCESS]: (state) => ({
-      ...state,
-      requestError: null,
-    }),
+    }), // Delete
+    [DELETE_SUCCESS]: (state, { payload: opinionId }) =>
+      produce(state, (draft) => {
+        draft.requestError = null;
+        const index = draft.commentList.findIndex(
+          (c) => c.opinionId === opinionId,
+        );
+        draft.commentList.splice(index, 1);
+      }),
     [DELETE_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
-    }),
+    }), // reset data
     [RESETDATA]: () => initialState,
   },
   initialState,

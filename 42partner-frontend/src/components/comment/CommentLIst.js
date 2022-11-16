@@ -1,20 +1,22 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import CommentItem from './CommentItem';
 import { deleteComment, editComment } from '../../modules/comments';
 
 const CommentLIst = ({ commentList }) => {
   const dispatch = useDispatch();
-  const { articleId } = useSelector(({ comments }) => comments);
 
-  const onDelete = useCallback((opinionId) => {
-    dispatch(deleteComment({ opinionId, articleId }));
-  });
+  const onDelete = useCallback(
+    (opinionId) => {
+      dispatch(deleteComment({ opinionId }));
+    },
+    [dispatch],
+  );
 
-  const onEdit = useCallback((content, opinionId) => {
-    dispatch(editComment({ content, articleId, opinionId }));
-  });
+  const onEdit = (content, opinionId) => {
+    dispatch(editComment({ content, opinionId }));
+  };
 
   return (
     <div>

@@ -9,12 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import CommentLIst from '../comment/CommentLIst';
-import {
-  loadCommentList,
-  createComment,
-  setArticleId,
-  resetData,
-} from '../../modules/comments';
+import { loadCommentList, createComment } from '../../modules/comments';
 
 const theme = createTheme({
   palette: {
@@ -26,34 +21,21 @@ const theme = createTheme({
 
 const RoomDetailForm = ({ articleId, open, onClose }) => {
   const dispatch = useDispatch();
-  const { allComment, commetLoading } = useSelector(
-    ({ comments, loading }) => ({
-      allComment: comments.allComment,
-      commetLoading: loading['comment/LOADLIST'],
-    }),
-  );
-  const [commentList, setCommentList] = useState({ valueCount: 0, values: [] });
+  const { tList, commetLoading } = useSelector(({ comments, loading }) => ({
+    tList: comments.commentList,
+    commetLoading: loading['comment/LOADLIST'],
+  }));
   const [comment, setComment] = useState('');
 
   const commentInputHandler = (e) => {
     setComment(e.target.value);
   };
 
-  const setCommentListHandler = () => {
-    if (allComment === null) return;
-
-    setCommentList({
-      valueCount: allComment.valueCount,
-      values: allComment.values,
-    });
-  };
-
   const getCommentList = useCallback(() => {
     dispatch(loadCommentList({ articleId }));
-    setCommentListHandler();
   });
 
-  const addNewComment = useCallback(() => {
+  const addNewComment = () => {
     if (comment.length < 1) return;
 
     const commentInfo = {
@@ -64,19 +46,11 @@ const RoomDetailForm = ({ articleId, open, onClose }) => {
     };
     dispatch(createComment({ commentInfo }));
     setComment('');
-  });
+  };
 
   useEffect(() => {
-    dispatch(setArticleId(articleId));
     getCommentList();
   }, []);
-
-  useEffect(() => {
-    setCommentListHandler();
-    return () => {
-      dispatch(resetData());
-    };
-  }, [allComment]);
 
   return (
     <div className="room-detail-form">
@@ -135,8 +109,8 @@ const RoomDetailForm = ({ articleId, open, onClose }) => {
           </ThemeProvider>
         </div>
       )}
-      {commentList.values !== undefined && (
-        <CommentLIst commentList={commentList.values} />
+      {(tList !== undefined || tList !== null) && (
+        <CommentLIst commentList={tList} />
       )}
     </div>
   );
