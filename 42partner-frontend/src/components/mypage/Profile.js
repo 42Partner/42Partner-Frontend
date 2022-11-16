@@ -11,7 +11,7 @@ const Profile = () => {
     const getUser = async () => {
       try {
         const user = await axios.get(
-          `${userURL}04bfd039-7fad-4346-a123-462e0f20db7e`,
+          `${userURL}3128dd03-82d9-4f93-b7eb-c2f74b3e2cf4`,
         );
         setUsers(user.data);
       } catch (e) {
