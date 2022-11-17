@@ -11,8 +11,10 @@ import { ko } from 'date-fns/esm/locale';
 import PropTypes from 'prop-types';
 import produce from 'immer';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useDispatch } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../styles/CreateRoomForm.scss';
+import { createRoom } from '../../modules/rooms';
 
 const theme = createTheme({
   palette: {
@@ -27,6 +29,7 @@ const textFieldStyle = {
 };
 
 const CreateRoomForm = ({ topic, open, onClose }) => {
+  const dispatch = useDispatch();
   const [bookingDate, setBookingDate] = useState(new Date());
   const [options, setOptions] = useState({
     placeList: [
@@ -107,7 +110,7 @@ const CreateRoomForm = ({ topic, open, onClose }) => {
   };
 
   const checkFillData = () => {
-    if (article.title === '') {
+    if (article.title === '' || article.content === '') {
       setCheckWritable(false);
       return;
     }
@@ -130,6 +133,14 @@ const CreateRoomForm = ({ topic, open, onClose }) => {
   };
 
   const createRoomHandler = () => {
+    dispatch(createRoom({ article }));
+  };
+
+  useEffect(() => {
+    checkFillData();
+  }, [article]);
+
+  useEffect(() => {
     setArticle({
       ...article,
       matchConditionDto,
@@ -137,11 +148,7 @@ const CreateRoomForm = ({ topic, open, onClose }) => {
         bookingDate.getMonth() + 1
       }-${bookingDate.getDate()}`,
     });
-  };
-
-  useEffect(() => {
-    checkFillData();
-  }, [article, matchConditionDto]);
+  }, [bookingDate, matchConditionDto]);
 
   return (
     <div className="create-room-form">
@@ -283,7 +290,7 @@ const CreateRoomForm = ({ topic, open, onClose }) => {
       <TextField
         sx={textFieldStyle}
         fullWidth
-        placeholder="방 설명을 입력해 주세요"
+        placeholder="방 설명을 입력해 주세요 (필수)"
         multiline
         inputProps={{ maxLength: 100 }}
         value={article.content}
