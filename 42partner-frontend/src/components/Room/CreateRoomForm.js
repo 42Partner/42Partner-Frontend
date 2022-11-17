@@ -6,17 +6,17 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
-import '../../styles/CreateRoomForm.scss';
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/esm/locale';
-
+import PropTypes from 'prop-types';
 import 'react-datepicker/dist/react-datepicker.css';
+import '../../styles/CreateRoomForm.scss';
 
 const textFieldStyle = {
   mb: 2,
 };
 
-const CreateRoomForm = () => {
+const CreateRoomForm = ({ isMeal, open, onClose }) => {
   const [bookingDate, setBookingDate] = useState(new Date());
 
   return (
@@ -49,23 +49,55 @@ const CreateRoomForm = () => {
             <FormControlLabel control={<Checkbox />} label="기타 (외부)" />
           </FormGroup>
         </div>
-        <div className="option-field">
-          <h2>시간대</h2>
-          <FormGroup row>
-            <FormControlLabel control={<Checkbox />} label="아침" />
-            <FormControlLabel control={<Checkbox />} label="점심" />
-            <FormControlLabel control={<Checkbox />} label="저녁" />
-            <FormControlLabel control={<Checkbox />} label="야식" />
-          </FormGroup>
-        </div>
-        <div className="option-field">
-          <h2>배달여부</h2>
-          <RadioGroup row name="takeout-radio-group">
-            <FormControlLabel value="배달" control={<Radio />} label="배달" />
-            <FormControlLabel value="도보" control={<Radio />} label="도보" />
-            <FormControlLabel value="기타" control={<Radio />} label="기타" />
-          </RadioGroup>
-        </div>
+        {isMeal ? (
+          <div>
+            <div className="option-field">
+              <h2>시간대</h2>
+              <FormGroup row>
+                <FormControlLabel control={<Checkbox />} label="아침" />
+                <FormControlLabel control={<Checkbox />} label="점심" />
+                <FormControlLabel control={<Checkbox />} label="저녁" />
+                <FormControlLabel control={<Checkbox />} label="야식" />
+              </FormGroup>
+            </div>
+            <div className="option-field">
+              <h2>배달여부</h2>
+              <RadioGroup row name="takeout-radio-group">
+                <FormControlLabel
+                  value="DELIVERY"
+                  control={<Radio />}
+                  label="배달"
+                />
+                <FormControlLabel
+                  value="EATOUT"
+                  control={<Radio />}
+                  label="도보"
+                />
+                <FormControlLabel
+                  value="TAKEOUT"
+                  control={<Radio />}
+                  label="기타"
+                />
+              </RadioGroup>
+            </div>
+          </div>
+        ) : (
+          <div className="option-field">
+            <h2>배달여부</h2>
+            <RadioGroup row name="takeout-radio-group">
+              <FormControlLabel
+                value="INNER_CIRCLE"
+                control={<Radio />}
+                label="본 과정"
+              />
+              <FormControlLabel
+                value="NOT_INNER_CIRCLE"
+                control={<Radio />}
+                label="비본 과정"
+              />
+            </RadioGroup>
+          </div>
+        )}
       </div>
       <div className="textarea-wrapper">
         <TextField
@@ -91,12 +123,20 @@ const CreateRoomForm = () => {
           style={{ background: '#cccccc', color: 'black' }}
           id="button"
           variant="contained"
+          open={open}
+          onClick={onClose}
         >
           취소
         </Button>
       </div>
     </div>
   );
+};
+
+CreateRoomForm.propTypes = {
+  isMeal: PropTypes.bool.isRequired,
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default CreateRoomForm;
