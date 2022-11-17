@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import '../../styles/RoomItem.scss';
+import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import GroupsIcon from '@mui/icons-material/Groups';
 import ModalTemplate from '../common/ModalTemplate';
 import RoomDetailForm from './RoomDetailForm';
+import '../../styles/RoomItem.scss';
 
-const RoomItem = () => {
+const RoomItem = ({ articleId }) => {
   const [open, setOpen] = useState(false);
 
   const handleWriteOpen = () => {
@@ -35,12 +36,20 @@ const RoomItem = () => {
             상세
           </Button>
           <ModalTemplate open={open} onClose={handleWriteClose}>
-            <RoomDetailForm open={open} onClose={handleWriteClose} />
+            <RoomDetailForm
+              articleId={articleId}
+              open={open}
+              onClose={handleWriteClose}
+            />
           </ModalTemplate>
         </div>
       </div>
     </div>
   );
+};
+
+RoomItem.propTypes = {
+  articleId: PropTypes.string.isRequired,
 };
 
 export default RoomItem;

@@ -1,13 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import '../../styles/RoomDetailForm.scss';
 import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
+import CircularProgress from '@mui/material/CircularProgress';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import CommentLIst from '../comment/CommentLIst';
+import { loadCommentList, createComment } from '../../modules/comments';
 
-const RoomDetailForm = ({ open, onClose }) => {
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#ffbfbf',
+    },
+  },
+});
+
+const RoomDetailForm = ({ articleId, open, onClose }) => {
+  const dispatch = useDispatch();
+  const { tList, commetLoading } = useSelector(({ comments, loading }) => ({
+    tList: comments.commentList,
+    commetLoading: loading['comment/LOADLIST'],
+  }));
+  const [comment, setComment] = useState('');
+
+  const commentInputHandler = (e) => {
+    setComment(e.target.value);
+  };
+
+  const getCommentList = useCallback(() => {
+    dispatch(loadCommentList({ articleId }));
+  });
+
+  const addNewComment = () => {
+    if (comment.length < 1) return;
+
+    const commentInfo = {
+      articleId,
+      content: comment,
+      level: 1,
+      parentId: '',
+    };
+    dispatch(createComment({ commentInfo }));
+    setComment('');
+  };
+
+  useEffect(() => {
+    getCommentList();
+  }, []);
+
   return (
     <div className="room-detail-form">
       <div className="close-button">
@@ -32,24 +76,48 @@ const RoomDetailForm = ({ open, onClose }) => {
       </div>
       <p className="hashtag">#text1 #text #text #tadsfasdf</p>
       <div className="paragraph button-wrapper">
-        <Button className="join-button" variant="contained">
-          참여
-        </Button>
+        <ThemeProvider theme={theme}>
+          <Button className="join-button" variant="contained">
+            참여
+          </Button>
+        </ThemeProvider>
       </div>
-      <TextField
-        sx={{ mb: 2, mt: 2 }}
-        fullWidth
-        id="room-textarea"
-        placeholder="댓글 내용을 입력해 주세요"
-        multiline
-        inputProps={{ maxLength: 100 }}
-      />
-      <CommentLIst />
+      <div className="comment-input-wrapper">
+        <TextField
+          sx={{ mb: 2, mt: 2 }}
+          fullWidth
+          placeholder="댓글 내용을 입력해 주세요"
+          multiline
+          inputProps={{ maxLength: 1000, minLength: 1 }}
+          value={comment}
+          onChange={commentInputHandler}
+        />
+        <ThemeProvider theme={theme}>
+          <Button
+            className="join-button"
+            variant="contained"
+            onClick={addNewComment}
+          >
+            입력
+          </Button>
+        </ThemeProvider>
+      </div>
+      {commetLoading && (
+        <div className="loading-icon">
+          <ThemeProvider theme={theme}>
+            <CircularProgress />
+          </ThemeProvider>
+        </div>
+      )}
+      {(tList !== undefined || tList !== null) && (
+        <CommentLIst commentList={tList} />
+      )}
     </div>
   );
 };
 
 RoomDetailForm.propTypes = {
+  articleId: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };

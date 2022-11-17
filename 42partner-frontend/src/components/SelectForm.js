@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import '../styles/SelectForm.scss';
 
 const SelectForm = () => {
-  // Link들은 임의주소 설정
   return (
     <div className="select-form">
       <div className="select-button">
