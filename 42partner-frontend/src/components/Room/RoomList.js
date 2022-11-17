@@ -17,9 +17,9 @@ const theme = createTheme({
 });
 
 const RoomList = () => {
-  const topic = useLocation();
+  const location = useLocation();
 
-  const [isMeal, setIsMeal] = useState(false);
+  const [topic, setTopic] = useState('MEAL');
   const [open, setOpen] = useState(false);
 
   const handleWriteOpen = () => {
@@ -30,12 +30,12 @@ const RoomList = () => {
   };
 
   useEffect(() => {
-    if (topic.pathname.includes('meal')) {
-      setIsMeal(true);
+    if (location.pathname.includes('meal')) {
+      setTopic('MEAL');
     } else {
-      setIsMeal(false);
+      setTopic('STUDY');
     }
-  }, [topic]);
+  }, [location]);
 
   return (
     <div className="room-list">
@@ -50,11 +50,7 @@ const RoomList = () => {
         </Fab>
       </ThemeProvider>
       <ModalTemplate open={open} onClose={handleWriteClose}>
-        <CreateRoomForm
-          isMeal={isMeal}
-          open={open}
-          onClose={handleWriteClose}
-        />
+        <CreateRoomForm topic={topic} open={open} onClose={handleWriteClose} />
       </ModalTemplate>
       <RoomItem articleId="3893d119-df59-418e-ad59-f86a1467abd6" />
       <RoomItem articleId="asdf" />
