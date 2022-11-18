@@ -32,3 +32,18 @@ export const editRoomInfo = ({ article, articleId }) => {
   // console.log('editRoomInfo');
   return client.put(`/api/articles/${articleId}`, article);
 };
+
+export const joinRoom = ({ articleId }) => {
+  console.log('joinRoom');
+  return client.post(`/api/articles/${articleId}/participate`);
+};
+
+export const cancleRoom = ({ articleId }) => {
+  console.log('cancleRoom');
+  return client.post(`/api/articles/${articleId}/participate-cancel`);
+};
+
+export const completeRoom = ({ articleId }) => {
+  console.log('completeRoom');
+  return client.post(`/api/articles/${articleId}/complete`);
+};

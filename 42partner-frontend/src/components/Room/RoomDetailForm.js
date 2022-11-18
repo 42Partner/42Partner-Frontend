@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -9,9 +9,14 @@ import DialogContentText from '@mui/material/DialogContentText';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { deleteRoom } from '../../modules/rooms';
+import {
+  cancleRoom,
+  changeEditMode,
+  completeRoom,
+  deleteRoom,
+  joinRoom,
+} from '../../modules/rooms';
 import '../../styles/RoomDetailForm.scss';
-import RoomInfo from './RoomInfo';
 import CommentPart from '../comment/CommentPart';
 
 const theme = createTheme({
@@ -19,20 +24,21 @@ const theme = createTheme({
     primary: {
       main: '#ffbfbf',
     },
+    cancle: {
+      main: '#b5d7f5',
+    },
   },
 });
 
-const RoomDetailForm = ({
-  articleInfo,
-  hashtag,
-  onClose,
-  editMode,
-  onEditMode,
-}) => {
+const RoomDetailForm = ({ roomInfoPart, articleId, onClose }) => {
   const dispatch = useDispatch();
-  const { articleId } = articleInfo;
+  const { joinRoomList } = useSelector(({ rooms }) => ({
+    joinRoomList: rooms.joinRoomList,
+  }));
   const [myArticle, setMyArticle] = useState(false);
   const [comfirmOpen, setComfirmOpen] = useState(false);
+  const [complete, setComplete] = useState(false);
+  const [join, setJoin] = useState(false);
 
   const handleConfirmOpen = () => {
     setComfirmOpen(true);
@@ -46,7 +52,30 @@ const RoomDetailForm = ({
     setComfirmOpen(false);
   };
 
+  const completeRoomHandler = () => {
+    dispatch(completeRoom({ articleId }));
+    setComplete(true);
+  };
+
+  const joinRoomHandler = () => {
+    setJoin(!join);
+    if (join) {
+      dispatch(cancleRoom({ articleId }));
+    } else {
+      dispatch(joinRoom({ articleId }));
+    }
+  };
+
+  const isAlreadyJoin = () => {
+    if (
+      joinRoomList.find((room) => room.articleId === articleId) !== undefined
+    ) {
+      setJoin(true);
+    }
+  };
+
   useEffect(() => {
+    isAlreadyJoin();
     // if ( userId === sessionId) {
     setMyArticle(true);
     // }
@@ -59,13 +88,17 @@ const RoomDetailForm = ({
           <CloseIcon />
         </IconButton>
       </div>
-      <RoomInfo articleInfo={articleInfo} />
-      <p className="hashtag">{hashtag}</p>
+      {roomInfoPart}
       <div className="paragraph button-wrapper">
         {myArticle ? (
           <div className="botton-group-wrapper">
             <ThemeProvider theme={theme}>
-              <Button className="button" variant="contained">
+              <Button
+                className="button"
+                variant="contained"
+                disabled={complete}
+                onClick={completeRoomHandler}
+              >
                 매칭 완료
               </Button>
             </ThemeProvider>
@@ -74,8 +107,8 @@ const RoomDetailForm = ({
                 <Button
                   className="button"
                   variant="contained"
-                  editMode={editMode}
-                  onClick={() => onEditMode(true)}
+                  onClick={() => dispatch(changeEditMode(true))}
+                  disabled={complete}
                 >
                   수정
                 </Button>
@@ -83,6 +116,7 @@ const RoomDetailForm = ({
               <Button
                 style={{ background: '#cccccc', color: 'black' }}
                 className="button"
+                disabled={complete}
                 variant="contained"
                 onClick={handleConfirmOpen}
               >
@@ -112,8 +146,13 @@ const RoomDetailForm = ({
           </div>
         ) : (
           <ThemeProvider theme={theme}>
-            <Button className="join-button" variant="contained">
-              참여
+            <Button
+              className="button"
+              variant="contained"
+              onClick={joinRoomHandler}
+              color={join ? 'cancle' : 'primary'}
+            >
+              {join ? '참여 취소' : '참여'}
             </Button>
           </ThemeProvider>
         )}
@@ -124,31 +163,9 @@ const RoomDetailForm = ({
 };
 
 RoomDetailForm.propTypes = {
-  articleInfo: PropTypes.shape({
-    anonymity: PropTypes.bool,
-    articleId: PropTypes.string,
-    content: PropTypes.string,
-    contentCategory: PropTypes.string,
-    createdAt: PropTypes.string,
-    date: PropTypes.string,
-    isToday: PropTypes.bool,
-    matchConditionDto: PropTypes.objectOf(
-      PropTypes.shape({
-        placeList: PropTypes.arrayOf(PropTypes.string),
-        timeOfEatingList: PropTypes.arrayOf(PropTypes.string),
-        typeOfStudyList: PropTypes.arrayOf(PropTypes.string),
-        wayOfEatingList: PropTypes.arrayOf(PropTypes.string),
-      }),
-    ),
-    nickname: PropTypes.string,
-    participantNum: PropTypes.number,
-    participantNumMax: PropTypes.number,
-    title: PropTypes.string,
-  }).isRequired,
-  hashtag: PropTypes.arrayOf(PropTypes.string).isRequired,
+  roomInfoPart: PropTypes.element.isRequired,
+  articleId: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
-  editMode: PropTypes.bool.isRequired,
-  onEditMode: PropTypes.func.isRequired,
 };
 
 export default RoomDetailForm;

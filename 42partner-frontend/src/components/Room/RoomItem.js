@@ -1,26 +1,31 @@
 import React, { useState } from 'react';
+// eslint-disable-next-line no-unused-vars
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import GroupsIcon from '@mui/icons-material/Groups';
 import ModalTemplate from '../common/ModalTemplate';
 import RoomDetailForm from './RoomDetailForm';
 import '../../styles/RoomItem.scss';
+// eslint-disable-next-line no-unused-vars
 import CreateRoomForm from './CreateRoomForm';
+import RoomInfo from './RoomInfo';
+import { changeEditMode } from '../../modules/rooms';
 
 const RoomItem = ({ articleInfo, hashtag }) => {
+  const dispatch = useDispatch();
+  const { editMode } = useSelector(({ rooms }) => ({
+    editMode: rooms.editMode,
+  }));
+
   const [open, setOpen] = useState(false);
-  const [editMode, setEditMode] = useState(false);
 
   const handleWriteOpen = () => {
     setOpen(true);
   };
   const handleWriteClose = () => {
     setOpen(false);
-    setEditMode(false);
-  };
-
-  const handlerEditMode = (isEditMode) => {
-    setEditMode(isEditMode);
+    dispatch(changeEditMode(false));
   };
 
   return (
@@ -51,15 +56,17 @@ const RoomItem = ({ articleInfo, hashtag }) => {
                 topic={articleInfo.contentCategory}
                 onClose={handleWriteClose}
                 editMode={editMode}
-                onEditMode={handlerEditMode}
               />
             ) : (
               <RoomDetailForm
-                articleInfo={articleInfo}
-                hashtag={hashtag}
+                roomInfoPart={
+                  <div>
+                    <RoomInfo articleInfo={articleInfo} />
+                    <p className="hashtag">{hashtag}</p>
+                  </div>
+                }
+                articleId={articleInfo.articleId}
                 onClose={handleWriteClose}
-                editMode={editMode}
-                onEditMode={handlerEditMode}
               />
             )}
           </ModalTemplate>
