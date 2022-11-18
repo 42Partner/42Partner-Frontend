@@ -5,7 +5,7 @@ import '../../styles/RoomDetailForm.scss';
 import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
-import CommentLIst from '../comment/CommentLIst';
+import CommentList from '../comment/CommentList';
 
 const RoomDetailForm = ({ open, onClose }) => {
   return (
@@ -44,7 +44,7 @@ const RoomDetailForm = ({ open, onClose }) => {
         multiline
         inputProps={{ maxLength: 100 }}
       />
-      <CommentLIst />
+      <CommentList />
     </div>
   );
 };

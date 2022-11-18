@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
-import CommentLIst from '../comment/CommentLIst';
+import CommentList from '../comment/CommentList';
 import '../../styles/HistoryDetailForm.scss';
 
 const HistoryDetailForm = ({ category, open, onClose }) => {
@@ -43,7 +43,7 @@ const HistoryDetailForm = ({ category, open, onClose }) => {
       {isRoom && (
         <div>
           <p className="hashtag paragraph">#text1 #text #text #tadsfasdf</p>
-          <CommentLIst />
+          <CommentList />
         </div>
       )}
     </div>

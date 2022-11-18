@@ -1,7 +1,7 @@
 import React from 'react';
 import CommentItem from './CommentItem';
 
-const CommentLIst = () => {
+const CommentList = () => {
   return (
     <div>
       <CommentItem />
@@ -12,4 +12,4 @@ const CommentLIst = () => {
   );
 };
 
-export default CommentLIst;
+export default CommentList;
