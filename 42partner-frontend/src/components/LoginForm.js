@@ -13,14 +13,27 @@ const LoginForm = () => {
   // const history = useHistory();
 
   const tmp = async () => {
-    await axios
-      .get('/oauth2/authorization/authclient')
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    // let json;
+    // await axios
+    //   .create({
+    //     baseURL: 'http://15.165.146.60:8080/oauth2/authorization/authclient',
+    //     withCredentials: true,
+    //     headers: { 'Content-Type': 'application/json' },
+    //   })
+    //   .get()
+    //   .then((res) => {
+    window.location.href =
+      'http://15.165.146.60:8080/oauth2/authorization/authclient';
+    window.open('/study/random', 'self');
+    // console.log(res.data);
+    // if (res.state === 300) json = res.body;
+    // console.log(json);
+    //     console.log(res);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //     console.log(json);
+    //   });
   };
 
   const requestLogin = () => {
