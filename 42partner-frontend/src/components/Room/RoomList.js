@@ -1,69 +1,90 @@
-import React, { useState, useEffect } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
-import { useLocation } from 'react-router-dom';
+import React from 'react';
+import PropTypes from 'prop-types';
 import RoomItem from './RoomItem';
-import ModalTemplate from '../common/ModalTemplate';
-import CreateRoomForm from './CreateRoomForm';
 import '../../styles/RoomList.scss';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#ffe3e3',
-    },
-  },
-});
+const optionList = {
+  placeList: [
+    { value: 'SEOCHO', label: '개포' },
+    { value: 'GAEPO', label: '서초' },
+    { value: 'OUT_OF_CLUSTER', label: '기타 (외부)' },
+  ],
+  timeOfEatingList: [
+    { value: 'BREAKFAST', label: '아침' },
+    { value: 'LUNCH', label: '점심' },
+    { value: 'DUNCH', label: '점저' },
+    { value: 'DINNER', label: '저녁' },
+    { value: 'MIDNIGHT', label: '야식' },
+  ],
+  typeOfStudyList: [
+    { value: 'INNER_CIRCLE', label: '본 과정' },
+    { value: 'NOT_INNER_CIRCLE', label: '비 본 과정' },
+  ],
+  wayOfEatingList: [
+    { value: 'DELIVERY', label: '배달' },
+    { value: 'EATOUT', label: '도보' },
+    { value: 'TAKEOUT', label: '기타' },
+  ],
+};
 
-const RoomList = () => {
-  const location = useLocation();
+const RoomList = ({ roomList }) => {
+  const makeHashTag = (articleInfo) => {
+    const res = [`#${articleInfo.date.slice(5).replace('-', '/')} `];
+    const { matchConditionDto } = articleInfo;
 
-  const [topic, setTopic] = useState('MEAL');
-  const [open, setOpen] = useState(false);
-
-  const handleWriteOpen = () => {
-    setOpen(true);
-  };
-  const handleWriteClose = () => {
-    setOpen(false);
-  };
-
-  useEffect(() => {
-    if (location.pathname.includes('meal')) {
-      setTopic('MEAL');
-    } else {
-      setTopic('STUDY');
+    for (let i = 0; i < Object.keys(matchConditionDto).length; ) {
+      const name = Object.keys(matchConditionDto)[i];
+      for (let j = 0; j < matchConditionDto[name].length; ) {
+        const element = matchConditionDto[name][j];
+        res.push(
+          `#${optionList[name].find((op) => op.value === element).label} `,
+        );
+        j += 1;
+      }
+      i += 1;
     }
-  }, [location]);
+    return res;
+  };
 
   return (
     <div className="room-list">
-      <ThemeProvider theme={theme}>
-        <Fab
-          className="create-button"
-          color="primary"
-          aria-label="add"
-          onClick={handleWriteOpen}
-        >
-          <AddIcon />
-        </Fab>
-      </ThemeProvider>
-      <ModalTemplate open={open} onClose={handleWriteClose}>
-        <CreateRoomForm topic={topic} open={open} onClose={handleWriteClose} />
-      </ModalTemplate>
-      <RoomItem articleId="3893d119-df59-418e-ad59-f86a1467abd6" />
-      <RoomItem articleId="asdf" />
-      <RoomItem articleId="asdf" />
-      <RoomItem articleId="asdf" />
-      <RoomItem articleId="asdf" />
-      <RoomItem articleId="asdf" />
-      <RoomItem articleId="asdf" />
-      <RoomItem articleId="asdf" />
-      <RoomItem articleId="asdf" />
-      <RoomItem articleId="asdf" />
+      {roomList.map((article) => {
+        return (
+          <RoomItem
+            key={article.articleId}
+            articleInfo={article}
+            hashtag={makeHashTag(article)}
+          />
+        );
+      })}
     </div>
   );
+};
+
+RoomList.propTypes = {
+  roomList: PropTypes.arrayOf(
+    PropTypes.shape({
+      anonymity: PropTypes.bool,
+      articleId: PropTypes.string,
+      content: PropTypes.string,
+      contentCategory: PropTypes.string,
+      createdAt: PropTypes.string,
+      date: PropTypes.string,
+      isToday: PropTypes.bool,
+      matchConditionDto: PropTypes.objectOf(
+        PropTypes.shape({
+          placeList: PropTypes.arrayOf(PropTypes.string),
+          timeOfEatingList: PropTypes.arrayOf(PropTypes.string),
+          typeOfStudyList: PropTypes.arrayOf(PropTypes.string),
+          wayOfEatingList: PropTypes.arrayOf(PropTypes.string),
+        }),
+      ),
+      nickname: PropTypes.string,
+      participantNum: PropTypes.number,
+      participantNumMax: PropTypes.number,
+      title: PropTypes.string,
+    }),
+  ).isRequired,
 };
 
 export default RoomList;

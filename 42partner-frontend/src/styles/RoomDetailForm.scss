@@ -3,10 +3,6 @@
 .room-detail-form {
   margin: 2rem;
 
-  #room-detail-form {
-    display: flex;
-  }
-
   .close-button,
   .button-wrapper {
     @include flex-end-sort;
@@ -29,15 +25,19 @@
     color: $hashtag;
   }
 
-  .join-button {
+  .botton-group-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .button {
     margin: 20px 10px;
   }
 
   .comment-input-wrapper {
     @include flex-center-sort;
-    .join-button {
-      height: 56px;
-    }
+    width: 100%;
   }
 
   .loading-icon {

@@ -1,69 +1,67 @@
 @import './utils.scss';
 
-.room-list {
-  .room-item {
-    max-height: 150px;
-    margin: 10px;
-    padding: 20px;
-    display: flex;
-    flex: 1 1 40%;
-    flex-direction: column;
-    justify-content: space-between;
-    background: white;
-    line-height: 0.5;
-    border: 0.2px solid lightsteelblue;
-    border-radius: 10px;
+// .room-list {
+.room-item {
+  max-height: 150px;
+  margin: 10px;
+  padding: 20px;
+  display: flex;
+  flex: 1 1 10%;
+  flex-direction: column;
+  background: white;
+  line-height: 0.5;
+  border: 0.2px solid lightsteelblue;
+  border-radius: 10px;
 
-    #button {
-      width: 80px;
-    }
-
-    .hashtag {
-      color: $hashtag;
-      width: 250px;
-      max-height: 100px;
-      line-height: 1;
-      word-break: break-all;
-      margin: 0;
-    }
-
-    .sort-edge {
-      @include flex-edge-sort;
-      align-items: center;
-    }
-
-    .title-text {
-      font-size: 20px;
-      font-weight: bold;
-      line-height: 1;
-      margin-right: 6px;
-    }
-
-    .people-count {
-      @include flex-vertical-center;
-    }
-
-    svg {
-      margin-right: 5px;
-    }
-
-    div + div {
-      margin-top: 2rem;
-    }
+  #button {
+    width: 80px;
   }
 
-  @include mobile {
-    .room-item {
-      width: 100px;
-      max-height: 250px;
-    }
+  .hashtag {
+    color: $hashtag;
+    width: 250px;
+    max-height: 100px;
+    line-height: 1;
+    word-break: break-all;
+    margin: 0;
+  }
 
-    .title-text {
-      font-size: 17px;
-    }
+  .sort-edge {
+    @include flex-edge-sort;
+    align-items: center;
+  }
 
-    .hashtag {
-      font-size: 12px;
-    }
+  .title-text {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+    margin-right: 6px;
+  }
+
+  .people-count {
+    @include flex-vertical-center;
+  }
+
+  svg {
+    margin-right: 5px;
+  }
+
+  div + div {
+    margin-top: 2rem;
   }
 }
+
+@include mobile {
+  .room-item {
+    max-height: 250px;
+  }
+
+  .title-text {
+    font-size: 17px;
+  }
+
+  .hashtag {
+    font-size: 12px;
+  }
+}
+// }

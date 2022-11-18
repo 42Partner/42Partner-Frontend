@@ -1,15 +1,18 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import '../../styles/RoomDetailForm.scss';
-import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
-import CircularProgress from '@mui/material/CircularProgress';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import CommentLIst from '../comment/CommentLIst';
-import { loadCommentList, createComment } from '../../modules/comments';
+import { deleteRoom } from '../../modules/rooms';
+import '../../styles/RoomDetailForm.scss';
+import RoomInfo from './RoomInfo';
+import CommentPart from '../comment/CommentPart';
 
 const theme = createTheme({
   palette: {
@@ -19,107 +22,133 @@ const theme = createTheme({
   },
 });
 
-const RoomDetailForm = ({ articleId, open, onClose }) => {
+const RoomDetailForm = ({
+  articleInfo,
+  hashtag,
+  onClose,
+  editMode,
+  onEditMode,
+}) => {
   const dispatch = useDispatch();
-  const { tList, commetLoading } = useSelector(({ comments, loading }) => ({
-    tList: comments.commentList,
-    commetLoading: loading['comment/LOADLIST'],
-  }));
-  const [comment, setComment] = useState('');
+  const { articleId } = articleInfo;
+  const [myArticle, setMyArticle] = useState(false);
+  const [comfirmOpen, setComfirmOpen] = useState(false);
 
-  const commentInputHandler = (e) => {
-    setComment(e.target.value);
+  const handleConfirmOpen = () => {
+    setComfirmOpen(true);
   };
 
-  const getCommentList = useCallback(() => {
-    dispatch(loadCommentList({ articleId }));
-  });
+  const handleConfirmClose = (isDelete) => {
+    if (isDelete) {
+      dispatch(deleteRoom({ articleId }));
+    }
 
-  const addNewComment = () => {
-    if (comment.length < 1) return;
-
-    const commentInfo = {
-      articleId,
-      content: comment,
-      level: 1,
-      parentId: '',
-    };
-    dispatch(createComment({ commentInfo }));
-    setComment('');
+    setComfirmOpen(false);
   };
 
   useEffect(() => {
-    getCommentList();
+    // if ( userId === sessionId) {
+    setMyArticle(true);
+    // }
   }, []);
 
   return (
     <div className="room-detail-form">
       <div className="close-button">
-        <IconButton open={open} onClick={onClose}>
+        <IconButton onClick={onClose}>
           <CloseIcon />
         </IconButton>
       </div>
-      <h1 className="paragraph">Title</h1>
-      <h3>Intra_id (1200)</h3>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur.
-      </p>
-      <div className="select-info-wrapper">
-        <div>날짜 : 당일</div>
-        <div>장소 : 개포</div>
-        <div>시간대 : 점심 저녁</div>
-        <div>배달여부 : 배달</div>
-      </div>
-      <p className="hashtag">#text1 #text #text #tadsfasdf</p>
+      <RoomInfo articleInfo={articleInfo} />
+      <p className="hashtag">{hashtag}</p>
       <div className="paragraph button-wrapper">
-        <ThemeProvider theme={theme}>
-          <Button className="join-button" variant="contained">
-            참여
-          </Button>
-        </ThemeProvider>
-      </div>
-      <div className="comment-input-wrapper">
-        <TextField
-          sx={{ mb: 2, mt: 2 }}
-          fullWidth
-          placeholder="댓글 내용을 입력해 주세요"
-          multiline
-          inputProps={{ maxLength: 1000, minLength: 1 }}
-          value={comment}
-          onChange={commentInputHandler}
-        />
-        <ThemeProvider theme={theme}>
-          <Button
-            className="join-button"
-            variant="contained"
-            onClick={addNewComment}
-          >
-            입력
-          </Button>
-        </ThemeProvider>
-      </div>
-      {commetLoading && (
-        <div className="loading-icon">
+        {myArticle ? (
+          <div className="botton-group-wrapper">
+            <ThemeProvider theme={theme}>
+              <Button className="button" variant="contained">
+                매칭 완료
+              </Button>
+            </ThemeProvider>
+            <div>
+              <ThemeProvider theme={theme}>
+                <Button
+                  className="button"
+                  variant="contained"
+                  editMode={editMode}
+                  onClick={() => onEditMode(true)}
+                >
+                  수정
+                </Button>
+              </ThemeProvider>
+              <Button
+                style={{ background: '#cccccc', color: 'black' }}
+                className="button"
+                variant="contained"
+                onClick={handleConfirmOpen}
+              >
+                삭제
+              </Button>
+              <Dialog
+                open={comfirmOpen}
+                onClose={handleConfirmClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    삭제 하시겠습니까?
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={() => handleConfirmClose(false)}>
+                    취소
+                  </Button>
+                  <Button onClick={() => handleConfirmClose(true)} autoFocus>
+                    삭제
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </div>
+          </div>
+        ) : (
           <ThemeProvider theme={theme}>
-            <CircularProgress />
+            <Button className="join-button" variant="contained">
+              참여
+            </Button>
           </ThemeProvider>
-        </div>
-      )}
-      {(tList !== undefined || tList !== null) && (
-        <CommentLIst commentList={tList} />
-      )}
+        )}
+      </div>
+      <CommentPart articleId={articleId} />
     </div>
   );
 };
 
 RoomDetailForm.propTypes = {
-  articleId: PropTypes.string.isRequired,
-  open: PropTypes.bool.isRequired,
+  articleInfo: PropTypes.shape({
+    anonymity: PropTypes.bool,
+    articleId: PropTypes.string,
+    content: PropTypes.string,
+    contentCategory: PropTypes.string,
+    createdAt: PropTypes.string,
+    date: PropTypes.string,
+    isToday: PropTypes.bool,
+    matchConditionDto: PropTypes.objectOf(
+      PropTypes.shape({
+        placeList: PropTypes.arrayOf(PropTypes.string),
+        timeOfEatingList: PropTypes.arrayOf(PropTypes.string),
+        typeOfStudyList: PropTypes.arrayOf(PropTypes.string),
+        wayOfEatingList: PropTypes.arrayOf(PropTypes.string),
+      }),
+    ),
+    nickname: PropTypes.string,
+    participantNum: PropTypes.number,
+    participantNumMax: PropTypes.number,
+    title: PropTypes.string,
+  }).isRequired,
+  hashtag: PropTypes.arrayOf(PropTypes.string).isRequired,
   onClose: PropTypes.func.isRequired,
+  editMode: PropTypes.bool.isRequired,
+  onEditMode: PropTypes.func.isRequired,
 };
 
 export default RoomDetailForm;

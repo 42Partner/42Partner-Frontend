@@ -15,17 +15,21 @@ const [DELETE, DELETE_SUCCESS, DELETE_FAILURE] =
 const [LOADLIST, LOADLIST_SUCCESS, LOADLIST_FAILURE] =
   createRequestActionTypes('rooms/LOADLIST');
 const RESETDATA = 'rooms/RESETDATA';
+const LOADINFO = 'rooms/LOADINFO';
 
 export const createRoom = createAction(CREATE, (article) => article);
 export const editRoom = createAction(EDIT, ({ article, articleId }) => ({
   article,
   articleId,
 }));
-export const deleteComment = createAction(DELETE, ({ articleId }) => ({
+export const deleteRoom = createAction(DELETE, ({ articleId }) => ({
   articleId,
 }));
-export const loadCommentList = createAction(LOADLIST);
+export const loadRoomList = createAction(LOADLIST);
 export const resetData = createAction(RESETDATA);
+export const loadArticleInfo = createAction(LOADINFO, ({ articleId }) => ({
+  articleId,
+}));
 
 const createSaga = createRequestSaga(CREATE, roomApi.createRoom);
 const editSaga = createRequestSaga(EDIT, roomApi.editRoomInfo);
@@ -40,6 +44,7 @@ export function* rooomSaga() {
 }
 
 const initialState = {
+  articleInfo: null,
   roomList: [],
   requestError: null,
 };
@@ -48,7 +53,7 @@ const rooms = handleActions(
   {
     [LOADLIST_SUCCESS]: (state, { payload: roomList }) => ({
       ...state,
-      roomList: roomList.values,
+      roomList: roomList.content,
       requestError: null,
     }),
     [LOADLIST_FAILURE]: (state, { payload: e }) => ({
@@ -96,6 +101,12 @@ const rooms = handleActions(
       requestError: e,
     }), // reset data
     [RESETDATA]: () => initialState,
+    [LOADINFO]: (state, { payload: articleId }) => ({
+      ...state,
+      articleInfo: state.roomList.filter(
+        (article) => article.articleId === articleId,
+      ),
+    }),
   },
   initialState,
 );

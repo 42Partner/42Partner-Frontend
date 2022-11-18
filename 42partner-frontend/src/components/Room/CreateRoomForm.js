@@ -28,7 +28,7 @@ const textFieldStyle = {
   mb: 2,
 };
 
-const CreateRoomForm = ({ topic, open, onClose }) => {
+const CreateRoomForm = ({ topic, onClose }) => {
   const dispatch = useDispatch();
   const [bookingDate, setBookingDate] = useState(new Date());
   const [options, setOptions] = useState({
@@ -134,6 +134,7 @@ const CreateRoomForm = ({ topic, open, onClose }) => {
 
   const createRoomHandler = () => {
     dispatch(createRoom({ article }));
+    onClose();
   };
 
   useEffect(() => {
@@ -300,7 +301,7 @@ const CreateRoomForm = ({ topic, open, onClose }) => {
       <div className="button-wrapper">
         <ThemeProvider theme={theme}>
           <Button
-            id="button"
+            className="button"
             variant="contained"
             onClick={createRoomHandler}
             disabled={!checkWritable}
@@ -310,9 +311,8 @@ const CreateRoomForm = ({ topic, open, onClose }) => {
         </ThemeProvider>
         <Button
           style={{ background: '#cccccc', color: 'black' }}
-          id="button"
+          className="button"
           variant="contained"
-          open={open}
           onClick={onClose}
         >
           취소
@@ -324,7 +324,6 @@ const CreateRoomForm = ({ topic, open, onClose }) => {
 
 CreateRoomForm.propTypes = {
   topic: PropTypes.string.isRequired,
-  open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
