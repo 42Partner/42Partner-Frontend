@@ -12,7 +12,7 @@ import TextField from '@mui/material/TextField';
 import DoneIcon from '@mui/icons-material/Done';
 import '../../styles/CommentItem.scss';
 
-const CommentItem = ({ commentInfo, onDelete, onEdit }) => {
+const CommentItem = ({ commentInfo, anonymity, onDelete, onEdit }) => {
   const { content, createdAt, updatedAt, nickname } = commentInfo;
   const [comfirmOpen, setComfirmOpen] = useState(false);
   const [newContent, setNewContent] = useState(commentInfo.content);
@@ -55,7 +55,7 @@ const CommentItem = ({ commentInfo, onDelete, onEdit }) => {
     <div className="comment-item">
       <div className="comment-info">
         <span>
-          <h3>{nickname}</h3>
+          <h3>{anonymity ? '익명' : nickname}</h3>
           {createdAt === updatedAt ? (
             <span>{changeDateFormat(createdAt)}</span>
           ) : (
@@ -119,6 +119,7 @@ CommentItem.propTypes = {
     parentId: PropTypes.string,
     updatedAt: PropTypes.string,
   }).isRequired,
+  anonymity: PropTypes.bool.isRequired,
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
 };

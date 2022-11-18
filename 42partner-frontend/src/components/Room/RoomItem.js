@@ -7,8 +7,8 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import ModalTemplate from '../common/ModalTemplate';
 import RoomDetailForm from './RoomDetailForm';
 import '../../styles/RoomItem.scss';
-// eslint-disable-next-line no-unused-vars
 import CreateRoomForm from './CreateRoomForm';
+import CommentPart from '../comment/CommentPart';
 import RoomInfo from './RoomInfo';
 import { changeEditMode } from '../../modules/rooms';
 
@@ -56,6 +56,7 @@ const RoomItem = ({ articleInfo, hashtag }) => {
                 topic={articleInfo.contentCategory}
                 onClose={handleWriteClose}
                 editMode={editMode}
+                articleId={articleInfo.articleId}
               />
             ) : (
               <RoomDetailForm
@@ -64,6 +65,12 @@ const RoomItem = ({ articleInfo, hashtag }) => {
                     <RoomInfo articleInfo={articleInfo} />
                     <p className="hashtag">{hashtag}</p>
                   </div>
+                }
+                commetPart={
+                  <CommentPart
+                    anonymity={articleInfo.anonymity}
+                    articleId={articleInfo.articleId}
+                  />
                 }
                 articleId={articleInfo.articleId}
                 onClose={handleWriteClose}

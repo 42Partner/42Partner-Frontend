@@ -42,7 +42,7 @@ const RoomInfo = ({ articleInfo }) => {
   return (
     <div>
       <h1 className="paragraph">{articleInfo.title}</h1>
-      <h3>{articleInfo.nickname}</h3>
+      <h3>{articleInfo.anonymity ? '익명' : articleInfo.nickname}</h3>
       <p>{articleInfo.content}</p>
       <div className="select-info-wrapper">
         <div>날짜 : {articleInfo.date}</div>

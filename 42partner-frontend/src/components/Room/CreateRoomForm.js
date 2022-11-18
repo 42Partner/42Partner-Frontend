@@ -11,10 +11,10 @@ import { ko } from 'date-fns/esm/locale';
 import PropTypes from 'prop-types';
 import produce from 'immer';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../styles/CreateRoomForm.scss';
-import { createRoom } from '../../modules/rooms';
+import { createRoom, loadArticleInfo } from '../../modules/rooms';
 
 const theme = createTheme({
   palette: {
@@ -28,8 +28,11 @@ const textFieldStyle = {
   mb: 2,
 };
 
-const CreateRoomForm = ({ topic, onClose }) => {
+const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
   const dispatch = useDispatch();
+  const { articleInfo } = useSelector(({ rooms }) => ({
+    articleInfo: rooms.articleInfo,
+  }));
   const [bookingDate, setBookingDate] = useState(new Date());
   const [options, setOptions] = useState({
     placeList: [
@@ -137,9 +140,33 @@ const CreateRoomForm = ({ topic, onClose }) => {
     onClose();
   };
 
+  const initData = () => {
+    setArticle({
+      anonymity: articleInfo.anonymity,
+      content: articleInfo.content,
+      contentCategory: articleInfo.contentCategory,
+      date: articleInfo.date,
+      participantNumMax: articleInfo.participantNumMax,
+      title: articleInfo.title,
+    });
+  };
+
+  useEffect(() => {
+    if (editMode) {
+      dispatch(loadArticleInfo({ articleId }));
+    }
+  }, []);
+
   useEffect(() => {
     checkFillData();
   }, [article]);
+
+  useEffect(() => {
+    if (editMode && articleInfo !== null) {
+      console.log(articleInfo);
+      initData();
+    }
+  }, [articleInfo]);
 
   useEffect(() => {
     setArticle({
@@ -323,8 +350,14 @@ const CreateRoomForm = ({ topic, onClose }) => {
 };
 
 CreateRoomForm.propTypes = {
+  articleId: PropTypes.string,
   topic: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
+  editMode: PropTypes.bool.isRequired,
+};
+
+CreateRoomForm.defaultProps = {
+  articleId: '',
 };
 
 export default CreateRoomForm;

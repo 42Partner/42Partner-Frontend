@@ -34,16 +34,16 @@ export const editRoomInfo = ({ article, articleId }) => {
 };
 
 export const joinRoom = ({ articleId }) => {
-  console.log('joinRoom');
+  // console.log('joinRoom');
   return client.post(`/api/articles/${articleId}/participate`);
 };
 
 export const cancleRoom = ({ articleId }) => {
-  console.log('cancleRoom');
+  // console.log('cancleRoom');
   return client.post(`/api/articles/${articleId}/participate-cancel`);
 };
 
 export const completeRoom = ({ articleId }) => {
-  console.log('completeRoom');
+  // console.log('completeRoom');
   return client.post(`/api/articles/${articleId}/complete`);
 };

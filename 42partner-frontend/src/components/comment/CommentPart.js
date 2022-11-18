@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { loadCommentList, createComment } from '../../modules/comments';
-import CommentLIst from './CommentLIst';
+import CommentList from './CommentList';
 
 const theme = createTheme({
   palette: {
@@ -81,7 +81,7 @@ const CommentPart = ({ articleId }) => {
         </div>
       )}
       {(commentList !== undefined || commentList !== null) && (
-        <CommentLIst commentList={commentList} />
+        <CommentList commentList={commentList} />
       )}
     </div>
   );

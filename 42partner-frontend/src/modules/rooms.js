@@ -167,10 +167,10 @@ const rooms = handleActions(
       requestError: e,
     }), // reset data
     [RESET_DATA]: () => initialState,
-    [LOAD_INFO]: (state, { payload: articleId }) => ({
+    [LOAD_INFO]: (state, { payload: article }) => ({
       ...state,
-      articleInfo: state.roomList.filter(
-        (article) => article.articleId === articleId,
+      articleInfo: state.roomList.find(
+        (room) => room.articleId === article.articleId,
       ),
     }),
     [CHANGE_EDITMODE]: (state, { payload: isEditMode }) => ({

@@ -17,7 +17,6 @@ import {
   joinRoom,
 } from '../../modules/rooms';
 import '../../styles/RoomDetailForm.scss';
-import CommentPart from '../comment/CommentPart';
 
 const theme = createTheme({
   palette: {
@@ -30,7 +29,7 @@ const theme = createTheme({
   },
 });
 
-const RoomDetailForm = ({ roomInfoPart, articleId, onClose }) => {
+const RoomDetailForm = ({ roomInfoPart, commetPart, articleId, onClose }) => {
   const dispatch = useDispatch();
   const { joinRoomList } = useSelector(({ rooms }) => ({
     joinRoomList: rooms.joinRoomList,
@@ -157,13 +156,14 @@ const RoomDetailForm = ({ roomInfoPart, articleId, onClose }) => {
           </ThemeProvider>
         )}
       </div>
-      <CommentPart articleId={articleId} />
+      {commetPart}
     </div>
   );
 };
 
 RoomDetailForm.propTypes = {
   roomInfoPart: PropTypes.element.isRequired,
+  commetPart: PropTypes.element.isRequired,
   articleId: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
 };
