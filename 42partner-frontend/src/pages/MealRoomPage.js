@@ -1,8 +1,8 @@
 import React from 'react';
 import RoomList from '../components/Room/RoomList';
 
-const RoomListPage = () => {
+const MealRoomPage = () => {
   return <RoomList />;
 };
 
-export default RoomListPage;
+export default MealRoomPage;
