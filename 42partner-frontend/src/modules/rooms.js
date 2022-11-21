@@ -20,7 +20,8 @@ const [CANCLE, CANCLE_SUCCESS, CANCLE_FAILURE] =
   createRequestActionTypes('rooms/CANCLE');
 const [COMPLETE, COMPLETE_SUCCESS, COMPLETE_FAILURE] =
   createRequestActionTypes('rooms/COMPLETE');
-const RESET_DATA = 'rooms/RESET_DATA';
+const RESET_ALL_DATA = 'rooms/RESET_ALL_DATA';
+const RESET_ARTICLE_DATA = 'rooms/RESET_ARTICLE_DATA';
 const LOAD_INFO = 'rooms/LOAD_INFO';
 const CHANGE_EDITMODE = 'rooms/CHANGE_EDITMODE';
 
@@ -31,7 +32,8 @@ export const editRoom = createAction(EDIT, ({ article, articleId }) => ({
 }));
 export const deleteRoom = createAction(DELETE, (articleId) => articleId);
 export const loadRoomList = createAction(LOADLIST);
-export const resetData = createAction(RESET_DATA);
+export const resetData = createAction(RESET_ALL_DATA);
+export const resetArticleData = createAction(RESET_ARTICLE_DATA);
 export const loadArticleInfo = createAction(
   LOAD_INFO,
   (articleId) => articleId,
@@ -171,7 +173,11 @@ const rooms = handleActions(
       requestError: e,
     }),
 
-    [RESET_DATA]: () => initialState,
+    [RESET_ALL_DATA]: () => initialState,
+    [RESET_ARTICLE_DATA]: (state) => ({
+      ...state,
+      articleInfo: null,
+    }),
     [LOAD_INFO]: (state, { payload: article }) => ({
       ...state,
       articleInfo: state.roomList.find(

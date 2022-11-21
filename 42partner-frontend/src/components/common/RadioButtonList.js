@@ -38,7 +38,8 @@ RadioButtonList.propTypes = {
   ).isRequired,
   topic: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  radioOption: PropTypes.string.isRequired,
+  radioOption: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
+    .isRequired,
   radioOptionHandler: PropTypes.func.isRequired,
 };
 

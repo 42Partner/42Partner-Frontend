@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// eslint-disable-next-line no-unused-vars
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
@@ -24,8 +23,11 @@ const RoomItem = ({ articleInfo, hashtag }) => {
     setOpen(true);
   };
   const handleWriteClose = () => {
-    setOpen(false);
-    dispatch(changeEditMode(false));
+    if (editMode) {
+      dispatch(changeEditMode(false));
+    } else {
+      setOpen(false);
+    }
   };
 
   return (
@@ -92,14 +94,16 @@ RoomItem.propTypes = {
     createdAt: PropTypes.string,
     date: PropTypes.string,
     isToday: PropTypes.bool,
-    matchConditionDto: PropTypes.objectOf(
-      PropTypes.shape({
-        placeList: PropTypes.arrayOf(PropTypes.string),
-        timeOfEatingList: PropTypes.arrayOf(PropTypes.string),
-        typeOfStudyList: PropTypes.arrayOf(PropTypes.string),
-        wayOfEatingList: PropTypes.arrayOf(PropTypes.string),
-      }),
-    ),
+    // eslint-disable-next-line react/forbid-prop-types
+    matchConditionDto: PropTypes.object,
+    // (
+    //   PropTypes.shape({
+    //     placeList: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    //     timeOfEatingList: PropTypes.arrayOf(PropTypes.string),
+    //     typeOfStudyList: PropTypes.arrayOf(PropTypes.string),
+    //     wayOfEatingList: PropTypes.arrayOf(PropTypes.string),
+    //   }),
+    // ),
     nickname: PropTypes.string,
     participantNum: PropTypes.number,
     participantNumMax: PropTypes.number,

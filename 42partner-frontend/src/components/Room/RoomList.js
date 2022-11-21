@@ -72,14 +72,16 @@ RoomList.propTypes = {
       createdAt: PropTypes.string,
       date: PropTypes.string,
       isToday: PropTypes.bool,
-      matchConditionDto: PropTypes.objectOf(
-        PropTypes.shape({
-          placeList: PropTypes.arrayOf(PropTypes.string),
-          timeOfEatingList: PropTypes.arrayOf(PropTypes.string),
-          typeOfStudyList: PropTypes.arrayOf(PropTypes.string),
-          wayOfEatingList: PropTypes.arrayOf(PropTypes.string),
-        }),
-      ),
+      // eslint-disable-next-line react/forbid-prop-types
+      matchConditionDto: PropTypes.object,
+      // (
+      //   PropTypes.shape({
+      //     placeList: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+      //     timeOfEatingList: PropTypes.arrayOf(PropTypes.string),
+      //     typeOfStudyList: PropTypes.arrayOf(PropTypes.string),
+      //     wayOfEatingList: PropTypes.arrayOf(PropTypes.string),
+      //   }),
+      // ),
       nickname: PropTypes.string,
       participantNum: PropTypes.number,
       participantNumMax: PropTypes.number,

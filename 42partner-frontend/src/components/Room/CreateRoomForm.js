@@ -15,6 +15,7 @@ import {
   createRoom,
   editRoom,
   loadArticleInfo,
+  resetArticleData,
 } from '../../modules/rooms';
 import CheckBoxList from '../common/CheckBoxList';
 import RadioButtonList from '../common/RadioButtonList';
@@ -61,7 +62,6 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     wayOfEatingList: [],
   });
   const [checkWritable, setCheckWritable] = useState(false);
-  const [anoChecked, setAnoChecked] = useState(false);
   const [article, setArticle] = useState({
     anonymity: false,
     content: '',
@@ -72,39 +72,26 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     title: '',
   });
 
-  useEffect(() => {
-    console.log(options);
-  }, [options]);
-
-  const anoCheckedHander = (e) => {
-    setArticle({
-      ...article,
-      anonymity: anoChecked,
-    });
-    setAnoChecked(e.target.checked);
-  };
-
   const articleHandler = (e) => {
     const { name, value } = e.target;
     // console.log(e.target);
     setArticle({ ...article, [name]: value });
   };
 
-  const checkData = (name, value, checked) => {
-    console.log(name, value, checked);
-    setOptions(
-      produce(options, (draft) => {
-        const option = draft[name].find((op) => op.value === value);
-        option.checked = !option.checked;
-      }),
-    );
+  const checkData = (name, value, check) => {
+    setOptions({
+      ...options,
+      [name]: options[name].map((op) =>
+        op.value === value ? { ...op, checked: check } : op,
+      ),
+    });
 
-    if (checked && matchingOption[name].indexOf(value) === -1) {
+    if (check && matchingOption[name].indexOf(value) === -1) {
       setMatchingOption({
         ...matchingOption,
         [name]: matchingOption[name].concat(value),
       });
-    } else if (!checked) {
+    } else if (!check) {
       setMatchingOption({
         ...matchingOption,
         [name]: matchingOption[name].filter((op) => op !== value),
@@ -114,7 +101,6 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
 
   const checkBoxOptionHandler = (e) => {
     const { name, value, checked } = e.target;
-    console.log(e);
     checkData(name, value, checked);
   };
 
@@ -123,10 +109,11 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     setRadioOption(value);
     setMatchingOption({
       ...matchingOption,
-      [name]: matchingOption[name].concat(value),
+      [name]: [value],
     });
   };
 
+  // eslint-disable-next-line no-unused-vars
   const checkFillData = () => {
     let len = 0;
     const minimum = topic === 'MEAL' ? 3 : 2;
@@ -163,31 +150,59 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     onClose();
   };
 
+  // eslint-disable-next-line no-unused-vars
   const initCheckBoxOptions = () => {
     const { matchConditionDto } = articleInfo;
+    const tmpOption = {
+      placeList: [
+        { checked: false, value: 'SEOCHO', label: '개포' },
+        { checked: false, value: 'GAEPO', label: '서초' },
+        { checked: false, value: 'OUT_OF_CLUSTER', label: '기타 (외부)' },
+      ],
+      timeOfEatingList: [
+        { checked: false, value: 'BREAKFAST', label: '아침' },
+        { checked: false, value: 'LUNCH', label: '점심' },
+        { checked: false, value: 'DUNCH', label: '점저' },
+        { checked: false, value: 'DINNER', label: '저녁' },
+        { checked: false, value: 'MIDNIGHT', label: '야식' },
+      ],
+    };
 
     for (let i = 0; i < 2; ) {
       const name = Object.keys(matchConditionDto)[i];
       for (let j = 0; j < matchConditionDto[name].length; ) {
         const element = matchConditionDto[name][j];
-        checkData(name, element, true);
+
+        tmpOption[name] = tmpOption[name].map((op) =>
+          op.value === element ? { ...op, checked: true } : op,
+        );
         j += 1;
       }
       i += 1;
     }
+
+    setOptions({
+      ...options,
+      placeList: tmpOption.placeList,
+      timeOfEatingList: tmpOption.timeOfEatingList,
+    });
   };
 
+  // eslint-disable-next-line no-unused-vars
   const initData = () => {
-    setAnoChecked(articleInfo.anonymity);
+    // console.log(articleInfo.matchConditionDto);
     setArticle({
       ...article,
       anonymity: articleInfo.anonymity,
       content: articleInfo.content,
       contentCategory: articleInfo.contentCategory,
       date: articleInfo.date,
+      matchConditionDto: articleInfo.matchConditionDto,
       participantNumMax: articleInfo.participantNumMax,
       title: articleInfo.title,
     });
+
+    setMatchingOption(articleInfo.matchConditionDto);
 
     if (articleInfo.contentCategory === 'MEAL') {
       setRadioOption(articleInfo.matchConditionDto.wayOfEatingList);
@@ -202,11 +217,14 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     if (editMode) {
       dispatch(loadArticleInfo({ articleId }));
     }
+    return () => {
+      dispatch(resetArticleData());
+    };
   }, []);
 
   useEffect(() => {
     checkFillData();
-    // console.log(article);
+    console.log(article);
   }, [article]);
 
   useEffect(() => {
@@ -230,9 +248,9 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
       <FormControlLabel
         size="small"
         className="check-option-wrapper"
-        control={<Checkbox checked={anoChecked} />}
+        control={<Checkbox checked={article.anonymity} />}
         value={article.anonymity}
-        onChange={anoCheckedHander}
+        onClick={(e) => setArticle({ ...article, anonymity: e.target.checked })}
         label="익명"
       />
       <TextField

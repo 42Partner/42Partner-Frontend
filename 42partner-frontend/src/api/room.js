@@ -5,7 +5,7 @@ export const getRoomList = () => {
 };
 
 export const getOneRoom = ({ articleId }) => {
-  return client.post(`/api/articles/${articleId}`);
+  return client.get(`/api/articles/${articleId}`);
 };
 
 export const createRoom = async ({ article }) => {
