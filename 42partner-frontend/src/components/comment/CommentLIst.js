@@ -44,7 +44,6 @@ const CommentList = ({ articleId, commentList }) => {
   );
 };
 
-// ts error, 해당사항없음
 CommentList.propTypes = {
   articleId: PropTypes.string.isRequired,
   commentList: PropTypes.arrayOf(

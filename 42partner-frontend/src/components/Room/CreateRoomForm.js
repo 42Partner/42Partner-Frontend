@@ -112,7 +112,6 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     });
   };
 
-  // eslint-disable-next-line no-unused-vars
   const checkFillData = () => {
     let len = 0;
     const minimum = topic === 'MEAL' ? 3 : 2;
@@ -149,7 +148,6 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     onClose();
   };
 
-  // eslint-disable-next-line no-unused-vars
   const initCheckBoxOptions = () => {
     const { matchConditionDto } = articleInfo;
     const tmpOption = {
@@ -187,7 +185,6 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     });
   };
 
-  // eslint-disable-next-line no-unused-vars
   const initData = () => {
     setArticle({
       ...article,
