@@ -26,13 +26,15 @@
   }
 
   .botton-group-wrapper {
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    align-items: center;
   }
 
   .button {
     margin: 20px 10px;
+    max-height: 36px;
   }
 
   .comment-input-wrapper {

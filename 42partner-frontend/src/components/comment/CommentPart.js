@@ -4,17 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { loadCommentList, createComment } from '../../modules/comments';
 import CommentList from './CommentList';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#ffbfbf',
-    },
-  },
-});
+import CustomPinkButton from './CustomPinkButton';
 
 const CommentPart = ({ articleId }) => {
   const dispatch = useDispatch();
@@ -63,21 +55,21 @@ const CommentPart = ({ articleId }) => {
           value={comment}
           onChange={commentInputHandler}
         />
-        <ThemeProvider theme={theme}>
-          <Button
-            className="button"
-            variant="contained"
-            onClick={addNewComment}
-          >
-            입력
-          </Button>
-        </ThemeProvider>
+        <CustomPinkButton
+          button={
+            <Button
+              className="button"
+              variant="contained"
+              onClick={addNewComment}
+            >
+              입력
+            </Button>
+          }
+        />
       </div>
       {commetLoading && (
         <div className="loading-icon">
-          <ThemeProvider theme={theme}>
-            <CircularProgress />
-          </ThemeProvider>
+          <CustomPinkButton button={<CircularProgress />} />
         </div>
       )}
       {(commentList !== undefined || commentList !== null) && (

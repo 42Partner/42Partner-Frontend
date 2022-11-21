@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -17,17 +16,7 @@ import {
   joinRoom,
 } from '../../modules/rooms';
 import '../../styles/RoomDetailForm.scss';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#ffbfbf',
-    },
-    cancle: {
-      main: '#b5d7f5',
-    },
-  },
-});
+import CustomPinkButton from '../comment/CustomPinkButton';
 
 const RoomDetailForm = ({ roomInfoPart, commetPart, articleId, onClose }) => {
   const dispatch = useDispatch();
@@ -91,27 +80,32 @@ const RoomDetailForm = ({ roomInfoPart, commetPart, articleId, onClose }) => {
       <div className="paragraph button-wrapper">
         {myArticle ? (
           <div className="botton-group-wrapper">
-            <ThemeProvider theme={theme}>
-              <Button
-                className="button"
-                variant="contained"
-                disabled={complete}
-                onClick={completeRoomHandler}
-              >
-                매칭 완료
-              </Button>
-            </ThemeProvider>
-            <div>
-              <ThemeProvider theme={theme}>
+            <CustomPinkButton
+              className="button"
+              button={
                 <Button
-                  className="button"
                   variant="contained"
-                  onClick={() => dispatch(changeEditMode(true))}
                   disabled={complete}
+                  onClick={completeRoomHandler}
+                  color="complete"
                 >
-                  수정
+                  매칭 완료
                 </Button>
-              </ThemeProvider>
+              }
+            />
+            <div>
+              <CustomPinkButton
+                className="button"
+                button={
+                  <Button
+                    variant="contained"
+                    onClick={() => dispatch(changeEditMode(true))}
+                    disabled={complete}
+                  >
+                    수정
+                  </Button>
+                }
+              />
               <Button
                 style={{ background: '#cccccc', color: 'black' }}
                 className="button"
@@ -144,16 +138,18 @@ const RoomDetailForm = ({ roomInfoPart, commetPart, articleId, onClose }) => {
             </div>
           </div>
         ) : (
-          <ThemeProvider theme={theme}>
-            <Button
-              className="button"
-              variant="contained"
-              onClick={joinRoomHandler}
-              color={join ? 'cancle' : 'primary'}
-            >
-              {join ? '참여 취소' : '참여'}
-            </Button>
-          </ThemeProvider>
+          <CustomPinkButton
+            className="button"
+            button={
+              <Button
+                variant="contained"
+                onClick={joinRoomHandler}
+                color={join ? 'cancle' : 'primary'}
+              >
+                {join ? '참여 취소' : '참여'}
+              </Button>
+            }
+          />
         )}
       </div>
       {commetPart}

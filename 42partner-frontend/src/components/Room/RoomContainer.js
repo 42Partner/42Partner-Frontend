@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useLocation } from 'react-router-dom';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
@@ -10,14 +9,7 @@ import CreateRoomForm from './CreateRoomForm';
 import { loadRoomList } from '../../modules/rooms';
 import RoomList from './RoomList';
 import '../../styles/RoomContainer.scss';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#ffe3e3',
-    },
-  },
-});
+import CustomPinkButton from '../comment/CustomPinkButton';
 
 const RoomContainer = () => {
   const dispatch = useDispatch();
@@ -57,16 +49,18 @@ const RoomContainer = () => {
 
   return (
     <div className="room-container">
-      <ThemeProvider theme={theme}>
-        <Fab
-          className="create-button"
-          color="primary"
-          aria-label="add"
-          onClick={handleWriteOpen}
-        >
-          <AddIcon />
-        </Fab>
-      </ThemeProvider>
+      <CustomPinkButton
+        button={
+          <Fab
+            className="create-button"
+            color="primary"
+            aria-label="add"
+            onClick={handleWriteOpen}
+          >
+            <AddIcon />
+          </Fab>
+        }
+      />
       <ModalTemplate open={open} onClose={handleWriteClose}>
         <CreateRoomForm
           editMode={false}
@@ -77,9 +71,7 @@ const RoomContainer = () => {
       </ModalTemplate>
       {roomListLoading && (
         <div className="loading-icon">
-          <ThemeProvider theme={theme}>
-            <CircularProgress />
-          </ThemeProvider>
+          <CustomPinkButton button={<CircularProgress />} />
         </div>
       )}
       {curList.length ? (

@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
-import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/esm/locale';
 import PropTypes from 'prop-types';
 import produce from 'immer';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../styles/CreateRoomForm.scss';
@@ -20,14 +16,9 @@ import {
   editRoom,
   loadArticleInfo,
 } from '../../modules/rooms';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#ffbfbf',
-    },
-  },
-});
+import CheckBoxList from '../comment/CheckBoxList';
+import RadioButtonList from '../comment/RadioButtonList';
+import CustomPinkButton from '../comment/CustomPinkButton';
 
 const textFieldStyle = {
   mb: 2,
@@ -81,6 +72,10 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     title: '',
   });
 
+  useEffect(() => {
+    console.log(options);
+  }, [options]);
+
   const anoCheckedHander = (e) => {
     setArticle({
       ...article,
@@ -96,10 +91,11 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
   };
 
   const checkData = (name, value, checked) => {
+    console.log(name, value, checked);
     setOptions(
       produce(options, (draft) => {
         const option = draft[name].find((op) => op.value === value);
-        option.checked = checked;
+        option.checked = !option.checked;
       }),
     );
 
@@ -118,6 +114,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
 
   const checkBoxOptionHandler = (e) => {
     const { name, value, checked } = e.target;
+    console.log(e);
     checkData(name, value, checked);
   };
 
@@ -251,83 +248,36 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
         onChange={articleHandler}
       />
       <div className="check-option-wrapper">
-        <div className="option-field">
-          <h2>장소*</h2>
-          <FormGroup row>
-            {options.placeList.map((op) => {
-              return (
-                <FormControlLabel
-                  key={op.value}
-                  control={
-                    <Checkbox
-                      checked={op.checked}
-                      onChange={checkBoxOptionHandler}
-                      value={op.value}
-                      name="placeList"
-                    />
-                  }
-                  label={op.label}
-                />
-              );
-            })}
-          </FormGroup>
-        </div>
+        <CheckBoxList
+          list={options.placeList}
+          topic="장소"
+          type="placeList"
+          checkBoxOptionHandler={checkBoxOptionHandler}
+        />
         {topic === 'MEAL' ? (
           <div>
-            <div className="option-field">
-              <h2>시간대*</h2>
-              <FormGroup row>
-                {options.timeOfEatingList.map((op) => {
-                  return (
-                    <FormControlLabel
-                      key={op.value}
-                      control={
-                        <Checkbox
-                          checked={op.checked}
-                          value={op.value}
-                          onChange={checkBoxOptionHandler}
-                          name="timeOfEatingList"
-                        />
-                      }
-                      label={op.label}
-                    />
-                  );
-                })}
-              </FormGroup>
-            </div>
-            <div className="option-field">
-              <h2>배달여부*</h2>
-              <RadioGroup row value={radioOption} onChange={radioOptionHandler}>
-                {options.wayOfEatingList.map((op) => {
-                  return (
-                    <FormControlLabel
-                      key={op.value}
-                      control={
-                        <Radio value={op.value} name="wayOfEatingList" />
-                      }
-                      label={op.label}
-                    />
-                  );
-                })}
-              </RadioGroup>
-            </div>
+            <CheckBoxList
+              list={options.timeOfEatingList}
+              topic="시간대"
+              type="timeOfEatingList"
+              checkBoxOptionHandler={checkBoxOptionHandler}
+            />
+            <RadioButtonList
+              list={options.wayOfEatingList}
+              topic="배달여부"
+              type="wayOfEatingList"
+              radioOption={radioOption}
+              radioOptionHandler={radioOptionHandler}
+            />
           </div>
         ) : (
-          <div className="option-field">
-            <h2>주제*</h2>
-            <RadioGroup row value={radioOption} onChange={radioOptionHandler}>
-              {options.typeOfStudyList.map((op) => {
-                return (
-                  <FormControlLabel
-                    key={op.value}
-                    control={<Radio value={op.value} name="typeOfStudyList" />}
-                    value={op.value}
-                    label={op.label}
-                  />
-                );
-              })}
-            </RadioGroup>
-          </div>
+          <RadioButtonList
+            list={options.typeOfStudyList}
+            topic="주제"
+            type="typeOfStudyList"
+            radioOption={radioOption}
+            radioOptionHandler={radioOptionHandler}
+          />
         )}
         <div className="option-field">
           <h2>날짜</h2>
@@ -375,16 +325,18 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
         onChange={articleHandler}
       />
       <div className="button-wrapper">
-        <ThemeProvider theme={theme}>
-          <Button
-            className="button"
-            variant="contained"
-            onClick={editMode ? editRoomHandler : createRoomHandler}
-            disabled={!checkWritable}
-          >
-            {editMode ? '수정' : '게시'}
-          </Button>
-        </ThemeProvider>
+        <CustomPinkButton
+          button={
+            <Button
+              className="button"
+              variant="contained"
+              onClick={editMode ? editRoomHandler : createRoomHandler}
+              disabled={!checkWritable}
+            >
+              {editMode ? '수정' : '게시'}
+            </Button>
+          }
+        />
         <Button
           style={{ background: '#cccccc', color: 'black' }}
           className="button"
