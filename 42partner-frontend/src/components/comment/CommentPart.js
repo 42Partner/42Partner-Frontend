@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { loadCommentList, createComment } from '../../modules/comments';
 import CommentList from './CommentList';
-import CustomPinkButton from './CustomPinkButton';
+import CustomPinkButton from '../common/CustomPinkButton';
 
 const CommentPart = ({ articleId }) => {
   const dispatch = useDispatch();

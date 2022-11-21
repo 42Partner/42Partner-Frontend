@@ -9,7 +9,7 @@ import CreateRoomForm from './CreateRoomForm';
 import { loadRoomList } from '../../modules/rooms';
 import RoomList from './RoomList';
 import '../../styles/RoomContainer.scss';
-import CustomPinkButton from '../comment/CustomPinkButton';
+import CustomPinkButton from '../common/CustomPinkButton';
 
 const RoomContainer = () => {
   const dispatch = useDispatch();

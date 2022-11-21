@@ -16,9 +16,9 @@ import {
   editRoom,
   loadArticleInfo,
 } from '../../modules/rooms';
-import CheckBoxList from '../comment/CheckBoxList';
-import RadioButtonList from '../comment/RadioButtonList';
-import CustomPinkButton from '../comment/CustomPinkButton';
+import CheckBoxList from '../common/CheckBoxList';
+import RadioButtonList from '../common/RadioButtonList';
+import CustomPinkButton from '../common/CustomPinkButton';
 
 const textFieldStyle = {
   mb: 2,

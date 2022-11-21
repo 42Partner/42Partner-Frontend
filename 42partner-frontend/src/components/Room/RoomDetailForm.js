@@ -16,7 +16,7 @@ import {
   joinRoom,
 } from '../../modules/rooms';
 import '../../styles/RoomDetailForm.scss';
-import CustomPinkButton from '../comment/CustomPinkButton';
+import CustomPinkButton from '../common/CustomPinkButton';
 
 const RoomDetailForm = ({ roomInfoPart, commetPart, articleId, onClose }) => {
   const dispatch = useDispatch();

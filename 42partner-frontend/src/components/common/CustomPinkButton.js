@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#ffbfbf',
+      main: '#F8C8C4',
     },
     cancle: {
       main: '#b5d7f5',
