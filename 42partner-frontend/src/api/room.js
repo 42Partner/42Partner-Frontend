@@ -28,9 +28,9 @@ export const deleteRoom = ({ articleId }) => {
   return client.post(`/api/articles/${articleId}/recoverable-delete`);
 };
 
-export const editRoomInfo = ({ article, articleId }) => {
+export const editRoomInfo = ({ article }) => {
   // console.log('editRoomInfo');
-  return client.put(`/api/articles/${articleId}`, article);
+  return client.put(`/api/articles/${article.articleId}`, article);
 };
 
 export const joinRoom = ({ articleId }) => {

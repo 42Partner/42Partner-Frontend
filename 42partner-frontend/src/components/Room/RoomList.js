@@ -43,6 +43,7 @@ const RoomList = ({ roomList }) => {
       }
       i += 1;
     }
+
     return res;
   };
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import RoomList from '../components/Room/RoomList';
+import RoomContainer from '../components/Room/RoomContainer';
 
 const StudyRoomPage = () => {
-  return <RoomList />;
+  return <RoomContainer />;
 };
 
 export default StudyRoomPage;

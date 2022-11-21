@@ -63,8 +63,10 @@ const initialState = {
   editMode: false,
   articleInfo: null,
   roomList: [],
-  requestError: null,
+  mealRoomList: [],
+  studyRoomList: [],
   joinRoomList: [],
+  requestError: null,
 };
 
 const rooms = handleActions(
@@ -72,6 +74,12 @@ const rooms = handleActions(
     [LOADLIST_SUCCESS]: (state, { payload: roomList }) => ({
       ...state,
       roomList: roomList.content,
+      mealRoomList: roomList.content.filter(
+        (room) => room.contentCategory === 'MEAL',
+      ),
+      studyRoomList: roomList.content.filter(
+        (room) => room.contentCategory === 'STUDY',
+      ),
       requestError: null,
     }),
     [LOADLIST_FAILURE]: (state, { payload: e }) => ({
@@ -91,10 +99,12 @@ const rooms = handleActions(
       ...state,
       requestError: e,
     }), // edit
-    [EDIT]: (state, { payload: { article, articleId } }) =>
+    [EDIT]: (state, { payload: { article } }) =>
       produce(state, (draft) => {
         draft.requestError = null;
-        let oldArticle = draft.roomList.find((c) => c.articleId === articleId);
+        let oldArticle = draft.roomList.find(
+          (c) => c.articleId === article.articleId,
+        );
         // eslint-disable-next-line no-unused-vars
         oldArticle = article;
       }),

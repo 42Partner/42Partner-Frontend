@@ -14,7 +14,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../styles/CreateRoomForm.scss';
-import { createRoom, loadArticleInfo } from '../../modules/rooms';
+import {
+  changeEditMode,
+  createRoom,
+  editRoom,
+  loadArticleInfo,
+} from '../../modules/rooms';
 
 const theme = createTheme({
   palette: {
@@ -58,13 +63,14 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     ],
   });
   const [radioOption, setRadioOption] = useState('');
-  const [matchConditionDto, setMatchConditionDto] = useState({
+  const [matchingOption, setMatchingOption] = useState({
     placeList: [],
     timeOfEatingList: [],
     typeOfStudyList: [],
     wayOfEatingList: [],
   });
   const [checkWritable, setCheckWritable] = useState(false);
+  const [anoChecked, setAnoChecked] = useState(false);
   const [article, setArticle] = useState({
     anonymity: false,
     content: '',
@@ -75,14 +81,21 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     title: '',
   });
 
+  const anoCheckedHander = (e) => {
+    setArticle({
+      ...article,
+      anonymity: anoChecked,
+    });
+    setAnoChecked(e.target.checked);
+  };
+
   const articleHandler = (e) => {
     const { name, value } = e.target;
+    console.log(e.target);
     setArticle({ ...article, [name]: value });
   };
 
-  const checkBoxOptionHandler = (e) => {
-    const { name, value, checked } = e.target;
-
+  const checkData = (name, value, checked) => {
     setOptions(
       produce(options, (draft) => {
         const option = draft[name].find((op) => op.value === value);
@@ -90,25 +103,30 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
       }),
     );
 
-    if (checked && matchConditionDto[name].indexOf(value) === -1) {
-      setMatchConditionDto({
-        ...matchConditionDto,
-        [name]: matchConditionDto[name].concat(value),
+    if (checked && matchingOption[name].indexOf(value) === -1) {
+      setMatchingOption({
+        ...matchingOption,
+        [name]: matchingOption[name].concat(value),
       });
     } else if (!checked) {
-      setMatchConditionDto({
-        ...matchConditionDto,
-        [name]: matchConditionDto[name].filter((op) => op !== value),
+      setMatchingOption({
+        ...matchingOption,
+        [name]: matchingOption[name].filter((op) => op !== value),
       });
     }
+  };
+
+  const checkBoxOptionHandler = (e) => {
+    const { name, value, checked } = e.target;
+    checkData(name, value, checked);
   };
 
   const radioOptionHandler = (e) => {
     const { name, value } = e.target;
     setRadioOption(value);
-    setMatchConditionDto({
-      ...matchConditionDto,
-      [name]: matchConditionDto[name].concat(value),
+    setMatchingOption({
+      ...matchingOption,
+      [name]: matchingOption[name].concat(value),
     });
   };
 
@@ -119,9 +137,9 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     }
 
     let len = 0;
-    for (let i = 0; i < Object.keys(matchConditionDto).length; ) {
-      const name = Object.keys(matchConditionDto)[i];
-      if (matchConditionDto[name].length !== 0) {
+    for (let i = 0; i < Object.keys(matchingOption).length; ) {
+      const name = Object.keys(matchingOption)[i];
+      if (matchingOption[name].length !== 0) {
         len += 1;
       }
       i += 1;
@@ -140,8 +158,30 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     onClose();
   };
 
+  const editRoomHandler = () => {
+    dispatch(editRoom({ article }));
+    dispatch(changeEditMode(false));
+    onClose();
+  };
+
+  const initCheckBoxOptions = () => {
+    const { matchConditionDto } = articleInfo;
+
+    for (let i = 0; i < 2; ) {
+      const name = Object.keys(matchConditionDto)[i];
+      for (let j = 0; j < matchConditionDto[name].length; ) {
+        const element = matchConditionDto[name][j];
+        checkData(name, element, true);
+        j += 1;
+      }
+      i += 1;
+    }
+  };
+
   const initData = () => {
+    setAnoChecked(articleInfo.anonymity);
     setArticle({
+      ...article,
       anonymity: articleInfo.anonymity,
       content: articleInfo.content,
       contentCategory: articleInfo.contentCategory,
@@ -149,6 +189,14 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
       participantNumMax: articleInfo.participantNumMax,
       title: articleInfo.title,
     });
+
+    if (articleInfo.contentCategory === 'MEAL') {
+      setRadioOption(articleInfo.matchConditionDto.wayOfEatingList);
+    } else {
+      setRadioOption(articleInfo.matchConditionDto.typeOfStudyList);
+    }
+
+    initCheckBoxOptions();
   };
 
   useEffect(() => {
@@ -159,11 +207,11 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
 
   useEffect(() => {
     checkFillData();
+    console.log(article);
   }, [article]);
 
   useEffect(() => {
     if (editMode && articleInfo !== null) {
-      console.log(articleInfo);
       initData();
     }
   }, [articleInfo]);
@@ -171,22 +219,21 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
   useEffect(() => {
     setArticle({
       ...article,
-      matchConditionDto,
+      matchConditionDto: matchingOption,
       date: `${bookingDate.getFullYear()}-${
         bookingDate.getMonth() + 1
       }-${bookingDate.getDate()}`,
     });
-  }, [bookingDate, matchConditionDto]);
+  }, [bookingDate, matchingOption]);
 
   return (
     <div className="create-room-form">
       <FormControlLabel
         size="small"
         className="check-option-wrapper"
-        control={<Checkbox />}
+        control={<Checkbox checked={anoChecked} />}
         value={article.anonymity}
-        name="anonymity"
-        onChange={articleHandler}
+        onChange={anoCheckedHander}
         label="익명"
       />
       <TextField
@@ -330,10 +377,10 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
           <Button
             className="button"
             variant="contained"
-            onClick={createRoomHandler}
+            onClick={editMode ? editRoomHandler : createRoomHandler}
             disabled={!checkWritable}
           >
-            게시
+            {editMode ? '수정' : '게시'}
           </Button>
         </ThemeProvider>
         <Button

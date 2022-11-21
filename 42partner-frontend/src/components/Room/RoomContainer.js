@@ -7,9 +7,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalTemplate from '../common/ModalTemplate';
 import CreateRoomForm from './CreateRoomForm';
-import '../../styles/RoomContainer.scss';
 import { loadRoomList } from '../../modules/rooms';
 import RoomList from './RoomList';
+import '../../styles/RoomContainer.scss';
 
 const theme = createTheme({
   palette: {
@@ -22,10 +22,13 @@ const theme = createTheme({
 const RoomContainer = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { roomList, roomListLoading } = useSelector(({ rooms, loading }) => ({
-    roomList: rooms.roomList,
-    roomListLoading: loading['rooms/LOADLIST'],
-  }));
+  const { roomList, mealRoomList, studyRoomList, roomListLoading } =
+    useSelector(({ rooms, loading }) => ({
+      roomList: rooms.roomList,
+      mealRoomList: rooms.mealRoomList,
+      studyRoomList: rooms.studyRoomList,
+      roomListLoading: loading['rooms/LOADLIST'],
+    }));
   const [open, setOpen] = useState(false);
   const [topic, setTopic] = useState('MEAL');
 
@@ -47,6 +50,11 @@ const RoomContainer = () => {
   useEffect(() => {
     dispatch(loadRoomList());
   }, []);
+
+  useEffect(() => {
+    console.log(mealRoomList);
+    console.log(studyRoomList);
+  }, [roomList]);
 
   return (
     <div className="room-container">
@@ -75,8 +83,10 @@ const RoomContainer = () => {
           </ThemeProvider>
         </div>
       )}
-      {(roomList !== undefined || roomList !== null) && (
+      {roomList !== undefined && roomList !== null ? (
         <RoomList roomList={roomList} />
+      ) : (
+        '방이 존재하지 않습니다'
       )}
     </div>
   );

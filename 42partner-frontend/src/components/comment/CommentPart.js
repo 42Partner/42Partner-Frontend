@@ -81,7 +81,7 @@ const CommentPart = ({ articleId }) => {
         </div>
       )}
       {(commentList !== undefined || commentList !== null) && (
-        <CommentList commentList={commentList} />
+        <CommentList articleId={articleId} commentList={commentList} />
       )}
     </div>
   );
