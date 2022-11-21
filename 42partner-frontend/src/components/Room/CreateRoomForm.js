@@ -74,7 +74,6 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
 
   const articleHandler = (e) => {
     const { name, value } = e.target;
-    // console.log(e.target);
     setArticle({ ...article, [name]: value });
   };
 
@@ -190,7 +189,6 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
 
   // eslint-disable-next-line no-unused-vars
   const initData = () => {
-    // console.log(articleInfo.matchConditionDto);
     setArticle({
       ...article,
       anonymity: articleInfo.anonymity,
@@ -224,7 +222,6 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
 
   useEffect(() => {
     checkFillData();
-    console.log(article);
   }, [article]);
 
   useEffect(() => {
