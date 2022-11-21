@@ -63,8 +63,6 @@ const initialState = {
   editMode: false,
   articleInfo: null,
   roomList: [],
-  mealRoomList: [],
-  studyRoomList: [],
   joinRoomList: [],
   requestError: null,
 };
@@ -74,48 +72,38 @@ const rooms = handleActions(
     [LOADLIST_SUCCESS]: (state, { payload: roomList }) => ({
       ...state,
       roomList: roomList.content,
-      mealRoomList: roomList.content.filter(
-        (room) => room.contentCategory === 'MEAL',
-      ),
-      studyRoomList: roomList.content.filter(
-        (room) => room.contentCategory === 'STUDY',
-      ),
       requestError: null,
     }),
     [LOADLIST_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
     }),
+
     // create
-    [CREATE_SUCCESS]: (state, { payload: article }) =>
-      produce(
-        (state,
-        (draft) => {
-          draft.roomList.push(article);
-          draft.requestError = null;
-        }),
-      ),
+    [CREATE_SUCCESS]: (state, { payload: article }) => ({
+      ...state,
+      requestError: null,
+      roomList: state.roomList.concat(article),
+    }),
     [CREATE_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
-    }), // edit
-    [EDIT]: (state, { payload: { article } }) =>
-      produce(state, (draft) => {
-        draft.requestError = null;
-        let oldArticle = draft.roomList.find(
-          (c) => c.articleId === article.articleId,
-        );
-        // eslint-disable-next-line no-unused-vars
-        oldArticle = article;
-      }),
-    [EDIT_SUCCESS]: (state) =>
-      produce(state, (draft) => {
-        draft.requestError = null;
-      }),
+    }),
+
+    // edit
+    [EDIT_SUCCESS]: (state, { payload: { article } }) => ({
+      ...state,
+      requestError: null,
+      roomList: state.roomList.map((room) =>
+        room.articleId === article.articleId ? article : room,
+      ),
+    }),
     [EDIT_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
-    }), // Delete
+    }),
+
+    // Delete
     [DELETE_SUCCESS]: (state, { payload: articleId }) =>
       produce(state, (draft) => {
         draft.requestError = null;
@@ -127,7 +115,9 @@ const rooms = handleActions(
     [DELETE_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
-    }), // join
+    }),
+
+    // join
     [JOIN]: (state, { payload: article }) =>
       produce(state, (draft) => {
         draft.requestError = null;
@@ -147,7 +137,9 @@ const rooms = handleActions(
     [JOIN_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
-    }), // cancle
+    }),
+
+    // cancle
     [CANCLE]: (state, { payload: article }) => ({
       ...state,
       joinRoomList: state.joinRoomList.filter(
@@ -163,7 +155,9 @@ const rooms = handleActions(
     [CANCLE_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
-    }), // complete
+    }),
+
+    // complete
     [COMPLETE_SUCCESS]: (state, { payload: article }) =>
       produce(state, (draft) => {
         draft.requestError = null;
@@ -175,7 +169,8 @@ const rooms = handleActions(
     [COMPLETE_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
-    }), // reset data
+    }),
+
     [RESET_DATA]: () => initialState,
     [LOAD_INFO]: (state, { payload: article }) => ({
       ...state,

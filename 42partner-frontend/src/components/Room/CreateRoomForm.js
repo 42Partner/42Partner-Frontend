@@ -91,7 +91,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
 
   const articleHandler = (e) => {
     const { name, value } = e.target;
-    console.log(e.target);
+    // console.log(e.target);
     setArticle({ ...article, [name]: value });
   };
 
@@ -131,12 +131,14 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
   };
 
   const checkFillData = () => {
+    let len = 0;
+    const minimum = topic === 'MEAL' ? 3 : 2;
+
     if (article.title === '' || article.content === '') {
       setCheckWritable(false);
       return;
     }
 
-    let len = 0;
     for (let i = 0; i < Object.keys(matchingOption).length; ) {
       const name = Object.keys(matchingOption)[i];
       if (matchingOption[name].length !== 0) {
@@ -145,7 +147,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
       i += 1;
     }
 
-    if (len < 3) {
+    if (len < minimum) {
       setCheckWritable(false);
       return;
     }
@@ -159,7 +161,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
   };
 
   const editRoomHandler = () => {
-    dispatch(editRoom({ article }));
+    dispatch(editRoom({ article, articleId }));
     dispatch(changeEditMode(false));
     onClose();
   };
@@ -207,7 +209,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
 
   useEffect(() => {
     checkFillData();
-    console.log(article);
+    // console.log(article);
   }, [article]);
 
   useEffect(() => {

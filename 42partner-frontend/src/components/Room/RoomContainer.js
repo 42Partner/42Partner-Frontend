@@ -22,15 +22,13 @@ const theme = createTheme({
 const RoomContainer = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { roomList, mealRoomList, studyRoomList, roomListLoading } =
-    useSelector(({ rooms, loading }) => ({
-      roomList: rooms.roomList,
-      mealRoomList: rooms.mealRoomList,
-      studyRoomList: rooms.studyRoomList,
-      roomListLoading: loading['rooms/LOADLIST'],
-    }));
+  const { roomList, roomListLoading } = useSelector(({ rooms, loading }) => ({
+    roomList: rooms.roomList,
+    roomListLoading: loading['rooms/LOADLIST'],
+  }));
   const [open, setOpen] = useState(false);
   const [topic, setTopic] = useState('MEAL');
+  const [curList, setCurList] = useState([]);
 
   const handleWriteOpen = () => {
     setOpen(true);
@@ -52,8 +50,9 @@ const RoomContainer = () => {
   }, []);
 
   useEffect(() => {
-    console.log(mealRoomList);
-    console.log(studyRoomList);
+    if (roomList !== undefined && roomList !== null) {
+      setCurList(roomList.filter((room) => room.contentCategory === topic));
+    }
   }, [roomList]);
 
   return (
@@ -83,10 +82,10 @@ const RoomContainer = () => {
           </ThemeProvider>
         </div>
       )}
-      {roomList !== undefined && roomList !== null ? (
-        <RoomList roomList={roomList} />
+      {curList.length ? (
+        <RoomList roomList={curList} />
       ) : (
-        '방이 존재하지 않습니다'
+        <span className="loading-icon">방이 존재하지 않습니다</span>
       )}
     </div>
   );
