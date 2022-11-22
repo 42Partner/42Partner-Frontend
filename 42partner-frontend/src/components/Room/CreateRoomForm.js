@@ -19,7 +19,7 @@ import {
 } from '../../modules/rooms';
 import CheckBoxList from '../common/CheckBoxList';
 import RadioButtonList from '../common/RadioButtonList';
-import CustomPinkButton from '../common/CustomPinkButton';
+import CustomColorButton from '../common/CustomColorButton';
 
 const textFieldStyle = {
   mb: 2,
@@ -27,8 +27,8 @@ const textFieldStyle = {
 
 const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
   const dispatch = useDispatch();
-  const { articleInfo } = useSelector(({ rooms }) => ({
-    articleInfo: rooms.articleInfo,
+  const { targetArticle } = useSelector(({ rooms }) => ({
+    targetArticle: rooms.targetArticle,
   }));
   const [bookingDate, setBookingDate] = useState(new Date());
   const [options, setOptions] = useState({
@@ -140,6 +140,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
   const createRoomHandler = () => {
     dispatch(createRoom({ article }));
     onClose();
+    console.log(JSON.stringify(article));
   };
 
   const editRoomHandler = () => {
@@ -149,7 +150,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
   };
 
   const initCheckBoxOptions = () => {
-    const { matchConditionDto } = articleInfo;
+    const { matchConditionDto } = targetArticle;
     const tmpOption = {
       placeList: [
         { checked: false, value: 'SEOCHO', label: '개포' },
@@ -188,21 +189,21 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
   const initData = () => {
     setArticle({
       ...article,
-      anonymity: articleInfo.anonymity,
-      content: articleInfo.content,
-      contentCategory: articleInfo.contentCategory,
-      date: articleInfo.date,
-      matchConditionDto: articleInfo.matchConditionDto,
-      participantNumMax: articleInfo.participantNumMax,
-      title: articleInfo.title,
+      anonymity: targetArticle.anonymity,
+      content: targetArticle.content,
+      contentCategory: targetArticle.contentCategory,
+      date: targetArticle.date,
+      matchConditionDto: targetArticle.matchConditionDto,
+      participantNumMax: targetArticle.participantNumMax,
+      title: targetArticle.title,
     });
 
-    setMatchingOption(articleInfo.matchConditionDto);
+    setMatchingOption(targetArticle.matchConditionDto);
 
-    if (articleInfo.contentCategory === 'MEAL') {
-      setRadioOption(articleInfo.matchConditionDto.wayOfEatingList);
+    if (targetArticle.contentCategory === 'MEAL') {
+      setRadioOption(targetArticle.matchConditionDto.wayOfEatingList);
     } else {
-      setRadioOption(articleInfo.matchConditionDto.typeOfStudyList);
+      setRadioOption(targetArticle.matchConditionDto.typeOfStudyList);
     }
 
     initCheckBoxOptions();
@@ -222,10 +223,10 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
   }, [article]);
 
   useEffect(() => {
-    if (editMode && articleInfo !== null) {
+    if (editMode && targetArticle !== null) {
       initData();
     }
-  }, [articleInfo]);
+  }, [targetArticle]);
 
   useEffect(() => {
     setArticle({
@@ -244,7 +245,9 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
         className="check-option-wrapper"
         control={<Checkbox checked={article.anonymity} />}
         value={article.anonymity}
-        onClick={(e) => setArticle({ ...article, anonymity: e.target.checked })}
+        onChange={(e) =>
+          setArticle({ ...article, anonymity: e.target.checked })
+        }
         label="익명"
       />
       <TextField
@@ -337,7 +340,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
         onChange={articleHandler}
       />
       <div className="button-wrapper">
-        <CustomPinkButton
+        <CustomColorButton
           button={
             <Button
               className="button"

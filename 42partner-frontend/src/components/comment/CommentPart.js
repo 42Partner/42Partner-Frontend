@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { loadCommentList, createComment } from '../../modules/comments';
 import CommentList from './CommentList';
-import CustomPinkButton from '../common/CustomPinkButton';
+import CustomColorButton from '../common/CustomColorButton';
 
 const CommentPart = ({ articleId }) => {
   const dispatch = useDispatch();
@@ -55,7 +55,7 @@ const CommentPart = ({ articleId }) => {
           value={comment}
           onChange={commentInputHandler}
         />
-        <CustomPinkButton
+        <CustomColorButton
           button={
             <Button
               className="button"
@@ -69,7 +69,7 @@ const CommentPart = ({ articleId }) => {
       </div>
       {commetLoading && (
         <div className="loading-icon">
-          <CustomPinkButton button={<CircularProgress />} />
+          <CustomColorButton button={<CircularProgress />} />
         </div>
       )}
       {(commentList !== undefined || commentList !== null) && (

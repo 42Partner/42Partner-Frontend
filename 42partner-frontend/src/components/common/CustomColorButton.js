@@ -16,12 +16,12 @@ const theme = createTheme({
   },
 });
 
-const CustomPinkButton = ({ button }) => {
+const CustomColorButton = ({ button }) => {
   return <ThemeProvider theme={theme}>{button}</ThemeProvider>;
 };
 
-CustomPinkButton.propTypes = {
+CustomColorButton.propTypes = {
   button: PropTypes.element.isRequired,
 };
 
-export default CustomPinkButton;
+export default CustomColorButton;

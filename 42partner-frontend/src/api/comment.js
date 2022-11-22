@@ -22,7 +22,7 @@ export const addNewComment = async ({ commentInfo }) => {
 };
 
 export const deleteComment = ({ opinionId }) => {
-  return client.delete(`/api/opinions/${opinionId}/recoverable-delete`);
+  return client.post(`/api/opinions/${opinionId}/recoverable-delete`);
 };
 
 export const editComment = ({ content, opinionId }) => {

@@ -9,7 +9,7 @@ import CreateRoomForm from './CreateRoomForm';
 import { loadRoomList } from '../../modules/rooms';
 import RoomList from './RoomList';
 import '../../styles/RoomContainer.scss';
-import CustomPinkButton from '../common/CustomPinkButton';
+import CustomColorButton from '../common/CustomColorButton';
 
 const RoomContainer = () => {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ const RoomContainer = () => {
 
   return (
     <div className="room-container">
-      <CustomPinkButton
+      <CustomColorButton
         button={
           <Fab
             className="create-button"
@@ -71,7 +71,7 @@ const RoomContainer = () => {
       </ModalTemplate>
       {roomListLoading && (
         <div className="loading-icon">
-          <CustomPinkButton button={<CircularProgress />} />
+          <CustomColorButton button={<CircularProgress />} />
         </div>
       )}
       {curList.length ? (

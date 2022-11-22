@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -16,7 +12,8 @@ import {
   joinRoom,
 } from '../../modules/rooms';
 import '../../styles/RoomDetailForm.scss';
-import CustomPinkButton from '../common/CustomPinkButton';
+import CustomColorButton from '../common/CustomColorButton';
+import DialogContainer from '../common/DialogContainer';
 
 const RoomDetailForm = ({ roomInfoPart, commetPart, articleId, onClose }) => {
   const dispatch = useDispatch();
@@ -80,7 +77,7 @@ const RoomDetailForm = ({ roomInfoPart, commetPart, articleId, onClose }) => {
       <div className="paragraph button-wrapper">
         {myArticle ? (
           <div className="botton-group-wrapper">
-            <CustomPinkButton
+            <CustomColorButton
               className="button"
               button={
                 <Button
@@ -94,7 +91,7 @@ const RoomDetailForm = ({ roomInfoPart, commetPart, articleId, onClose }) => {
               }
             />
             <div>
-              <CustomPinkButton
+              <CustomColorButton
                 className="button"
                 button={
                   <Button
@@ -115,30 +112,14 @@ const RoomDetailForm = ({ roomInfoPart, commetPart, articleId, onClose }) => {
               >
                 삭제
               </Button>
-              <Dialog
+              <DialogContainer
                 open={comfirmOpen}
                 onClose={handleConfirmClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              >
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-description">
-                    삭제 하시겠습니까?
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={() => handleConfirmClose(false)}>
-                    취소
-                  </Button>
-                  <Button onClick={() => handleConfirmClose(true)} autoFocus>
-                    삭제
-                  </Button>
-                </DialogActions>
-              </Dialog>
+              />
             </div>
           </div>
         ) : (
-          <CustomPinkButton
+          <CustomColorButton
             className="button"
             button={
               <Button
