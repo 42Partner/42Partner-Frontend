@@ -2,16 +2,44 @@ import React, { useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
-import CommentList from '../comment/CommentList';
+// import axios from 'axios';
 import '../../styles/HistoryDetailForm.scss';
 
-const HistoryDetailForm = ({ category, open, onClose }) => {
-  const [isRoom, setIsRoom] = useState(false);
-
+const HistoryDetailForm = ({ id, content, open, onClose }) => {
+  console.log(id);
+  //   const [isRoom, setIsRoom] = useState(false);
+  const [detail, setDetail] = useState({});
   useEffect(() => {
-    if (category === 'room') {
-      setIsRoom(true);
-    }
+    const getMatchDetail = async () => {
+      try {
+        // const matchDetail = await axios.get(
+        //   `${process.env.REACT_APP_API_KEY}/matches/${id}`,
+        // );
+        const matchDetail = {
+          contentCategory: 'MEAL',
+          createdAt: '2022-11-23T11:29:31.892Z',
+          matchConditionDto: {
+            placeList: 'SEOCHO',
+            timeOfEatingList: 'BREAKFAST, LUNCH',
+            typeOfStudyList: ' INNER_CIRCLE',
+            wayOfEatingList: ' DELIVERY',
+          },
+          matchId: '4f3dda35-3739-406c-ad22-eed438831d66',
+          matchStatus: 'MATCHED',
+          methodCategory: 'MANUAL',
+          participantNum: 4,
+        };
+        console.log(matchDetail);
+        console.log('!!!!', detail);
+        setDetail({ ...detail }, matchDetail);
+        console.log('!!!!2', detail);
+      } catch (e) {
+        Promise.reject(e);
+      }
+    };
+    getMatchDetail();
+    console.log(id);
+    console.log('~~~', detail);
   }, []);
 
   return (
@@ -21,37 +49,32 @@ const HistoryDetailForm = ({ category, open, onClose }) => {
           <CloseIcon />
         </IconButton>
       </div>
+
       <div className="paragraph">
-        <h2>밥트너 랜덤매칭 (20yy-mm-dd) {isRoom} </h2>
-        <h3>Intra_id, intra_id2, intra_id3</h3>
+        <h2>[{content}] 랜덤매칭</h2>
+        <h3>{detail.participants}</h3>
       </div>
-      {isRoom && (
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.
-        </p>
-      )}
       <div className="select-info-wrapper">
-        <div>장소 : 개포 </div>
-        <div>시간대 : 점심</div>
-        <div> 배달여부 : 배달</div>
+        {content === '밥트너' ? (
+          <>
+            <div>장소 : {detail.place} </div>
+            <div>시간대 : {detail.time}</div>
+            <div> 배달여부 : {detail.mealWay}</div>
+          </>
+        ) : (
+          <>
+            <div>장소 : {detail.place} </div>
+            <div>학습 종류: {detail.studyType}</div>
+          </>
+        )}
       </div>
-      {isRoom && (
-        <div>
-          <p className="hashtag paragraph">#text1 #text #text #tadsfasdf</p>
-          <CommentList />
-        </div>
-      )}
     </div>
   );
 };
 
 HistoryDetailForm.propTypes = {
-  category: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };

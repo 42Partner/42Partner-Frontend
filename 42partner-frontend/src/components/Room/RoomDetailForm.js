@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -7,7 +8,24 @@ import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 import CommentList from '../comment/CommentList';
 
-const RoomDetailForm = ({ open, onClose }) => {
+const RoomDetailForm = ({
+  open,
+  onClose,
+  title,
+  content,
+  anonymity,
+  nickname,
+  participantNum,
+  participantNumMax,
+  isToday,
+  date,
+  contentCategory,
+  place,
+  timeOfEat,
+  typeOfStudy,
+  wayOfEat,
+}) => {
+  // console.log(room);
   return (
     <div className="room-detail-form">
       <div className="close-button">
@@ -15,22 +33,22 @@ const RoomDetailForm = ({ open, onClose }) => {
           <CloseIcon />
         </IconButton>
       </div>
-      <h1 className="paragraph">Title</h1>
-      <h3>Intra_id (1200)</h3>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur.
-      </p>
+      <h2 className="paragraph">
+        [{contentCategory}] {title}
+      </h2>
+      <h3> 방장 : {anonymity ? '익명' : nickname}</h3>
       <div className="select-info-wrapper">
-        <div>날짜 : 당일</div>
-        <div>장소 : 개포</div>
-        <div>시간대 : 점심 저녁</div>
-        <div>배달여부 : 배달</div>
+        <div>
+          인원 : {participantNum} / {participantNumMax}
+        </div>
+        <div>날짜 : {date}</div>
+        <div>장소 : {place} </div>
+        <div>시간대 : {timeOfEat}</div>
+        <div>학습 종류 : {typeOfStudy}</div>
+        <div>배달여부 : {wayOfEat}</div>
       </div>
-      <p className="hashtag">#text1 #text #text #tadsfasdf</p>
+      <p>{content}</p>
+      <p className="hashtag">{isToday} #text #text #tadsfasdf</p>
       <div className="paragraph button-wrapper">
         <Button className="join-button" variant="contained">
           참여

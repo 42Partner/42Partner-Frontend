@@ -2,9 +2,41 @@
 
 $wrapper-side-margin: 20px;
 
+@font-face {
+	font-family: 'tway_air';
+	src: url("./fonts/tway_air.ttf");
+}
+
+
+@font-face {
+	font-family: 'ubuntu-bold';
+	src: url("./fonts/Ubuntu/Ubuntu-Bold.ttf");
+	unicode-range:  U+0041-005A, U+0061-007A, U+0030-0039, U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E;
+}
+
+@font-face {
+	font-family: 'ubuntu-light';
+	src: url("./fonts/Ubuntu/Ubuntu-Light.ttf");
+	unicode-range:  U+0041-005A, U+0061-007A, U+0030-0039, U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E;
+}
+
+@font-face {
+	font-family: 'ubuntu-medium';
+	src: url("./fonts/Ubuntu/Ubuntu-Medium.ttf");
+	unicode-range:  U+0041-005A, U+0061-007A, U+0030-0039, U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E;
+}
+
+@font-face {
+	font-family: 'ubuntu-regular';
+	src: url("./fonts/Ubuntu/Ubuntu-Regular.ttf");
+	unicode-range:  U+0041-005A, U+0061-007A, U+0030-0039, U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E;
+}
+
 .App {
+	font-family: 'ubuntu-regular',  'tway_air';
   @include mobile {
     .content-wrapper {
+	font-family: 'ubuntu-regular',  'tway_air';
       margin: {
         top: 120px;
         left: $wrapper-side-margin;

@@ -24,13 +24,13 @@ import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
   navbar: {
-    backgroundColor: '#f8dadc',
+    backgroundColor: '#ffdbe0', // 'lightpink', // #f8dadc
     paddingRight: '60px',
     paddingLeft: '60px',
     height: '100px',
   },
   logo: {
-    fontFamily: 'Ubuntu',
+    fontFamily: 'Ubuntu-medium',
     fontWeight: 600,
     color: '#FFFEFE',
     textAlign: 'center',
@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
     fontSize: '40px',
   },
   menuButton: {
-    fontFamily: 'ubuntu',
+    fontFamily: 'ubuntu-regular',
     fontWeight: 700,
     size: '18px',
     marginLeft: '30px',
@@ -48,7 +48,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-between',
   },
   description: {
-    fontFamily: 'ubuntu',
+    fontFamily: 'ubuntu-regular',
     fontSize: '15px',
   },
   button: {
@@ -94,7 +94,7 @@ const Navbar = () => {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <List className>
+      <List>
         {['Home', 'Meal', 'Study'].map((text, index) => (
           <Link
             to={index === 0 ? '/' : condition2(index)}

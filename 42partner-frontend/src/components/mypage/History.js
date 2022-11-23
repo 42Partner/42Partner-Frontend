@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import '../../styles/Mypage.scss';
 
 const History = () => {
@@ -21,7 +21,6 @@ const History = () => {
   //       },
   //     ],
   //   };
-  const historyURL = `http://15.165.146.60:8080/api/matches`;
   const [num, setNum] = useState(0);
   useEffect(() => {
     const getNum = async () => {
@@ -30,10 +29,14 @@ const History = () => {
         // console.log(matches.content);
         // console.log(matches.content[0].participantNum);
 
-        const history = await axios.get(historyURL);
-        setNum(history.content[0].participantNum);
+        // const history = await axios.get(
+        //   `${process.env.REACT_APP_API_KEY}/matches`,
+        // );
+
+        // setNum(history.content[0].participantNum);
+        setNum(0);
       } catch (e) {
-        console.log(e);
+        Promise.reject(e);
       }
     };
 

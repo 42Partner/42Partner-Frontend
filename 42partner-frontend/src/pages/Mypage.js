@@ -7,14 +7,17 @@ import '../styles/Mypage.scss';
 
 const MyPage = () => {
   return (
-    <div>
+    <div className="mypage-div">
+      <h1>User Info.</h1>
       <div className="mypage-wrapper">
         <Profile />
         <Activity />
         <History />
       </div>
-      <h1>Matching History</h1>
-      <MatchingHistory />
+      <div>
+        <h1>Matching History</h1>
+        <MatchingHistory />
+      </div>
     </div>
   );
 };

@@ -1,6 +1,9 @@
 body {
-	font-family: 'Ubuntu';
-
+	font-family: 'ubuntu-regular', 'tway_air.ttf';
+	
+	.matching-history-wrapper {
+		margin-bottom: 10vh;
+	}
 	.matching-btn {
 		padding-top: 10px;
 		padding-right: 40px;

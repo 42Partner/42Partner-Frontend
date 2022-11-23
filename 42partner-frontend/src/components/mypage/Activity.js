@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import '../../styles/Mypage.scss';
 
 const Activity = () => {
-  const scoreURL = `http://15.165.146.60:8080/api/activities/score`;
   const [score, setScore] = useState(0);
   useEffect(() => {
     const getScore = async () => {
       try {
-        const activity = await axios.get(scoreURL);
-        setScore(activity.score);
+        // const activity = await axios.get(
+        //   `${process.env.REACT_APP_API_KEY}/activities/score`,
+        // );
+        // setScore(activity.score);
+
+        setScore(10);
       } catch (e) {
-        console.log(e);
+        Promise.reject(e);
       }
     };
 
