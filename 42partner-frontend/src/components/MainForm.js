@@ -17,6 +17,7 @@ const MainForm = () => {
       navigate('/login');
     } else {
       client.defaults.headers.common.Authorization = `Bearer ${params.access_token}`;
+      console.log(client.defaults.headers.common);
       navigate('/select');
     }
   }, []);
