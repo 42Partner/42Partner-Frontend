@@ -67,5 +67,5 @@
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.7.1"
   },
-  "proxy": "http://15.165.146.60:8080/"
+  "proxy": "https://api.42partner.com/"
 }

@@ -5,7 +5,7 @@ import '../styles/LoginForm.scss';
 const LoginForm = () => {
   const requestLogin = () => {
     window.location.href =
-      'http://15.165.146.60:8080/oauth2/authorization/authclient';
+      'https://api.42partner.com/oauth2/authorization/authclient';
   };
 
   return (
