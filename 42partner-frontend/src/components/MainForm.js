@@ -17,12 +17,15 @@ const MainForm = () => {
       navigate('/login');
     } else {
       client.defaults.headers.common.Authorization = `Bearer ${params.access_token}`;
-      console.log(client.defaults.headers.common);
       navigate('/select');
     }
   }, []);
 
-  return <div>Main Page</div>;
+  return (
+    <div>
+      <h1>This is Main Page.</h1>You will soon be taken to another page...
+    </div>
+  );
 };
 
 export default MainForm;

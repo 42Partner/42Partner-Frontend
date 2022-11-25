@@ -4,6 +4,7 @@ const client = axios.create({});
 
 client.interceptors.response.use(
   (res) => {
+    console.log(res.data);
     return res;
   },
   (error) => {
