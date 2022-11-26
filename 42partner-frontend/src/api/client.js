@@ -1,10 +1,9 @@
 import axios from 'axios';
 
-const client = axios.create({});
+const client = axios.create({ withCredentials: true });
 
 client.interceptors.response.use(
   (res) => {
-    console.log(res.data);
     return res;
   },
   (error) => {

@@ -9,6 +9,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import rootReducer, { rootSaga } from './modules';
+import { setToken, setUserId } from './modules/login';
+import client from './api/client';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -16,7 +18,23 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(sagaMiddleware)),
 );
 
+function loadUserData() {
+  try {
+    const token = localStorage.getItem('accessToken');
+    const userId = localStorage.getItem('userId');
+
+    if (!token || !userId) return;
+
+    client.defaults.headers.common.Authorization = `Bearer ${token}`;
+    store.dispatch(setToken(token));
+    store.dispatch(setUserId(userId));
+  } catch (e) {
+    console.log('localStorage is not working');
+  }
+}
+
 sagaMiddleware.run(rootSaga);
+loadUserData();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
