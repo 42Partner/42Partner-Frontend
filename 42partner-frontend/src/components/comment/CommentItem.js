@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import IconButton from '@mui/material/IconButton';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
@@ -10,6 +11,9 @@ import DialogContainer from '../common/DialogContainer';
 
 const CommentItem = ({ commentInfo, anonymity, onDelete, onEdit }) => {
   const { content, createdAt, updatedAt, nickname } = commentInfo;
+  const { userId } = useSelector(({ login }) => ({
+    userId: login.userId,
+  }));
   const [comfirmOpen, setComfirmOpen] = useState(false);
   const [newContent, setNewContent] = useState(commentInfo.content);
   const [editMode, setEditMode] = useState(false);
@@ -57,17 +61,17 @@ const CommentItem = ({ commentInfo, anonymity, onDelete, onEdit }) => {
           ) : (
             <span>{changeDateFormat(updatedAt)} (수정됨)</span>
           )}
-          {/* {commentInfo.userId === sessionId && ( */}
-          <IconButton size="small" onClick={handleEditMode}>
-            <CreateOutlinedIcon fontSize="small" />
-          </IconButton>
-          {/* )} */}
+          {commentInfo.userId === userId && (
+            <IconButton size="small" onClick={handleEditMode}>
+              <CreateOutlinedIcon fontSize="small" />
+            </IconButton>
+          )}
         </span>
-        {/* {commentInfo.userId === sessionId && ( */}
-        <IconButton size="small" onClick={handleConfirmOpen}>
-          <CloseIcon fontSize="small" />
-        </IconButton>
-        {/* )} */}
+        {commentInfo.userId === userId && (
+          <IconButton size="small" onClick={handleConfirmOpen}>
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        )}
         <DialogContainer open={comfirmOpen} onClose={handleConfirmClose} />
       </div>
       {editMode ? (
@@ -101,6 +105,7 @@ CommentItem.propTypes = {
     opinionId: PropTypes.string,
     parentId: PropTypes.string,
     updatedAt: PropTypes.string,
+    userId: PropTypes.string,
   }).isRequired,
   anonymity: PropTypes.bool.isRequired,
   onDelete: PropTypes.func.isRequired,

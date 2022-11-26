@@ -75,6 +75,7 @@ const RoomItem = ({ articleInfo, hashtag }) => {
                   />
                 }
                 articleId={articleInfo.articleId}
+                ownerId={articleInfo.userId}
                 onClose={handleWriteClose}
               />
             )}
@@ -108,6 +109,7 @@ RoomItem.propTypes = {
     participantNum: PropTypes.number,
     participantNumMax: PropTypes.number,
     title: PropTypes.string,
+    userId: PropTypes.string,
   }).isRequired,
   hashtag: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

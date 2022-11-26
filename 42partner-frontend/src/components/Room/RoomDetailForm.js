@@ -15,12 +15,18 @@ import '../../styles/RoomDetailForm.scss';
 import CustomColorButton from '../common/CustomColorButton';
 import DialogContainer from '../common/DialogContainer';
 
-const RoomDetailForm = ({ roomInfoPart, commetPart, articleId, onClose }) => {
+const RoomDetailForm = ({
+  roomInfoPart,
+  commetPart,
+  articleId,
+  ownerId,
+  onClose,
+}) => {
   const dispatch = useDispatch();
-  const { joinRoomList } = useSelector(({ rooms }) => ({
+  const { joinRoomList, userId } = useSelector(({ rooms, login }) => ({
     joinRoomList: rooms.joinRoomList,
+    userId: login.userId,
   }));
-  const [myArticle, setMyArticle] = useState(false);
   const [comfirmOpen, setComfirmOpen] = useState(false);
   const [complete, setComplete] = useState(false);
   const [join, setJoin] = useState(false);
@@ -61,9 +67,6 @@ const RoomDetailForm = ({ roomInfoPart, commetPart, articleId, onClose }) => {
 
   useEffect(() => {
     isAlreadyJoin();
-    // if ( userId === sessionId) {
-    setMyArticle(true);
-    // }
   }, []);
 
   return (
@@ -75,7 +78,7 @@ const RoomDetailForm = ({ roomInfoPart, commetPart, articleId, onClose }) => {
       </div>
       {roomInfoPart}
       <div className="paragraph button-wrapper">
-        {myArticle ? (
+        {ownerId === userId ? (
           <div className="botton-group-wrapper">
             <CustomColorButton
               className="button"
@@ -120,9 +123,9 @@ const RoomDetailForm = ({ roomInfoPart, commetPart, articleId, onClose }) => {
           </div>
         ) : (
           <CustomColorButton
-            className="button"
             button={
               <Button
+                className="button"
                 variant="contained"
                 onClick={joinRoomHandler}
                 color={join ? 'cancle' : 'primary'}
@@ -142,6 +145,7 @@ RoomDetailForm.propTypes = {
   roomInfoPart: PropTypes.element.isRequired,
   commetPart: PropTypes.element.isRequired,
   articleId: PropTypes.string.isRequired,
+  ownerId: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
