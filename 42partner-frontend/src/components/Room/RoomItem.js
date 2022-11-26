@@ -74,7 +74,7 @@ const RoomItem = ({ articleInfo, hashtag }) => {
                     articleId={articleInfo.articleId}
                   />
                 }
-                articleId={articleInfo.articleId}
+                articleInfo={articleInfo}
                 ownerId={articleInfo.userId}
                 onClose={handleWriteClose}
               />

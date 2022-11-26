@@ -18,11 +18,12 @@ import DialogContainer from '../common/DialogContainer';
 const RoomDetailForm = ({
   roomInfoPart,
   commetPart,
-  articleId,
+  articleInfo,
   ownerId,
   onClose,
 }) => {
   const dispatch = useDispatch();
+  const { articleId } = articleInfo;
   const { joinRoomList, userId } = useSelector(({ rooms, login }) => ({
     joinRoomList: rooms.joinRoomList,
     userId: login.userId,
@@ -125,6 +126,9 @@ const RoomDetailForm = ({
           <CustomColorButton
             button={
               <Button
+                disabled={
+                  articleInfo.participantNum === articleInfo.participantNumMax
+                }
                 className="button"
                 variant="contained"
                 onClick={joinRoomHandler}
@@ -144,7 +148,30 @@ const RoomDetailForm = ({
 RoomDetailForm.propTypes = {
   roomInfoPart: PropTypes.element.isRequired,
   commetPart: PropTypes.element.isRequired,
-  articleId: PropTypes.string.isRequired,
+  articleInfo: PropTypes.shape({
+    anonymity: PropTypes.bool,
+    articleId: PropTypes.string,
+    content: PropTypes.string,
+    contentCategory: PropTypes.string,
+    createdAt: PropTypes.string,
+    date: PropTypes.string,
+    isToday: PropTypes.bool,
+    // eslint-disable-next-line react/forbid-prop-types
+    matchConditionDto: PropTypes.object,
+    // (
+    //   PropTypes.shape({
+    //     placeList: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    //     timeOfEatingList: PropTypes.arrayOf(PropTypes.string),
+    //     typeOfStudyList: PropTypes.arrayOf(PropTypes.string),
+    //     wayOfEatingList: PropTypes.arrayOf(PropTypes.string),
+    //   }),
+    // ),
+    nickname: PropTypes.string,
+    participantNum: PropTypes.number,
+    participantNumMax: PropTypes.number,
+    title: PropTypes.string,
+    userId: PropTypes.string,
+  }).isRequired,
   ownerId: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
 };
