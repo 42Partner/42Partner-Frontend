@@ -66,6 +66,7 @@ const initialState = {
   articleInfo: null,
   roomList: [],
   joinRoomList: [],
+  completeRoomList: [],
   requestError: null,
 };
 
@@ -120,14 +121,6 @@ const rooms = handleActions(
     }),
 
     // join
-    [JOIN]: (state, { payload: article }) =>
-      produce(state, (draft) => {
-        draft.requestError = null;
-        const room = draft.roomList.find(
-          (c) => c.articleId === article.articleId,
-        );
-        draft.joinRoomList.push(room);
-      }),
     [JOIN_SUCCESS]: (state, { payload: article }) =>
       produce(state, (draft) => {
         draft.requestError = null;
@@ -142,12 +135,6 @@ const rooms = handleActions(
     }),
 
     // cancle
-    [CANCLE]: (state, { payload: article }) => ({
-      ...state,
-      joinRoomList: state.joinRoomList.filter(
-        (room) => room.articleId !== article.articleId,
-      ),
-    }),
     [CANCLE_SUCCESS]: (state, { payload: article }) => ({
       ...state,
       joinRoomList: state.joinRoomList.filter(
@@ -163,10 +150,10 @@ const rooms = handleActions(
     [COMPLETE_SUCCESS]: (state, { payload: article }) =>
       produce(state, (draft) => {
         draft.requestError = null;
-        const index = draft.roomList.findIndex(
+        const room = draft.roomList.find(
           (c) => c.articleId === article.articleId,
         );
-        draft.roomList.splice(index, 1);
+        draft.completeRoomList.push(room);
       }),
     [COMPLETE_FAILURE]: (state, { payload: e }) => ({
       ...state,

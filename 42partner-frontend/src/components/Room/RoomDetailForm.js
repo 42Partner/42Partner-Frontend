@@ -18,10 +18,13 @@ import DialogContainer from '../common/DialogContainer';
 const RoomDetailForm = ({ roomInfoPart, commetPart, articleInfo, onClose }) => {
   const dispatch = useDispatch();
   const { articleId } = articleInfo;
-  const { joinRoomList, userId } = useSelector(({ rooms, login }) => ({
-    joinRoomList: rooms.joinRoomList,
-    userId: login.userId,
-  }));
+  const { joinRoomList, completeRoomList, userId } = useSelector(
+    ({ rooms, login }) => ({
+      joinRoomList: rooms.joinRoomList,
+      completeRoomList: rooms.completeRoomList,
+      userId: login.userId,
+    }),
+  );
   const [comfirmOpen, setComfirmOpen] = useState(false);
   const [complete, setComplete] = useState(false);
   const [join, setJoin] = useState(false);
@@ -60,8 +63,18 @@ const RoomDetailForm = ({ roomInfoPart, commetPart, articleInfo, onClose }) => {
     }
   };
 
+  const isAleradyComplete = () => {
+    if (
+      completeRoomList.find((room) => room.articleId === articleId) !==
+      undefined
+    ) {
+      setComplete(true);
+    }
+  };
+
   useEffect(() => {
     isAlreadyJoin();
+    isAleradyComplete();
   }, []);
 
   return (
@@ -121,7 +134,8 @@ const RoomDetailForm = ({ roomInfoPart, commetPart, articleInfo, onClose }) => {
             button={
               <Button
                 disabled={
-                  articleInfo.participantNum === articleInfo.participantNumMax
+                  articleInfo.participantNum ===
+                    articleInfo.participantNumMax || complete
                 }
                 className="button"
                 variant="contained"
