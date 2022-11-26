@@ -15,13 +15,7 @@ import '../../styles/RoomDetailForm.scss';
 import CustomColorButton from '../common/CustomColorButton';
 import DialogContainer from '../common/DialogContainer';
 
-const RoomDetailForm = ({
-  roomInfoPart,
-  commetPart,
-  articleInfo,
-  ownerId,
-  onClose,
-}) => {
+const RoomDetailForm = ({ roomInfoPart, commetPart, articleInfo, onClose }) => {
   const dispatch = useDispatch();
   const { articleId } = articleInfo;
   const { joinRoomList, userId } = useSelector(({ rooms, login }) => ({
@@ -79,7 +73,7 @@ const RoomDetailForm = ({
       </div>
       {roomInfoPart}
       <div className="paragraph button-wrapper">
-        {ownerId === userId ? (
+        {articleInfo.userId === userId ? (
           <div className="botton-group-wrapper">
             <CustomColorButton
               className="button"
@@ -172,7 +166,6 @@ RoomDetailForm.propTypes = {
     title: PropTypes.string,
     userId: PropTypes.string,
   }).isRequired,
-  ownerId: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
