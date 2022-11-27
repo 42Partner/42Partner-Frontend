@@ -1,6 +1,12 @@
-import React from 'react';
+// eslint-disable-next-line no-unused-vars
+import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
+// import useHistory from 'react-router-dom';
 import '../styles/LoginForm.scss';
+// eslint-disable-next-line no-unused-vars
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 const LoginForm = () => {
   const requestLogin = () => {

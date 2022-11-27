@@ -1,8 +1,17 @@
+
+// import React, { useState, useEffect } from 'react';
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import Fab from '@mui/material/Fab';
+// import AddIcon from '@mui/icons-material/Add';
+
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import RoomItem from './RoomItem';
 import '../../styles/RoomList.scss';
+
 import { optionList } from '../utils';
+
 
 const RoomList = ({ roomList }) => {
   const makeHashTag = (articleInfo) => {
@@ -24,17 +33,56 @@ const RoomList = ({ roomList }) => {
     return res;
   };
 
+  const [roomList, setRoomList] = useState([]);
+  useEffect(() => {
+    const getRooms = async () => {
+      try {
+        const rooms = await Instance.get(
+          `${process.env.REACT_APP_API_KEY}/articles`,
+        );
+
+        setRoomList(...roomList, rooms.content);
+      } catch (e) {
+        Promise.reject(e);
+      }
+    };
+    getRooms();
+  }, []);
+
   return (
     <div className="room-list">
-      {roomList.map((article) => {
-        return (
+      <ThemeProvider theme={theme}>
+        <Fab
+          className="create-button"
+          color="primary"
+          aria-label="add"
+          onClick={handleWriteOpen}
+        >
+          <AddIcon />
+        </Fab>
+      </ThemeProvider>
+      <ModalTemplate open={open} onClose={handleWriteClose}>
+        <CreateRoomForm />
+      </ModalTemplate>
+      {roomList &&
+        roomList.map((room) => (
           <RoomItem
-            key={article.articleId}
-            articleInfo={article}
-            hashtag={makeHashTag(article)}
+            key={room.articleId}
+            
+            articleInfo={room}
+            // hashtag={makeHashTag(article)}
+            date={room.date}
+            anonymity={room.anonymity}
+            nickname={room.nickname}
+            title={room.title}
+            content={room.content}
+            participantNum={room.participantNum}
+            participantNumMax={room.participantNumMax}
+            isToday={room.isToday}
+            contentCategory={room.contentCategory}
+            matchConditionDto={room.matchConditionDto}
           />
-        );
-      })}
+        ))}
     </div>
   );
 };
