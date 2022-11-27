@@ -71,7 +71,6 @@ const RoomDetailForm = ({
     isAlreadyJoin();
   }, []);
 
-
   return (
     <div className="room-detail-form">
       <div className="close-button">

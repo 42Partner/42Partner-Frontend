@@ -10,9 +10,9 @@ import CustomColorButton from '../common/CustomColorButton';
 
 const CommentPart = ({ articleId }) => {
   const dispatch = useDispatch();
-  const { commentList, commetLoading } = useSelector(
+  const { commentsList, commetLoading } = useSelector(
     ({ comments, loading }) => ({
-      commentList: comments.commentList,
+      commentsList: comments.commentList,
       commetLoading: loading['comment/LOADLIST'],
     }),
   );
@@ -72,8 +72,8 @@ const CommentPart = ({ articleId }) => {
           <CustomColorButton button={<CircularProgress />} />
         </div>
       )}
-      {(commentList !== undefined || commentList !== null) && (
-        <CommentList articleId={articleId} commentList={commentList} />
+      {(commentsList !== undefined || commentsList !== null) && (
+        <CommentList articleId={articleId} commentList={commentsList} />
       )}
     </div>
   );
