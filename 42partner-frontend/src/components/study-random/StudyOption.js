@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ButtonGroup,
   Button,
   RadioGroup,
   FormControlLabel,
@@ -16,17 +15,6 @@ const StudyOption = () => {
       <h3 className="option-description" style={{ paddingTop: 20 }}>
         랜덤 매칭을 기다리는 사용자는 nn명 입니다.
       </h3>
-      <div className="option-when">
-        <span className="tag">When ?</span>
-        <div className="option-group">
-          <ButtonGroup variant="contained" aria-label="am-time">
-            <Button>AM 00 - 05</Button>
-            <Button>AM 06 - 11</Button>
-            <Button>PM 12 - 17</Button>
-            <Button>PM 18 - 23</Button>
-          </ButtonGroup>
-        </div>
-      </div>
       <div className="option-where">
         <span className="tag">Where ?</span>
         <div className="option-group">

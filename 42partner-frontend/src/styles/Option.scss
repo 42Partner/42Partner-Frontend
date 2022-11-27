@@ -1,29 +1,35 @@
-.option-wrapper .option-description {
+@import './../styles/utils.scss';
+
+.option-wrapper {
   display: flex;
-  justify-content: center;
-}
+  flex-direction: column;
 
-.am-time,
-.pm-time {
-  background-color: #e0e0e0;
-}
+  .option-description {
+    text-align: center;
+  }
 
-.tag {
-  padding-top: 5px;
-  margin-left: 100px;
-  display: inline-block;
-  width: 80px;
-  font-weight: 500;
-}
+  .am-time,
+  .pm-time {
+    background-color: #e0e0e0;
+  }
 
-.option-group {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-left: 130px;
-}
+  .tag {
+    padding-top: 5px;
+    margin-left: 100px;
+    display: inline-block;
+    width: 80px;
+    font-weight: 500;
+  }
 
-.option-btn {
-  padding-right: 40px;
-  margin: 0 20px;
-  float: right;
+  .option-group {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: 130px;
+  }
+
+  .option-btn {
+    padding-right: 40px;
+    margin: 0 20px;
+    @include flex-end-sort;
+  }
 }
