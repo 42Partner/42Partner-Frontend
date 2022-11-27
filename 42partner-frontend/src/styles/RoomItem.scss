@@ -53,6 +53,7 @@
 @include mobile {
   .room-item {
     max-height: 250px;
+    min-width: 200px;
   }
 
   .title-text {
