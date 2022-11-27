@@ -1,46 +1,31 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable react/prop-types */
+import React from 'react';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 // import axios from 'axios';
 import '../../styles/HistoryDetailForm.scss';
+import ConvertMap from '../common/ConvertMap';
 
-const HistoryDetailForm = ({ id, content, open, onClose }) => {
-  console.log(id);
-  //   const [isRoom, setIsRoom] = useState(false);
-  const [detail, setDetail] = useState({});
-  useEffect(() => {
-    const getMatchDetail = async () => {
-      try {
-        // const matchDetail = await axios.get(
-        //   `${process.env.REACT_APP_API_KEY}/matches/${id}`,
-        // );
-        const matchDetail = {
-          contentCategory: 'MEAL',
-          createdAt: '2022-11-23T11:29:31.892Z',
-          matchConditionDto: {
-            placeList: 'SEOCHO',
-            timeOfEatingList: 'BREAKFAST, LUNCH',
-            typeOfStudyList: ' INNER_CIRCLE',
-            wayOfEatingList: ' DELIVERY',
-          },
-          matchId: '4f3dda35-3739-406c-ad22-eed438831d66',
-          matchStatus: 'MATCHED',
-          methodCategory: 'MANUAL',
-          participantNum: 4,
-        };
-        console.log(matchDetail);
-        console.log('!!!!', detail);
-        setDetail({ ...detail }, matchDetail);
-        console.log('!!!!2', detail);
-      } catch (e) {
-        Promise.reject(e);
-      }
-    };
-    getMatchDetail();
-    console.log(id);
-    console.log('~~~', detail);
-  }, []);
+const HistoryDetailForm = ({ detail, open, onClose }) => {
+  console.log('##################', detail);
+
+  console.log(detail.matchConditionDto.timeOfEatingList);
+
+  const mealOrStudy = ConvertMap.get(detail.contentCategory);
+  const randomOrRoom = ConvertMap.get(detail.methodCategory);
+  const place = detail.matchConditionDto.placeList.map((ele) =>
+    ConvertMap.get(ele),
+  );
+  const timeToEat = detail.matchConditionDto.timeOfEatingList.map((ele) =>
+    ConvertMap.get(ele),
+  );
+  const wayToEat = detail.matchConditionDto.wayOfEatingList.map((ele) =>
+    ConvertMap.get(ele),
+  );
+  const typeToStudy = detail.matchConditionDto.typeOfStudyList.map((ele) =>
+    ConvertMap.get(ele),
+  );
 
   return (
     <div className="history-detail-form">
@@ -51,20 +36,26 @@ const HistoryDetailForm = ({ id, content, open, onClose }) => {
       </div>
 
       <div className="paragraph">
-        <h2>[{content}] 랜덤매칭</h2>
-        <h3>{detail.participants}</h3>
+        {ConvertMap.get()}
+        <h2>
+          [{mealOrStudy}]{randomOrRoom}
+        </h2>
       </div>
       <div className="select-info-wrapper">
-        {content === '밥트너' ? (
+        {mealOrStudy === '밥트너' ? (
           <>
-            <div>장소 : {detail.place} </div>
-            <div>시간대 : {detail.time}</div>
-            <div> 배달여부 : {detail.mealWay}</div>
+            <div>장소 : {place}</div>
+            {randomOrRoom === '랜덤매칭' ? null : (
+              <div>시간대 : {timeToEat}</div>
+            )}
+            <div>배달여부 : {wayToEat}</div>
+            <h1>MEAL</h1>
           </>
         ) : (
           <>
-            <div>장소 : {detail.place} </div>
-            <div>학습 종류: {detail.studyType}</div>
+            <div>장소 : {place} </div>
+            <div>학습 종류 : {typeToStudy}</div>
+            <h1>STUDY</h1>
           </>
         )}
       </div>
@@ -73,8 +64,6 @@ const HistoryDetailForm = ({ id, content, open, onClose }) => {
 };
 
 HistoryDetailForm.propTypes = {
-  id: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };

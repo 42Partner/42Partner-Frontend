@@ -99,6 +99,7 @@ const Navbar = () => {
           <Link
             to={index === 0 ? '/' : condition2(index)}
             style={{ color: 'black', textDecoration: 'none' }}
+            key={text}
           >
             <ListItem key={text} disablePadding>
               <ListItemButton>

@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import '../../styles/Mypage.scss';
 import Button from '@mui/material/Button';
+import Instance from '../common/Instance';
 
 const Profile = () => {
   const [user, setUser] = useState(null);
-
   useEffect(() => {
     const getUser = async () => {
       try {
-        const userData = await axios.get(
-          `${process.env.REACT_APP_API_KEY}/users/3128dd03-82d9-4f93-b7eb-c2f74b3e2cf4`,
+        const userData = await Instance.get(
+          `${process.env.REACT_APP_API_KEY}/users/5caab2b6-8da4-474e-8a67-2b157acedf0a`,
         );
         setUser(userData.data);
       } catch (e) {
@@ -20,6 +19,7 @@ const Profile = () => {
 
     getUser();
   }, []);
+  console.log(user);
 
   if (!user) return null;
   return (
@@ -41,7 +41,7 @@ const Profile = () => {
                 variant="contained"
                 onClick={() =>
                   window.open(
-                    `https://profile.intra.42.fr/users/${user.nickname}`,
+                    `https://profile.intra.42.fr/users/${user.oauth2Username}`,
                     '_blank',
                   )
                 }
