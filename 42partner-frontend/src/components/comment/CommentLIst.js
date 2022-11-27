@@ -10,6 +10,7 @@ const CommentList = ({ articleId, commentList }) => {
     roomList: rooms.roomList,
   }));
   let anonymity = false;
+
   const onDelete = useCallback(
     (opinionId) => {
       dispatch(deleteComment({ opinionId }));
@@ -37,6 +38,7 @@ const CommentList = ({ articleId, commentList }) => {
             commentInfo={comment}
             onDelete={onDelete}
             onEdit={onEdit}
+            articleId={articleId}
           />
         );
       })}

@@ -8,16 +8,8 @@ import TextField from '@mui/material/TextField';
 import DoneIcon from '@mui/icons-material/Done';
 import '../../styles/CommentItem.scss';
 import DialogContainer from '../common/DialogContainer';
-import CreateReply from './CreateReply';
-import NestedComments from './NestedComments';
 
-const CommentItem = ({
-  commentInfo,
-  anonymity,
-  onDelete,
-  onEdit,
-  articleId,
-}) => {
+const NestedCommentItem = ({ commentInfo, anonymity, onDelete, onEdit }) => {
   const { content, createdAt, updatedAt, nickname } = commentInfo;
   const { userId } = useSelector(({ login }) => ({
     userId: login.userId,
@@ -25,7 +17,6 @@ const CommentItem = ({
   const [comfirmOpen, setComfirmOpen] = useState(false);
   const [newContent, setNewContent] = useState(commentInfo.content);
   const [editMode, setEditMode] = useState(false);
-  const [nestedComment, setNestedComment] = useState(false);
 
   const handleEditMode = () => {
     setNewContent(content);
@@ -58,10 +49,6 @@ const CommentItem = ({
     }
 
     handleEditMode();
-  };
-
-  const handleNestedComment = () => {
-    setNestedComment(!nestedComment);
   };
 
   return (
@@ -105,28 +92,11 @@ const CommentItem = ({
       ) : (
         <div>{content}</div>
       )}
-      {commentInfo.level === 1 && (
-        <button
-          className="reply-button"
-          type="button"
-          onClick={handleNestedComment}
-        >
-          답글
-        </button>
-      )}
-      {nestedComment && (
-        <CreateReply
-          parentId={commentInfo.opinionId}
-          handleNestedComment={handleNestedComment}
-          articleId={articleId}
-        />
-      )}
-      <NestedComments anonymity={anonymity} parentId={commentInfo.opinionId} />
     </div>
   );
 };
 
-CommentItem.propTypes = {
+NestedCommentItem.propTypes = {
   commentInfo: PropTypes.shape({
     content: PropTypes.string,
     createdAt: PropTypes.string,
@@ -140,7 +110,6 @@ CommentItem.propTypes = {
   anonymity: PropTypes.bool.isRequired,
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
-  articleId: PropTypes.string.isRequired,
 };
 
-export default React.memo(CommentItem);
+export default NestedCommentItem;
