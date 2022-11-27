@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useDispatch, useSelector } from 'react-redux';
 import ModalTemplate from '../common/ModalTemplate';
 import CreateRoomForm from './CreateRoomForm';
 import { loadRoomList } from '../../modules/rooms';
 import RoomList from './RoomList';
-import '../../styles/RoomContainer.scss';
 import CustomColorButton from '../common/CustomColorButton';
+import '../../styles/RoomContainer.scss';
 
 const RoomContainer = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { roomList, roomListLoading } = useSelector(({ rooms, loading }) => ({
-    roomList: rooms.roomList,
-    roomListLoading: loading['rooms/LOADLIST'],
-  }));
+  const { articleList, roomListLoading } = useSelector(
+    ({ rooms, loading }) => ({
+      articleList: rooms.roomList,
+      roomListLoading: loading['rooms/LOADLIST'],
+    }),
+  );
   const [open, setOpen] = useState(false);
   const [topic, setTopic] = useState('MEAL');
   const [curList, setCurList] = useState([]);
@@ -42,10 +44,10 @@ const RoomContainer = () => {
   }, []);
 
   useEffect(() => {
-    if (roomList !== undefined && roomList !== null) {
-      setCurList(roomList.filter((room) => room.contentCategory === topic));
+    if (articleList !== undefined && articleList !== null) {
+      setCurList(articleList.filter((room) => room.contentCategory === topic));
     }
-  }, [roomList]);
+  }, [articleList]);
 
   return (
     <div className="room-container">

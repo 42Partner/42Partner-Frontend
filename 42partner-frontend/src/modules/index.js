@@ -15,7 +15,6 @@ const rootReducer = combineReducers({
 
 export function* rootSaga() {
   yield all([commentSaga(), rooomSaga()]);
-
 }
 
 export default rootReducer;

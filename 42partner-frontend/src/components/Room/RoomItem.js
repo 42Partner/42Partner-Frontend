@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -6,9 +5,7 @@ import Button from '@mui/material/Button';
 import GroupsIcon from '@mui/icons-material/Groups';
 import ModalTemplate from '../common/ModalTemplate';
 import RoomDetailForm from './RoomDetailForm';
-
 // import ConvertMap from '../common/ConvertMap';
-
 import '../../styles/RoomItem.scss';
 import CreateRoomForm from './CreateRoomForm';
 import CommentPart from '../comment/CommentPart';
@@ -21,9 +18,7 @@ const RoomItem = ({ articleInfo, hashtag }) => {
     editMode: rooms.editMode,
   }));
 
-
   const [open, setOpen] = useState(false);
-  //   const [roomData, setRoomData] = useState({});
 
   const handleWriteOpen = () => {
     setOpen(true);
@@ -36,31 +31,14 @@ const RoomItem = ({ articleInfo, hashtag }) => {
     }
   };
 
-  const convertedDate = date.substr(0, 10);
-  const convertedContent = ConvertMap.get(contentCategory);
-  const convertedPlaceList = matchConditionDto.placeList.map((ele) =>
-    ConvertMap.get(ele),
-  );
-  const convertedTimeOfEat = matchConditionDto.timeOfEatingList.map((ele) =>
-    ConvertMap.get(ele),
-  );
-  const convertedTypeOfStudy = matchConditionDto.typeOfStudyList.map((ele) =>
-    ConvertMap.get(ele),
-  );
-  const convertedWayOfEat = matchConditionDto.wayOfEatingList.map((ele) =>
-    ConvertMap.get(ele),
-  );
-
   return (
     <div className="room-item">
       <div className="sort-edge">
-
         <span className="title-text">{articleInfo.title}</span>
         <span className="people-count">
           <GroupsIcon />
           <span>
             {articleInfo.participantNum}/{articleInfo.participantNumMax}
-
           </span>
         </span>
       </div>
@@ -81,7 +59,6 @@ const RoomItem = ({ articleInfo, hashtag }) => {
             상세
           </Button>
           <ModalTemplate open={open} onClose={handleWriteClose}>
-
             {editMode ? (
               <CreateRoomForm
                 topic={articleInfo.contentCategory}
@@ -108,7 +85,6 @@ const RoomItem = ({ articleInfo, hashtag }) => {
                 onClose={handleWriteClose}
               />
             )}
-
           </ModalTemplate>
         </div>
       </div>
@@ -127,14 +103,6 @@ RoomItem.propTypes = {
     isToday: PropTypes.bool,
     // eslint-disable-next-line react/forbid-prop-types
     matchConditionDto: PropTypes.object,
-    // (
-    //   PropTypes.shape({
-    //     placeList: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-    //     timeOfEatingList: PropTypes.arrayOf(PropTypes.string),
-    //     typeOfStudyList: PropTypes.arrayOf(PropTypes.string),
-    //     wayOfEatingList: PropTypes.arrayOf(PropTypes.string),
-    //   }),
-    // ),
     nickname: PropTypes.string,
     participantNum: PropTypes.number,
     participantNumMax: PropTypes.number,

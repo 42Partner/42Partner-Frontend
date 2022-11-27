@@ -27,7 +27,6 @@ const CommentList = ({ articleId, commentList }) => {
     }
   }, []);
 
-
   return (
     <div>
       {commentList.map((comment) => {
@@ -45,7 +44,6 @@ const CommentList = ({ articleId, commentList }) => {
   );
 };
 
-
 CommentList.propTypes = {
   articleId: PropTypes.string.isRequired,
   commentList: PropTypes.arrayOf(
@@ -62,4 +60,3 @@ CommentList.propTypes = {
 };
 
 export default React.memo(CommentList);
-
