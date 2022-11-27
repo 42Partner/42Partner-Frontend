@@ -1,8 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
-// import 
-import RoomListPage from './pages/RoomListPage';
 import MealRoomPage from './pages/MealRoomPage';
 import StudyRoomPage from './pages/StudyRoomPage';
 import SelectPage from './pages/SelectPage';

@@ -28,7 +28,7 @@ const textFieldStyle = {
 const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
   const dispatch = useDispatch();
   const { targetArticle } = useSelector(({ rooms }) => ({
-    targetArticle: rooms.targetArticle,
+    targetArticle: rooms.articleInfo,
   }));
   const [bookingDate, setBookingDate] = useState(new Date());
   const [options, setOptions] = useState({
@@ -139,7 +139,6 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
 
   const createRoomHandler = () => {
     dispatch(createRoom({ article }));
-    console.log(JSON.stringify(article));
     onClose();
   };
 
