@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
-import '../../styles/Mypage.scss';
 
 const Activity = () => {
   const [score, setScore] = useState(0);

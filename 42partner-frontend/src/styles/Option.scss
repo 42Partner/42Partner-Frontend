@@ -1,34 +1,35 @@
-body {
-	font-family: 'ubuntu-regular', 'tway_air.ttf';
+@import './../styles/utils.scss';
 
-	.option-wrapper .option-description {
-		display: flex;
-		justify-content: center;
-	}
+.option-wrapper {
+  display: flex;
+  flex-direction: column;
 
-  .am-time, .pm-time {
-	background-color: #e0e0e0;
+  .option-description {
+    text-align: center;
+  }
+
+  .am-time,
+  .pm-time {
+    background-color: #e0e0e0;
   }
 
   .tag {
-	padding-top: 5px;
-	margin-left: 100px;
-	display:inline-block;
-	width:80px;
-	font-weight: 500;
+    padding-top: 5px;
+    margin-left: 100px;
+    display: inline-block;
+    width: 80px;
+    font-weight: 500;
   }
 
   .option-group {
-	padding-top: 10px;
-	padding-bottom: 10px;
-	margin-left: 130px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: 130px;
   }
 
   .option-btn {
-	padding-right: 40px;
-	margin: 0 20px;
-	float: right;
+    padding-right: 40px;
+    margin: 0 20px;
+    @include flex-end-sort;
   }
-}  
-  
-  
+}

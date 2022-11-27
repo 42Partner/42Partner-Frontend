@@ -15,9 +15,6 @@ const MealOption = () => {
       <h3 className="option-description">
         랜덤 매칭을 기다리는 사용자는 nn명 입니다.
       </h3>
-      <div className="option-when">
-        <span className="tag">When ?</span>
-      </div>
       <div className="option-where">
         <span className="tag">Where ?</span>
         <div className="option-group">

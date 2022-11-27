@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/Mypage.scss';
 import Button from '@mui/material/Button';
 import Instance from '../common/Instance';
 

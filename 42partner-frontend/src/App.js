@@ -7,11 +7,11 @@ import SelectPage from './pages/SelectPage';
 import Main from './pages/Main';
 import MyPage from './pages/Mypage';
 import Navbar from './components/common/Navbar';
-import './styles/Layout.scss';
 import Footer from './components/common/Footer';
 import MealRandomPage from './pages/MealRandomPage';
 import StudyRandomPage from './pages/StudyRandomPage';
 import './App.scss';
+import './styles/Layout.scss';
 
 const App = () => {
   return (
