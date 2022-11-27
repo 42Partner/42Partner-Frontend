@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import GroupsIcon from '@mui/icons-material/Groups';
 import ModalTemplate from '../common/ModalTemplate';
 import RoomDetailForm from './RoomDetailForm';
+// import ConvertMap from '../common/ConvertMap';
 import '../../styles/RoomItem.scss';
 import CreateRoomForm from './CreateRoomForm';
 import CommentPart from '../comment/CommentPart';
@@ -43,9 +44,14 @@ const RoomItem = ({ articleInfo, hashtag }) => {
       </div>
       <div className="sort-edge">
         <p className="hashtag">{hashtag}</p>
+
         <div>
           <Button
-            style={{ background: '#cccccc', color: 'black' }}
+            style={{
+              background: '#cccccc',
+              color: 'black',
+              backgroundColor: 'lightPink',
+            }}
             id="button"
             variant="contained"
             onClick={handleWriteOpen}
@@ -96,14 +102,6 @@ RoomItem.propTypes = {
     isToday: PropTypes.bool,
     // eslint-disable-next-line react/forbid-prop-types
     matchConditionDto: PropTypes.object,
-    // (
-    //   PropTypes.shape({
-    //     placeList: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-    //     timeOfEatingList: PropTypes.arrayOf(PropTypes.string),
-    //     typeOfStudyList: PropTypes.arrayOf(PropTypes.string),
-    //     wayOfEatingList: PropTypes.arrayOf(PropTypes.string),
-    //   }),
-    // ),
     nickname: PropTypes.string,
     participantNum: PropTypes.number,
     participantNumMax: PropTypes.number,

@@ -1,18 +1,17 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
-import MatchingHistoryPage from './pages/MatchingHistoryPage';
 import MealRoomPage from './pages/MealRoomPage';
 import StudyRoomPage from './pages/StudyRoomPage';
 import SelectPage from './pages/SelectPage';
 import Main from './pages/Main';
 import MyPage from './pages/Mypage';
 import Navbar from './components/common/Navbar';
-import './styles/Layout.scss';
 import Footer from './components/common/Footer';
 import MealRandomPage from './pages/MealRandomPage';
 import StudyRandomPage from './pages/StudyRandomPage';
 import './App.scss';
+import './styles/Layout.scss';
 
 const App = () => {
   return (
@@ -31,7 +30,6 @@ const App = () => {
             <Route path="study/random" element={<StudyRandomPage />} />
             <Route path="study/room" element={<StudyRoomPage />} />
             <Route path="mypage" element={<MyPage />} />
-            <Route path="mypage/history" element={<MatchingHistoryPage />} />
           </Routes>
         </div>
         <div className="footer">

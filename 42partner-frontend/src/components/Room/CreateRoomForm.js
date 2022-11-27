@@ -139,7 +139,6 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
 
   const createRoomHandler = () => {
     dispatch(createRoom({ article }));
-    console.log(JSON.stringify(article));
     onClose();
   };
 

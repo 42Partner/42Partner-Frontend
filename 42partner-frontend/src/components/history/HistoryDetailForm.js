@@ -1,18 +1,33 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable react/prop-types */
+import React from 'react';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
-import CommentList from '../comment/CommentList';
+
+// import axios from 'axios';
+
 import '../../styles/HistoryDetailForm.scss';
+import ConvertMap from '../common/ConvertMap';
 
-const HistoryDetailForm = ({ category, open, onClose }) => {
-  const [isRoom, setIsRoom] = useState(false);
+const HistoryDetailForm = ({ detail, open, onClose }) => {
+  console.log('##################', detail);
 
-  useEffect(() => {
-    if (category === 'room') {
-      setIsRoom(true);
-    }
-  }, []);
+  console.log(detail.matchConditionDto.timeOfEatingList);
+
+  const mealOrStudy = ConvertMap.get(detail.contentCategory);
+  const randomOrRoom = ConvertMap.get(detail.methodCategory);
+  const place = detail.matchConditionDto.placeList.map((ele) =>
+    ConvertMap.get(ele),
+  );
+  const timeToEat = detail.matchConditionDto.timeOfEatingList.map((ele) =>
+    ConvertMap.get(ele),
+  );
+  const wayToEat = detail.matchConditionDto.wayOfEatingList.map((ele) =>
+    ConvertMap.get(ele),
+  );
+  const typeToStudy = detail.matchConditionDto.typeOfStudyList.map((ele) =>
+    ConvertMap.get(ele),
+  );
 
   return (
     <div className="history-detail-form">
@@ -21,37 +36,36 @@ const HistoryDetailForm = ({ category, open, onClose }) => {
           <CloseIcon />
         </IconButton>
       </div>
+
       <div className="paragraph">
-        <h2>밥트너 랜덤매칭 (20yy-mm-dd) {isRoom} </h2>
-        <h3>Intra_id, intra_id2, intra_id3</h3>
+        {ConvertMap.get()}
+        <h2>
+          [{mealOrStudy}]{randomOrRoom}
+        </h2>
       </div>
-      {isRoom && (
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.
-        </p>
-      )}
       <div className="select-info-wrapper">
-        <div>장소 : 개포 </div>
-        <div>시간대 : 점심</div>
-        <div> 배달여부 : 배달</div>
+        {mealOrStudy === '밥트너' ? (
+          <>
+            <div>장소 : {place}</div>
+            {randomOrRoom === '랜덤매칭' ? null : (
+              <div>시간대 : {timeToEat}</div>
+            )}
+            <div>배달여부 : {wayToEat}</div>
+            <h1>MEAL</h1>
+          </>
+        ) : (
+          <>
+            <div>장소 : {place} </div>
+            <div>학습 종류 : {typeToStudy}</div>
+            <h1>STUDY</h1>
+          </>
+        )}
       </div>
-      {isRoom && (
-        <div>
-          <p className="hashtag paragraph">#text1 #text #text #tadsfasdf</p>
-          <CommentList />
-        </div>
-      )}
     </div>
   );
 };
 
 HistoryDetailForm.propTypes = {
-  category: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
