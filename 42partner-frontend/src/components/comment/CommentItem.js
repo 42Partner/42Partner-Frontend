@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import DoneIcon from '@mui/icons-material/Done';
 import '../../styles/CommentItem.scss';
 import DialogContainer from '../common/DialogContainer';
+import NestedComment from './NestedComment';
 
 const CommentItem = ({ commentInfo, anonymity, onDelete, onEdit }) => {
   const { content, createdAt, updatedAt, nickname } = commentInfo;
@@ -17,6 +18,7 @@ const CommentItem = ({ commentInfo, anonymity, onDelete, onEdit }) => {
   const [comfirmOpen, setComfirmOpen] = useState(false);
   const [newContent, setNewContent] = useState(commentInfo.content);
   const [editMode, setEditMode] = useState(false);
+  const [nestedComment, setNestedComment] = useState(false);
 
   const handleEditMode = () => {
     setNewContent(content);
@@ -49,6 +51,10 @@ const CommentItem = ({ commentInfo, anonymity, onDelete, onEdit }) => {
     }
 
     handleEditMode();
+  };
+
+  const handleNestedComment = () => {
+    setNestedComment(!nestedComment);
   };
 
   return (
@@ -92,6 +98,14 @@ const CommentItem = ({ commentInfo, anonymity, onDelete, onEdit }) => {
       ) : (
         <div>{content}</div>
       )}
+      <button
+        className="nested-comments"
+        type="button"
+        onClick={handleNestedComment}
+      >
+        답글
+      </button>
+      {nestedComment && <NestedComment />}
     </div>
   );
 };
