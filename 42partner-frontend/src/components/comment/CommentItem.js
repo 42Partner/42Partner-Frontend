@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import IconButton from '@mui/material/IconButton';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
@@ -11,9 +7,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
 import DoneIcon from '@mui/icons-material/Done';
 import '../../styles/CommentItem.scss';
+import DialogContainer from '../common/DialogContainer';
 
-const CommentItem = ({ commentInfo, onDelete, onEdit }) => {
+const CommentItem = ({ commentInfo, anonymity, onDelete, onEdit }) => {
   const { content, createdAt, updatedAt, nickname } = commentInfo;
+  const { userId } = useSelector(({ login }) => ({
+    userId: login.userId,
+  }));
   const [comfirmOpen, setComfirmOpen] = useState(false);
   const [newContent, setNewContent] = useState(commentInfo.content);
   const [editMode, setEditMode] = useState(false);
@@ -55,37 +55,24 @@ const CommentItem = ({ commentInfo, onDelete, onEdit }) => {
     <div className="comment-item">
       <div className="comment-info">
         <span>
-          <h3>{nickname}</h3>
+          <h3>{anonymity ? '익명' : nickname}</h3>
           {createdAt === updatedAt ? (
             <span>{changeDateFormat(createdAt)}</span>
           ) : (
             <span>{changeDateFormat(updatedAt)} (수정됨)</span>
           )}
-          <IconButton size="small" onClick={handleEditMode}>
-            <CreateOutlinedIcon fontSize="small" />
-          </IconButton>
+          {commentInfo.userId === userId && (
+            <IconButton size="small" onClick={handleEditMode}>
+              <CreateOutlinedIcon fontSize="small" />
+            </IconButton>
+          )}
         </span>
-        <IconButton size="small" onClick={handleConfirmOpen}>
-          <CloseIcon fontSize="small" />
-        </IconButton>
-        <Dialog
-          open={comfirmOpen}
-          onClose={handleConfirmClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              댓글을 삭제 하시겠습니까?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => handleConfirmClose(false)}>취소</Button>
-            <Button onClick={() => handleConfirmClose(true)} autoFocus>
-              삭제
-            </Button>
-          </DialogActions>
-        </Dialog>
+        {commentInfo.userId === userId && (
+          <IconButton size="small" onClick={handleConfirmOpen}>
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        )}
+        <DialogContainer open={comfirmOpen} onClose={handleConfirmClose} />
       </div>
       {editMode ? (
         <div className="editmode">
@@ -118,7 +105,9 @@ CommentItem.propTypes = {
     opinionId: PropTypes.string,
     parentId: PropTypes.string,
     updatedAt: PropTypes.string,
+    userId: PropTypes.string,
   }).isRequired,
+  anonymity: PropTypes.bool.isRequired,
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
 };

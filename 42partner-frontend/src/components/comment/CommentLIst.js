@@ -1,12 +1,15 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CommentItem from './CommentItem';
 import { deleteComment, editComment } from '../../modules/comments';
 
-const CommentLIst = ({ commentList }) => {
+const CommentList = ({ articleId, commentList }) => {
   const dispatch = useDispatch();
-
+  const { roomList } = useSelector(({ rooms }) => ({
+    roomList: rooms.roomList,
+  }));
+  let anonymity = false;
   const onDelete = useCallback(
     (opinionId) => {
       dispatch(deleteComment({ opinionId }));
@@ -18,11 +21,18 @@ const CommentLIst = ({ commentList }) => {
     dispatch(editComment({ content, opinionId }));
   };
 
+  useEffect(() => {
+    if (roomList.find((room) => room.articleId === articleId) !== undefined) {
+      anonymity = true;
+    }
+  }, []);
+
   return (
     <div>
       {commentList.map((comment) => {
         return (
           <CommentItem
+            anonymity={anonymity}
             key={comment.opinionId}
             commentInfo={comment}
             onDelete={onDelete}
@@ -34,7 +44,8 @@ const CommentLIst = ({ commentList }) => {
   );
 };
 
-CommentLIst.propTypes = {
+CommentList.propTypes = {
+  articleId: PropTypes.string.isRequired,
   commentList: PropTypes.arrayOf(
     PropTypes.shape({
       content: PropTypes.string,
@@ -48,4 +59,4 @@ CommentLIst.propTypes = {
   ).isRequired,
 };
 
-export default React.memo(CommentLIst);
+export default React.memo(CommentList);

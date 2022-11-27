@@ -58,6 +58,7 @@ const comments = handleActions(
       ...state,
       requestError: e,
     }),
+
     // create
     [CREATE_SUCCESS]: (state, { payload: comment }) =>
       produce(
@@ -70,7 +71,9 @@ const comments = handleActions(
     [CREATE_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
-    }), // edit
+    }),
+
+    // edit
     [EDIT]: (state, { payload: { content, opinionId } }) =>
       produce(state, (draft) => {
         draft.requestError = null;
@@ -86,7 +89,9 @@ const comments = handleActions(
     [EDIT_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
-    }), // Delete
+    }),
+
+    // Delete
     [DELETE_SUCCESS]: (state, { payload: opinionId }) =>
       produce(state, (draft) => {
         draft.requestError = null;
@@ -98,7 +103,9 @@ const comments = handleActions(
     [DELETE_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
-    }), // reset data
+    }),
+
+    // reset data
     [RESETDATA]: () => initialState,
   },
   initialState,

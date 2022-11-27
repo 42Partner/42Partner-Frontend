@@ -5,22 +5,20 @@ import '../styles/SelectForm.scss';
 const SelectForm = () => {
   return (
     <div className="select-form">
-      <div className="select-button">
-        <Link
-          to="/meal/random"
-          style={{ textDecoration: 'none', color: 'black' }}
-        >
-          <img alt="meal_icon" src="./images/meal_icon.png" />
-        </Link>
-      </div>
-      <div className="select-button">
-        <Link
-          to="/study_random"
-          style={{ textDecoration: 'none', color: 'black' }}
-        >
-          <img alt="study_icon" src="./images/study_icon.jpeg" />
-        </Link>
-      </div>
+      <Link
+        className="select-button"
+        to="/meal/random"
+        style={{ textDecoration: 'none', color: 'black' }}
+      >
+        <img alt="meal_icon" src="./images/meal_icon.png" />
+      </Link>
+      <Link
+        className="select-button"
+        to="/study/random"
+        style={{ textDecoration: 'none', color: 'black' }}
+      >
+        <img alt="study_icon" src="./images/study_icon.jpeg" />
+      </Link>
     </div>
   );
 };
