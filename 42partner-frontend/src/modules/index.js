@@ -1,15 +1,21 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
+
+import comments, { commentSaga } from './comments';
 import loading from './loading';
-import user, { userSaga } from './user';
+import login from './login';
+import rooms, { rooomSaga } from './rooms';
 
 const rootReducer = combineReducers({
-  user,
+  comments,
   loading,
+  rooms,
+  login,
 });
 
 export function* rootSaga() {
-  yield all([userSaga()]);
+  yield all([commentSaga(), rooomSaga()]);
+
 }
 
 export default rootReducer;

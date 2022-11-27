@@ -1,24 +1,27 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import '../../styles/RoomItem.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import GroupsIcon from '@mui/icons-material/Groups';
 import ModalTemplate from '../common/ModalTemplate';
 import RoomDetailForm from './RoomDetailForm';
-import ConvertMap from '../common/ConvertMap';
 
-const RoomItem = ({
-  date,
-  anonymity,
-  nickname,
-  title,
-  content,
-  participantNum,
-  participantNumMax,
-  isToday,
-  contentCategory,
-  matchConditionDto,
-}) => {
+// import ConvertMap from '../common/ConvertMap';
+
+import '../../styles/RoomItem.scss';
+import CreateRoomForm from './CreateRoomForm';
+import CommentPart from '../comment/CommentPart';
+import RoomInfo from './RoomInfo';
+import { changeEditMode } from '../../modules/rooms';
+
+const RoomItem = ({ articleInfo, hashtag }) => {
+  const dispatch = useDispatch();
+  const { editMode } = useSelector(({ rooms }) => ({
+    editMode: rooms.editMode,
+  }));
+
+
   const [open, setOpen] = useState(false);
   //   const [roomData, setRoomData] = useState({});
 
@@ -26,7 +29,11 @@ const RoomItem = ({
     setOpen(true);
   };
   const handleWriteClose = () => {
-    setOpen(false);
+    if (editMode) {
+      dispatch(changeEditMode(false));
+    } else {
+      setOpen(false);
+    }
   };
 
   const convertedDate = date.substr(0, 10);
@@ -47,28 +54,19 @@ const RoomItem = ({
   return (
     <div className="room-item">
       <div className="sort-edge">
-        <span className="title-text">
-          [ {convertedContent} ] {title}
-        </span>
+
+        <span className="title-text">{articleInfo.title}</span>
         <span className="people-count">
           <GroupsIcon />
           <span>
-            {participantNum}/{participantNumMax}
+            {articleInfo.participantNum}/{articleInfo.participantNumMax}
+
           </span>
         </span>
       </div>
       <div className="sort-edge">
-        <p className="hashtag">
-          {isToday === true ? '#오늘 ' : null}
-          {/* {`#${convertedContent} `} */}
-          {`#${convertedPlaceList} `}
-          {convertedTimeOfEat.length === 0 ? null : `#${convertedTimeOfEat} `}
-          {convertedTypeOfStudy.length === 0
-            ? null
-            : `#${convertedTypeOfStudy} `}
-          {convertedWayOfEat.length === 0 ? null : `#${convertedWayOfEat} `}
-          {anonymity === false ? `#방장${nickname} ` : '#익명방 '}
-        </p>
+        <p className="hashtag">{hashtag}</p>
+
         <div>
           <Button
             style={{
@@ -83,28 +81,67 @@ const RoomItem = ({
             상세
           </Button>
           <ModalTemplate open={open} onClose={handleWriteClose}>
-            <RoomDetailForm
-              open={open}
-              onClose={handleWriteClose}
-              title={title}
-              content={content}
-              anonymity={anonymity}
-              nickname={nickname}
-              participantNum={participantNum}
-              participantNumMax={participantNumMax}
-              isToday={isToday}
-              date={convertedDate}
-              contentCategory={convertedContent}
-              place={convertedPlaceList}
-              timeOfEat={convertedTimeOfEat}
-              typeOfStudy={convertedTypeOfStudy}
-              wayOfEat={convertedWayOfEat}
-            />
+
+            {editMode ? (
+              <CreateRoomForm
+                topic={articleInfo.contentCategory}
+                onClose={handleWriteClose}
+                editMode={editMode}
+                articleId={articleInfo.articleId}
+              />
+            ) : (
+              <RoomDetailForm
+                roomInfoPart={
+                  <div>
+                    <RoomInfo articleInfo={articleInfo} />
+                    <p className="hashtag">{hashtag}</p>
+                  </div>
+                }
+                commetPart={
+                  <CommentPart
+                    anonymity={articleInfo.anonymity}
+                    articleId={articleInfo.articleId}
+                  />
+                }
+                articleId={articleInfo.articleId}
+                ownerId={articleInfo.userId}
+                onClose={handleWriteClose}
+              />
+            )}
+
           </ModalTemplate>
         </div>
       </div>
     </div>
   );
+};
+
+RoomItem.propTypes = {
+  articleInfo: PropTypes.shape({
+    anonymity: PropTypes.bool,
+    articleId: PropTypes.string,
+    content: PropTypes.string,
+    contentCategory: PropTypes.string,
+    createdAt: PropTypes.string,
+    date: PropTypes.string,
+    isToday: PropTypes.bool,
+    // eslint-disable-next-line react/forbid-prop-types
+    matchConditionDto: PropTypes.object,
+    // (
+    //   PropTypes.shape({
+    //     placeList: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    //     timeOfEatingList: PropTypes.arrayOf(PropTypes.string),
+    //     typeOfStudyList: PropTypes.arrayOf(PropTypes.string),
+    //     wayOfEatingList: PropTypes.arrayOf(PropTypes.string),
+    //   }),
+    // ),
+    nickname: PropTypes.string,
+    participantNum: PropTypes.number,
+    participantNumMax: PropTypes.number,
+    title: PropTypes.string,
+    userId: PropTypes.string,
+  }).isRequired,
+  hashtag: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default RoomItem;

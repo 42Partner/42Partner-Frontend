@@ -3,11 +3,8 @@
 .room-detail-form {
   margin: 2rem;
 
-  #room-detail-form {
-    display: flex;
-  }
-
-  .close-button {
+  .close-button,
+  .button-wrapper {
     @include flex-end-sort;
   }
 
@@ -28,11 +25,25 @@
     color: $hashtag;
   }
 
-  .button-wrapper {
-    @include flex-end-sort;
-    .join-button {
-      margin: 20px 10px;
-    }
+  .botton-group-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .button {
+    margin: 20px 10px;
+    max-height: 36px;
+  }
+
+  .comment-input-wrapper {
+    @include flex-center-sort;
+    width: 100%;
+  }
+
+  .loading-icon {
+    @include flex-center-sort;
   }
 }
 

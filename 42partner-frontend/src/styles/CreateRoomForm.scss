@@ -24,16 +24,10 @@
     }
   }
 
-  .textarea-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
   .button-wrapper {
     display: flex;
     justify-content: flex-end;
-    #button {
+    .button {
       margin: 10px;
     }
   }

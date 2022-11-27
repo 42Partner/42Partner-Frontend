@@ -1,7 +1,10 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
+// import 
 import RoomListPage from './pages/RoomListPage';
+import MealRoomPage from './pages/MealRoomPage';
+import StudyRoomPage from './pages/StudyRoomPage';
 import SelectPage from './pages/SelectPage';
 import Main from './pages/Main';
 import MyPage from './pages/Mypage';
@@ -25,8 +28,9 @@ const App = () => {
             <Route path="select" element={<SelectPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="meal/random" element={<MealRandomPage />} />
-            <Route path="meal/room" element={<RoomListPage />} />
+            <Route path="meal/room" element={<MealRoomPage />} />
             <Route path="study/random" element={<StudyRandomPage />} />
+            <Route path="study/room" element={<StudyRoomPage />} />
             <Route path="mypage" element={<MyPage />} />
           </Routes>
         </div>

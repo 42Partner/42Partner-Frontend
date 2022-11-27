@@ -1,28 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
+
+// import React, { useState, useEffect } from 'react';
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import Fab from '@mui/material/Fab';
+// import AddIcon from '@mui/icons-material/Add';
+
+import React from 'react';
+import PropTypes from 'prop-types';
+
 import RoomItem from './RoomItem';
-import ModalTemplate from '../common/ModalTemplate';
-import CreateRoomForm from './CreateRoomForm';
 import '../../styles/RoomList.scss';
-import Instance from '../common/Instance';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#ffe3e3',
-    },
-  },
-});
+import { optionList } from '../utils';
 
-const RoomList = () => {
-  const [open, setOpen] = useState(false);
-  const handleWriteOpen = () => {
-    setOpen(true);
-  };
-  const handleWriteClose = () => {
-    setOpen(false);
+
+const RoomList = ({ roomList }) => {
+  const makeHashTag = (articleInfo) => {
+    const res = [`#${articleInfo.date.slice(5).replace('-', '/')} `];
+    const { matchConditionDto } = articleInfo;
+
+    for (let i = 0; i < Object.keys(matchConditionDto).length; ) {
+      const name = Object.keys(matchConditionDto)[i];
+      for (let j = 0; j < matchConditionDto[name].length; ) {
+        const element = matchConditionDto[name][j];
+        res.push(
+          `#${optionList[name].find((op) => op.value === element).label} `,
+        );
+        j += 1;
+      }
+      i += 1;
+    }
+
+    return res;
   };
 
   const [roomList, setRoomList] = useState([]);
@@ -33,110 +41,6 @@ const RoomList = () => {
           `${process.env.REACT_APP_API_KEY}/articles`,
         );
 
-        // const rooms = {
-        //   content: [
-        //     {
-        //       nickname: 'takim',
-        //       userId: '57c66df8-a988-4285-be58-b6b544bb85bb',
-        //       articleId: '21ce5893-8c0f-4b5c-9c46-5ccea3ffea69',
-        //       title: '개포에서 2시에 점심 먹으실 분 구합니다.',
-        //       content: '서초 클러스터 2시에 치킨 먹으러갈겁니다.',
-        //       date: '2022-10-03',
-        //       createdAt: '2022-11-16T17:09:58.867621',
-        //       anonymity: false,
-        //       isToday: false,
-        //       participantNumMax: 5,
-        //       participantNum: 1,
-        //       contentCategory: 'MEAL',
-        //       matchConditionDto: {
-        //         placeList: ['SEOCHO'],
-        //         timeOfEatingList: ['LUNCH', 'DINNER'],
-        //         wayOfEatingList: ['EATOUT', 'TAKEOUT'],
-        //         typeOfStudyList: [],
-        //       },
-        //     },
-        //     {
-        //       nickname: 'sorkim',
-        //       userId: '57c66df8-a988-4285-be58-b6b544bb85bb',
-        //       articleId: 'a583496a-ee7a-4d54-aac3-f3036ceada0e',
-        //       title: '공부할 사람.',
-        //       content: 'libft 같이해요',
-        //       date: '2022-10-03',
-        //       createdAt: '2022-11-16T17:13:52.949767',
-        //       anonymity: false,
-        //       isToday: true,
-        //       participantNumMax: 4,
-        //       participantNum: 2,
-        //       contentCategory: 'STUDY',
-        //       matchConditionDto: {
-        //         placeList: ['GAEPO'],
-        //         timeOfEatingList: [],
-        //         wayOfEatingList: [],
-        //         typeOfStudyList: ['INNER_CIRCLE'],
-        //       },
-        //     },
-        //     {
-        //       nickname: 'hyenam',
-        //       userId: '57c66df8-a988-4285-be58-b6b544bb85bb',
-        //       articleId: '56fc7f0b-4b9a-495e-9157-c8177ecf908b',
-        //       title: 'ㅎㅇ',
-        //       content: ' 클러스터 2시에 치킨 먹으러갈겁니다.',
-        //       date: '2022-10-03',
-        //       createdAt: '2022-11-16T17:15:40.665124',
-        //       anonymity: false,
-        //       isToday: false,
-        //       participantNumMax: 5,
-        //       participantNum: 1,
-        //       contentCategory: 'MEAL',
-        //       matchConditionDto: {
-        //         placeList: ['SEOCHO'],
-        //         timeOfEatingList: ['LUNCH'],
-        //         wayOfEatingList: ['DELIVERY'],
-        //         typeOfStudyList: [],
-        //       },
-        //     },
-        //     {
-        //       nickname: 'takim',
-        //       userId: '57c66df8-a988-4285-be58-b6b544bb85bb',
-        //       articleId: 'cebb8a4a-cfcb-4566-b99c-f1eef18d0b5a',
-        //       title: '개포에서 2시에 점심 먹으실 분 구합니다.',
-        //       content: '서초 클러스터 2시에 치킨 먹으러갈겁니다.',
-        //       date: '2022-10-03',
-        //       createdAt: '2022-11-16T17:29:52.510348',
-        //       anonymity: true,
-        //       isToday: false,
-        //       participantNumMax: 5,
-        //       participantNum: 1,
-        //       contentCategory: 'MEAL',
-        //       matchConditionDto: {
-        //         placeList: ['SEOCHO'],
-        //         timeOfEatingList: [],
-        //         wayOfEatingList: [],
-        //         typeOfStudyList: [],
-        //       },
-        //     },
-        //     {
-        //       nickname: 'takim',
-        //       userId: '57c66df8-a988-4285-be58-b6b544bb85bb',
-        //       articleId: 'ed992b0e-c078-4b66-b31a-3ed1a0584562',
-        //       title: '개포에서 2시에 점심 먹으실 분 구합니다.',
-        //       content: '서초 클러스터 2시에 치킨 먹으러갈겁니다.',
-        //       date: '2022-11-16',
-        //       createdAt: '2022-11-16T17:32:30.563562',
-        //       anonymity: false,
-        //       isToday: false,
-        //       participantNumMax: 5,
-        //       participantNum: 1,
-        //       contentCategory: 'MEAL',
-        //       matchConditionDto: {
-        //         placeList: ['SEOCHO'],
-        //         timeOfEatingList: ['BREAKFAST'],
-        //         wayOfEatingList: ['DELIVERY'],
-        //         typeOfStudyList: [],
-        //       },
-        //     },
-        //   ],
-        // };
         setRoomList(...roomList, rooms.content);
       } catch (e) {
         Promise.reject(e);
@@ -164,6 +68,9 @@ const RoomList = () => {
         roomList.map((room) => (
           <RoomItem
             key={room.articleId}
+            
+            articleInfo={room}
+            // hashtag={makeHashTag(article)}
             date={room.date}
             anonymity={room.anonymity}
             nickname={room.nickname}
@@ -178,6 +85,34 @@ const RoomList = () => {
         ))}
     </div>
   );
+};
+
+RoomList.propTypes = {
+  roomList: PropTypes.arrayOf(
+    PropTypes.shape({
+      anonymity: PropTypes.bool,
+      articleId: PropTypes.string,
+      content: PropTypes.string,
+      contentCategory: PropTypes.string,
+      createdAt: PropTypes.string,
+      date: PropTypes.string,
+      isToday: PropTypes.bool,
+      // eslint-disable-next-line react/forbid-prop-types
+      matchConditionDto: PropTypes.object,
+      // (
+      //   PropTypes.shape({
+      //     placeList: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+      //     timeOfEatingList: PropTypes.arrayOf(PropTypes.string),
+      //     typeOfStudyList: PropTypes.arrayOf(PropTypes.string),
+      //     wayOfEatingList: PropTypes.arrayOf(PropTypes.string),
+      //   }),
+      // ),
+      nickname: PropTypes.string,
+      participantNum: PropTypes.number,
+      participantNumMax: PropTypes.number,
+      title: PropTypes.string,
+    }),
+  ).isRequired,
 };
 
 export default RoomList;

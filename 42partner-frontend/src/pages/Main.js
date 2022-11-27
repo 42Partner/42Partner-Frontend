@@ -1,20 +1,8 @@
 import React from 'react';
+import MainForm from '../components/MainForm';
 
 const Main = () => {
-  return (
-    <div>
-      <p>This is the main area.</p>
-      <p>This is the main area.</p>
-      <p>This is the main area.</p>
-      <p>This is the main area.</p>
-      <p>This is the main area.</p>
-      <p>This is the main area.</p>
-      <p>This is the main area.</p>
-      <p>This is the main area.</p>
-      <p>This is the main area.</p>
-      <p>This is the main area.</p>
-    </div>
-  );
+  return <MainForm />;
 };
 
 export default Main;
