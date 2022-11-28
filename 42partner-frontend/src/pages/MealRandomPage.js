@@ -1,5 +1,5 @@
 import React from 'react';
-import RandomContainer from '../components/Random/RandomContainer';
+import RandomContainer from '../components/Random/MealRandom';
 import '../styles/Random.scss';
 
 const MealRandomPage = () => {
