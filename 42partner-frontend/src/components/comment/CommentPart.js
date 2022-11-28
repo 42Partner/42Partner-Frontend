@@ -17,6 +17,7 @@ const CommentPart = ({ articleId }) => {
     }),
   );
   const [comment, setComment] = useState('');
+  const [oneLevelCommetList, setOneLevelCommetList] = useState([]);
 
   const getCommentList = useCallback(() => {
     dispatch(loadCommentList({ articleId }));
@@ -42,6 +43,10 @@ const CommentPart = ({ articleId }) => {
   useEffect(() => {
     getCommentList();
   }, []);
+
+  useEffect(() => {
+    setOneLevelCommetList(commentsList.filter((c) => c.level === 1));
+  }, [commentsList]);
 
   return (
     <div>
@@ -73,7 +78,7 @@ const CommentPart = ({ articleId }) => {
         </div>
       )}
       {(commentsList !== undefined || commentsList !== null) && (
-        <CommentList articleId={articleId} commentList={commentsList} />
+        <CommentList articleId={articleId} commentList={oneLevelCommetList} />
       )}
     </div>
   );

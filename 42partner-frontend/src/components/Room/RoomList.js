@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RoomItem from './RoomItem';
-import '../../styles/RoomList.scss';
 import { optionList } from '../utils';
 
 const RoomList = ({ roomList }) => {

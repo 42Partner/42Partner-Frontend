@@ -80,8 +80,7 @@ const RoomItem = ({ articleInfo, hashtag }) => {
                     articleId={articleInfo.articleId}
                   />
                 }
-                articleId={articleInfo.articleId}
-                ownerId={articleInfo.userId}
+                articleInfo={articleInfo}
                 onClose={handleWriteClose}
               />
             )}

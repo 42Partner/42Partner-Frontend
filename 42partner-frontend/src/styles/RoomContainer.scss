@@ -7,6 +7,11 @@
   overflow: auto;
   @include pink-border-template;
 
+  .room-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   .create-button {
     margin: 0;
     top: auto;

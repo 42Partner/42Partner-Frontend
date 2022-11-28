@@ -17,18 +17,16 @@ import '../../styles/RoomDetailForm.scss';
 import CustomColorButton from '../common/CustomColorButton';
 import DialogContainer from '../common/DialogContainer';
 
-const RoomDetailForm = ({
-  roomInfoPart,
-  commetPart,
-  articleId,
-  ownerId,
-  onClose,
-}) => {
+const RoomDetailForm = ({ roomInfoPart, commetPart, articleInfo, onClose }) => {
   const dispatch = useDispatch();
-  const { joinRoomList, userId } = useSelector(({ rooms, login }) => ({
-    joinRoomList: rooms.joinRoomList,
-    userId: login.userId,
-  }));
+  const { articleId } = articleInfo;
+  const { joinRoomList, completeRoomList, userId } = useSelector(
+    ({ rooms, login }) => ({
+      joinRoomList: rooms.joinRoomList,
+      completeRoomList: rooms.completeRoomList,
+      userId: login.userId,
+    }),
+  );
   const [comfirmOpen, setComfirmOpen] = useState(false);
   const [complete, setComplete] = useState(false);
   const [join, setJoin] = useState(false);
@@ -67,8 +65,18 @@ const RoomDetailForm = ({
     }
   };
 
+  const isAleradyComplete = () => {
+    if (
+      completeRoomList.find((room) => room.articleId === articleId) !==
+      undefined
+    ) {
+      setComplete(true);
+    }
+  };
+
   useEffect(() => {
     isAlreadyJoin();
+    isAleradyComplete();
   }, []);
 
   return (
@@ -80,7 +88,7 @@ const RoomDetailForm = ({
       </div>
       {roomInfoPart}
       <div className="paragraph button-wrapper">
-        {ownerId === userId ? (
+        {articleInfo.userId === userId ? (
           <div className="botton-group-wrapper">
             <CustomColorButton
               className="button"
@@ -127,6 +135,10 @@ const RoomDetailForm = ({
           <CustomColorButton
             button={
               <Button
+                disabled={
+                  articleInfo.participantNum ===
+                    articleInfo.participantNumMax || complete
+                }
                 className="button"
                 variant="contained"
                 onClick={joinRoomHandler}
@@ -146,8 +158,30 @@ const RoomDetailForm = ({
 RoomDetailForm.propTypes = {
   roomInfoPart: PropTypes.element.isRequired,
   commetPart: PropTypes.element.isRequired,
-  articleId: PropTypes.string.isRequired,
-  ownerId: PropTypes.string.isRequired,
+  articleInfo: PropTypes.shape({
+    anonymity: PropTypes.bool,
+    articleId: PropTypes.string,
+    content: PropTypes.string,
+    contentCategory: PropTypes.string,
+    createdAt: PropTypes.string,
+    date: PropTypes.string,
+    isToday: PropTypes.bool,
+    // eslint-disable-next-line react/forbid-prop-types
+    matchConditionDto: PropTypes.object,
+    // (
+    //   PropTypes.shape({
+    //     placeList: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    //     timeOfEatingList: PropTypes.arrayOf(PropTypes.string),
+    //     typeOfStudyList: PropTypes.arrayOf(PropTypes.string),
+    //     wayOfEatingList: PropTypes.arrayOf(PropTypes.string),
+    //   }),
+    // ),
+    nickname: PropTypes.string,
+    participantNum: PropTypes.number,
+    participantNumMax: PropTypes.number,
+    title: PropTypes.string,
+    userId: PropTypes.string,
+  }).isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
