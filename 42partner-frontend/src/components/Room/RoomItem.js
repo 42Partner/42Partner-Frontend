@@ -70,7 +70,7 @@ const RoomItem = ({ articleInfo, hashtag }) => {
               <RoomDetailForm
                 roomInfoPart={
                   <div>
-                    <RoomInfo articleInfo={articleInfo} />
+                    <RoomInfo />
                     <p className="hashtag">{hashtag}</p>
                   </div>
                 }
@@ -80,7 +80,7 @@ const RoomItem = ({ articleInfo, hashtag }) => {
                     articleId={articleInfo.articleId}
                   />
                 }
-                articleInfo={articleInfo}
+                articleId={articleInfo.articleId}
                 onClose={handleWriteClose}
               />
             )}
