@@ -9,9 +9,8 @@ export const getCommentInfo = ({ opinionId }) => {
 };
 
 export const addNewComment = async ({ commentInfo }) => {
-  await client.post(`/api/opinions`, commentInfo);
   const opinionId = await client
-    .post(`/api/opinions`, commentInfo)
+    .post(`/api/opinions`, JSON.stringify(commentInfo))
     .then((res) => {
       return res.data;
     })
@@ -26,5 +25,5 @@ export const deleteComment = ({ opinionId }) => {
 };
 
 export const editComment = ({ content, opinionId }) => {
-  return client.put(`/api/opinions/${opinionId}`, content);
+  return client.put(`/api/opinions/${opinionId}`, JSON.stringify(content));
 };

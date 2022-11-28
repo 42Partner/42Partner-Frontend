@@ -1,6 +1,14 @@
 import axios from 'axios';
 
-const client = axios.create({ withCredentials: true });
+const client = axios.create(
+  {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  },
+  { withCredentials: true },
+);
 
 client.interceptors.response.use(
   (res) => {
