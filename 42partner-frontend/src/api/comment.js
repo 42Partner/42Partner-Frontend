@@ -5,7 +5,7 @@ export const getCommentList = ({ articleId }) => {
 };
 
 export const getCommentInfo = ({ opinionId }) => {
-  return client.post(`/api/opinions/${opinionId}`);
+  return client.get(`/api/opinions/${opinionId}`);
 };
 
 export const addNewComment = async ({ commentInfo }) => {
