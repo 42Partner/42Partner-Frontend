@@ -23,6 +23,7 @@ const RoomItem = ({ articleInfo, hashtag }) => {
   const handleWriteOpen = () => {
     setOpen(true);
   };
+
   const handleWriteClose = () => {
     if (editMode) {
       dispatch(changeEditMode(false));
