@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-// import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { optionList } from '../utils';
+import ConvertMap from '../common/ConvertMap';
 
 const RoomInfo = () => {
   const { articleInfo } = useSelector(({ rooms }) => ({
@@ -14,8 +13,7 @@ const RoomInfo = () => {
     let res = '';
 
     for (let i = 0; i < options.length; ) {
-      const element = options[i];
-      res += `${optionList[name].find((op) => op.value === element).label} `;
+      res += `${ConvertMap.get(options[i])} `;
       i += 1;
     }
     return res;
@@ -70,25 +68,5 @@ const RoomInfo = () => {
     </div>
   );
 };
-
-// RoomInfo.propTypes = {
-//   articleInfo: PropTypes.shape({
-//     anonymity: PropTypes.bool,
-//     articleId: PropTypes.string,
-//     content: PropTypes.string,
-//     contentCategory: PropTypes.string,
-//     createdAt: PropTypes.string,
-//     date: PropTypes.string,
-//     isToday: PropTypes.bool,
-//     // eslint-disable-next-line react/forbid-prop-types
-//     matchConditionDto: PropTypes.object,
-//     // eslint-disable-next-line react/forbid-prop-types
-//     participantsOrAuthor: PropTypes.object,
-//     nickname: PropTypes.string,
-//     participantNum: PropTypes.number,
-//     participantNumMax: PropTypes.number,
-//     title: PropTypes.string,
-//   }).isRequired,
-// };
 
 export default RoomInfo;
