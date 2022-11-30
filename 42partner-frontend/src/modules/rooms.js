@@ -96,11 +96,11 @@ const rooms = handleActions(
     }),
 
     // edit
-    [EDIT_SUCCESS]: (state, { payload: { article } }) => ({
+    [EDIT_SUCCESS]: (state, { payload }) => ({
       ...state,
       requestError: null,
       roomList: state.roomList.map((room) =>
-        room.articleId === article.articleId ? article : room,
+        room.articleId === payload.articleId ? payload : room,
       ),
     }),
     [EDIT_FAILURE]: (state, { payload: e }) => ({

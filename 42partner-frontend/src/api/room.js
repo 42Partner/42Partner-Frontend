@@ -24,8 +24,8 @@ export const deleteRoom = ({ articleId }) => {
   return client.post(`/api/articles/${articleId}/recoverable-delete`);
 };
 
-export const editRoomInfo = ({ article, articleId }) => {
-  client.put(`/api/articles/${articleId}`, JSON.stringify(article));
+export const editRoomInfo = async ({ article, articleId }) => {
+  await client.put(`/api/articles/${articleId}`, JSON.stringify(article));
   return getOneRoom({ articleId });
 };
 
