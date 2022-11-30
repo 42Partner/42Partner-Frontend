@@ -38,7 +38,7 @@ const RoomDetailForm = ({ articleId, roomInfoPart, commetPart, onClose }) => {
   const handleConfirmClose = (isDelete) => {
     if (isDelete) {
       dispatch(deleteRoom({ articleId }));
-      setComfirmOpen(false);
+      onClose();
     }
     setComfirmOpen(false);
   };

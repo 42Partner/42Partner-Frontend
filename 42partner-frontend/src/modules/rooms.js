@@ -109,14 +109,12 @@ const rooms = handleActions(
     }),
 
     // Delete
-    [DELETE_SUCCESS]: (state, { payload: articleId }) =>
-      produce(state, (draft) => {
-        draft.requestError = null;
-        const index = draft.roomList.findIndex(
-          (c) => c.articleId === articleId,
-        );
-        draft.roomList.splice(index, 1);
-      }),
+    [DELETE_SUCCESS]: (state, { payload: article }) => ({
+      ...state,
+      roomList: state.roomList.filter(
+        (room) => room.articleId !== article.articleId,
+      ),
+    }),
     [DELETE_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
