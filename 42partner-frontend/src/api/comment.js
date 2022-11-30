@@ -24,6 +24,7 @@ export const deleteComment = ({ opinionId }) => {
   return client.post(`/api/opinions/${opinionId}/recoverable-delete`);
 };
 
-export const editComment = ({ content, opinionId }) => {
-  return client.put(`/api/opinions/${opinionId}`, JSON.stringify(content));
+export const editComment = async ({ content, opinionId }) => {
+  await client.put(`/api/opinions/${opinionId}`, JSON.stringify(content));
+  return getCommentInfo({ opinionId });
 };

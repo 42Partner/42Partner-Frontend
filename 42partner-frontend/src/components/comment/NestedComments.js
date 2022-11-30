@@ -11,11 +11,22 @@ const NestedComments = ({ parentId, anonymity }) => {
   }));
   const [nestedCommentList, setNestedCommentList] = useState([]);
 
-  useEffect(() => {
-    setNestedCommentList(
-      commentList.filter((comment) => comment.parentId === parentId),
+  const getNestedComments = () => {
+    const tmpList = commentList.filter(
+      (comment) => comment.parentId === parentId,
     );
-  }, []);
+    const sortList = tmpList.sort((a, b) => {
+      if (a.createdAt > b.createdAt) return -1;
+      if (a.createdAt < b.createdAt) return 1;
+      return 0;
+    });
+
+    setNestedCommentList(sortList);
+  };
+
+  useEffect(() => {
+    getNestedComments();
+  }, [commentList]);
 
   const onDelete = useCallback(
     (opinionId) => {
