@@ -1,4 +1,6 @@
 import React from 'react';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { Link } from 'react-router-dom';
 import '../styles/SelectForm.scss';
 
@@ -10,14 +12,14 @@ const SelectForm = () => {
         to="/meal/random"
         style={{ textDecoration: 'none', color: 'black' }}
       >
-        <img alt="meal_icon" src="./images/meal_icon.png" />
+        <RestaurantIcon className="icon" />
       </Link>
       <Link
         className="select-button"
         to="/study/random"
         style={{ textDecoration: 'none', color: 'black' }}
       >
-        <img alt="study_icon" src="./images/study_icon.jpeg" />
+        <MenuBookIcon className="icon" />
       </Link>
     </div>
   );
