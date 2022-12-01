@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import TextField from '@mui/material/TextField';
 import PropTypes from 'prop-types';
 import IconButton from '@mui/material/IconButton';
@@ -11,11 +11,11 @@ const CreateReply = ({ parentId, handleNestedComment, articleId }) => {
   const dispatch = useDispatch();
   const [reply, setReply] = useState('');
 
-  const handleNewInput = (e) => {
+  const handleNewInput = useCallback((e) => {
     setReply(e.target.value);
-  };
+  }, []);
 
-  const createReply = () => {
+  const createReply = useCallback(() => {
     if (reply.length < 1) return;
 
     const commentInfo = {
@@ -29,7 +29,7 @@ const CreateReply = ({ parentId, handleNestedComment, articleId }) => {
     setReply('');
 
     handleNestedComment();
-  };
+  }, [reply]);
 
   return (
     <div className="reply-input">
@@ -58,4 +58,4 @@ CreateReply.propTypes = {
   articleId: PropTypes.string.isRequired,
 };
 
-export default CreateReply;
+export default React.memo(CreateReply);

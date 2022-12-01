@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import GroupsIcon from '@mui/icons-material/Groups';
 import ModalTemplate from '../common/ModalTemplate';
 import RoomDetailForm from './RoomDetailForm';
-// import ConvertMap from '../common/ConvertMap';
 import '../../styles/RoomItem.scss';
 import CreateRoomForm from './CreateRoomForm';
 import CommentPart from '../comment/CommentPart';
@@ -112,4 +111,4 @@ RoomItem.propTypes = {
   hashtag: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default RoomItem;
+export default React.memo(RoomItem);

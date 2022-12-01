@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import RoomItem from './RoomItem';
 import ConvertMap from '../common/ConvertMap';
 
 const RoomList = ({ roomList }) => {
-  const makeHashTag = (articleInfo) => {
+  const makeHashTag = useCallback((articleInfo) => {
     const res = [`#${articleInfo.date.slice(5).replace('-', '/')} `];
     const { matchConditionDto } = articleInfo;
 
@@ -18,7 +18,7 @@ const RoomList = ({ roomList }) => {
     }
 
     return res;
-  };
+  }, []);
 
   return (
     <div className="room-list">

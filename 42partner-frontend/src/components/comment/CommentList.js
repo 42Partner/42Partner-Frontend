@@ -18,9 +18,12 @@ const CommentList = ({ articleId, commentList }) => {
     [dispatch],
   );
 
-  const onEdit = (content, opinionId) => {
-    dispatch(editComment({ content, opinionId }));
-  };
+  const onEdit = useCallback(
+    (content, opinionId) => {
+      dispatch(editComment({ content, opinionId }));
+    },
+    [dispatch],
+  );
 
   useEffect(() => {
     if (roomList.find((room) => room.articleId === articleId) !== undefined) {

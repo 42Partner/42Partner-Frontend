@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import ConvertMap from '../common/ConvertMap';
 
@@ -9,7 +9,7 @@ const RoomInfo = () => {
   const { matchConditionDto } = articleInfo;
   const [author, setAuthor] = useState('');
 
-  const makeKorean = (name, options) => {
+  const makeKorean = useCallback((options) => {
     let res = '';
 
     for (let i = 0; i < options.length; ) {
@@ -17,13 +17,13 @@ const RoomInfo = () => {
       i += 1;
     }
     return res;
-  };
+  }, []);
 
-  const findAuthor = () => {
+  const findAuthor = useCallback(() => {
     setAuthor(
       articleInfo.participantsOrAuthor.find((x) => x.isAuthor).nickname,
     );
-  };
+  }, []);
 
   useEffect(() => {
     findAuthor();
@@ -43,30 +43,20 @@ const RoomInfo = () => {
       <p>{articleInfo.content}</p>
       <div className="select-info-wrapper">
         <div>날짜 : {articleInfo.isToday ? '당일' : articleInfo.date}</div>
-        <div>장소 : {makeKorean('placeList', matchConditionDto.placeList)}</div>
+        <div>장소 : {makeKorean(matchConditionDto.placeList)}</div>
         {articleInfo.contentCategory === 'MEAL' ? (
           <div>
+            <div>시간대 : {makeKorean(matchConditionDto.timeOfEatingList)}</div>
             <div>
-              시간대 :{' '}
-              {makeKorean(
-                'timeOfEatingList',
-                matchConditionDto.timeOfEatingList,
-              )}
-            </div>
-            <div>
-              배달여부 :{' '}
-              {makeKorean('wayOfEatingList', matchConditionDto.wayOfEatingList)}
+              배달여부 : {makeKorean(matchConditionDto.wayOfEatingList)}
             </div>
           </div>
         ) : (
-          <div>
-            주제 :{' '}
-            {makeKorean('typeOfStudyList', matchConditionDto.typeOfStudyList)}
-          </div>
+          <div>주제 : {makeKorean(matchConditionDto.typeOfStudyList)}</div>
         )}
       </div>
     </div>
   );
 };
 
-export default RoomInfo;
+export default React.memo(RoomInfo);
