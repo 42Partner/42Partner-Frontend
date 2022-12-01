@@ -1,11 +1,18 @@
-import { useSelector } from 'react-redux';
 import client from './client';
 
 export const getUserData = () => {
-  const { token } = useSelector(({ login }) => ({
-    token: login.token,
-  }));
-  console.log('11111', token);
-  return client.get(`/api/users/${token}`);
+  const userId = localStorage.getItem('userId');
+  return client.get(`/api/users/${userId}`);
 };
-export default getUserData;
+
+export const getScore = () => {
+  return client.get(`/api/activities/score`);
+};
+
+export const getMatches = () => {
+  return client.get(`/api/matches`);
+};
+
+export const getDetail = ({ matchId }) => {
+  return client.get(`/api/matches/${matchId}`);
+};

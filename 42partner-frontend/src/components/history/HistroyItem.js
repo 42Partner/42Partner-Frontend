@@ -1,44 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
+import { useDispatch, useSelector } from 'react-redux';
 import '../../styles/HistroyItem.scss';
 import ModalTemplate from '../common/ModalTemplate';
 import HistoryDetailForm from './HistoryDetailForm';
-import Instance from '../common/Instance';
+import { getDetail } from '../../modules/mypage';
 
 // eslint-disable-next-line react/prop-types
 const HistroyItem = ({ id, content, method, date }) => {
   //   const [category, setCategory] = useState([]);
   //   setCategory([...content, method]);
   const matchId = id;
-  const [detail, setDetail] = useState({});
-  useEffect(() => {
-    const getMatchDetail = async () => {
-      try {
-        const matchDetail = await Instance.get(
-          `${process.env.REACT_APP_API_KEY}/matches/${id}`,
-        );
-        // const matchDetail = {
-        //   contentCategory: 'MEAL',
-        //   createdAt: '2022-11-23T11:29:31.892Z',
-        //   matchConditionDto: {
-        //     placeList: ['SEOCHO'],
-        //     timeOfEatingList: ['BREAKFAST', 'LUNCH'],
-        //     typeOfStudyList: ['INNER_CIRCLE'],
-        //     wayOfEatingList: ['DELIVERY'],
-        //   },
-        //   matchId: '4f3dda35-3739-406c-ad22-eed438831d66',
-        //   matchStatus: 'MATCHED',
-        //   methodCategory: 'MANUAL',
-        //   participantNum: 4,
-        // };
-        setDetail({ ...matchDetail });
-      } catch (e) {
-        Promise.reject(e);
-      }
-    };
-    getMatchDetail(matchId);
-  }, []);
 
+  const dispatch = useDispatch();
+  const { detail } = useSelector(({ mypage }) => ({
+    detail: mypage.detail,
+  }));
+  console.log('222222', detail);
+  //   console.log('History Item: ', matchId);
+  useEffect(() => {
+    console.log('hihhi!', detail);
+    dispatch(getDetail({ matchId }));
+  }, []);
   const [open, setOpen] = useState(false);
 
   const handleDetaileOpen = () => {

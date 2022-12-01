@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import HistroyItem from './HistroyItem';
 import '../../styles/HistroyList.scss';
+import HistroyItem from './HistroyItem';
 import ConvertMap from '../common/ConvertMap';
 
 const HistroyList = ({ match }) => {
@@ -31,6 +31,7 @@ const HistroyList = ({ match }) => {
     };
     getMatchData();
   }, []);
+  console.log('ihhihhih', matchData);
 
   return (
     <div className="history-list">
