@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import '../../styles/HistroyItem.scss';
 import ModalTemplate from '../common/ModalTemplate';
 import HistoryDetailForm from './HistoryDetailForm';
-import { getDetail } from '../../modules/mypage';
+// import { getDetail } from '../../modules/mypage';
 
 // eslint-disable-next-line react/prop-types
 const HistroyItem = ({ id, content, method, date }) => {
   //   const [category, setCategory] = useState([]);
   //   setCategory([...content, method]);
-  const matchId = id;
+  // const matchId = id;
 
-  const dispatch = useDispatch();
-  const { detail } = useSelector(({ mypage }) => ({
-    detail: mypage.detail,
-  }));
-  console.log('222222', detail);
-  //   console.log('History Item: ', matchId);
-  useEffect(() => {
-    console.log('hihhi!', detail);
-    dispatch(getDetail({ matchId }));
-  }, []);
+  //   const dispatch = useDispatch();
+  //   const { detail } = useSelector(({ mypage }) => ({
+  //     detail: mypage.detail,
+  //   }));
+  //   console.log('222222', detail);
+  //   //   console.log('History Item: ', matchId);
+  //   useEffect(() => {
+  //     console.log('hihhi!', detail);
+  //     dispatch(getDetail({ matchId }));
+  //   }, []);
   const [open, setOpen] = useState(false);
 
   const handleDetaileOpen = () => {
@@ -47,7 +47,7 @@ const HistroyItem = ({ id, content, method, date }) => {
         </Button>
         <ModalTemplate open={open} onClose={handleDetaileClose}>
           <HistoryDetailForm
-            detail={detail}
+            matchId={id}
             open={open}
             onClose={handleDetaileClose}
           />

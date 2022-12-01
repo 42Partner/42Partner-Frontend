@@ -1,33 +1,24 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
-
-// import axios from 'axios';
-
+import { useDispatch, useSelector } from 'react-redux';
 import '../../styles/HistoryDetailForm.scss';
-import ConvertMap from '../common/ConvertMap';
+import { getDetail } from '../../modules/mypage';
+import HistoryDetailContent from './HistoryDetailContent';
 
-const HistoryDetailForm = ({ detail, open, onClose }) => {
-  console.log('##################', detail);
+const HistoryDetailForm = ({ matchId, open, onClose }) => {
+  const dispatch = useDispatch();
+  const { detail } = useSelector(({ mypage }) => ({
+    detail: mypage.detail,
+  }));
+  console.log('222222', detail);
 
-  console.log(detail.matchConditionDto.timeOfEatingList);
-
-  const mealOrStudy = ConvertMap.get(detail.contentCategory);
-  const randomOrRoom = ConvertMap.get(detail.methodCategory);
-  const place = detail.matchConditionDto.placeList.map((ele) =>
-    ConvertMap.get(ele),
-  );
-  const timeToEat = detail.matchConditionDto.timeOfEatingList.map((ele) =>
-    ConvertMap.get(ele),
-  );
-  const wayToEat = detail.matchConditionDto.wayOfEatingList.map((ele) =>
-    ConvertMap.get(ele),
-  );
-  const typeToStudy = detail.matchConditionDto.typeOfStudyList.map((ele) =>
-    ConvertMap.get(ele),
-  );
+  useEffect(() => {
+    console.log('hihhi!', detail);
+    dispatch(getDetail({ matchId }));
+  }, []);
 
   return (
     <div className="history-detail-form">
@@ -36,8 +27,9 @@ const HistoryDetailForm = ({ detail, open, onClose }) => {
           <CloseIcon />
         </IconButton>
       </div>
+      {detail && <HistoryDetailContent detail={detail} />}
 
-      <div className="paragraph">
+      {/* <div className="paragraph">
         {ConvertMap.get()}
         <h2>
           [{mealOrStudy}]{randomOrRoom}
@@ -60,7 +52,7 @@ const HistoryDetailForm = ({ detail, open, onClose }) => {
             <h1>STUDY</h1>
           </>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
