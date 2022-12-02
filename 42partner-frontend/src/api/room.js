@@ -10,7 +10,7 @@ export const getOneRoom = ({ articleId }) => {
 
 export const createRoom = async ({ article }) => {
   const articleId = await client
-    .post(`/api/articles`, article)
+    .post(`/api/articles`, JSON.stringify(article))
     .then((res) => {
       return res.data;
     })
@@ -24,8 +24,8 @@ export const deleteRoom = ({ articleId }) => {
   return client.post(`/api/articles/${articleId}/recoverable-delete`);
 };
 
-export const editRoomInfo = ({ article, articleId }) => {
-  client.put(`/api/articles/${articleId}`, article);
+export const editRoomInfo = async ({ article, articleId }) => {
+  await client.put(`/api/articles/${articleId}`, JSON.stringify(article));
   return getOneRoom({ articleId });
 };
 

@@ -1,5 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { takeLatest } from 'redux-saga/effects';
+// eslint-disable-next-line no-unused-vars
 import produce from 'immer';
 import createRequestSaga, {
   createRequestActionTypes,
@@ -8,8 +9,10 @@ import * as commentApi from '../api/comment';
 
 const [CREATE, CREATE_SUCCESS, CREATE_FAILURE] =
   createRequestActionTypes('comment/CREATE');
+// eslint-disable-next-line no-unused-vars
 const [EDIT, EDIT_SUCCESS, EDIT_FAILURE] =
   createRequestActionTypes('comment/EDIT');
+// eslint-disable-next-line no-unused-vars
 const [DELETE, DELETE_SUCCESS, DELETE_FAILURE] =
   createRequestActionTypes('comment/DELETE');
 const [LOADLIST, LOADLIST_SUCCESS, LOADLIST_FAILURE] =
@@ -60,46 +63,34 @@ const comments = handleActions(
     }),
 
     // create
-    [CREATE_SUCCESS]: (state, { payload: comment }) =>
-      produce(
-        (state,
-        (draft) => {
-          draft.commentList.push(comment);
-          draft.requestError = null;
-        }),
-      ),
+    [CREATE_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      commentList: state.commentList.concat(payload),
+    }),
     [CREATE_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
     }),
 
     // edit
-    [EDIT]: (state, { payload: { content, opinionId } }) =>
-      produce(state, (draft) => {
-        draft.requestError = null;
-        const comment = draft.commentList.find(
-          (c) => c.opinionId === opinionId,
-        );
-        comment.content = content;
-      }),
-    [EDIT_SUCCESS]: (state) =>
-      produce(state, (draft) => {
-        draft.requestError = null;
-      }),
+    [EDIT_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      commentList: state.commentList.map((c) =>
+        c.opinionId === payload.opinionId ? payload : c,
+      ),
+    }),
     [EDIT_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
     }),
 
     // Delete
-    [DELETE_SUCCESS]: (state, { payload: opinionId }) =>
-      produce(state, (draft) => {
-        draft.requestError = null;
-        const index = draft.commentList.findIndex(
-          (c) => c.opinionId === opinionId,
-        );
-        draft.commentList.splice(index, 1);
-      }),
+    [DELETE_SUCCESS]: (state, { payload: comment }) => ({
+      ...state,
+      commentList: state.commentList.filter(
+        (c) => c.opinionId !== comment.opinionId,
+      ),
+    }),
     [DELETE_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
