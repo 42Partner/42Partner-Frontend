@@ -20,9 +20,10 @@ const [CANCLE, CANCLE_SUCCESS, CANCLE_FAILURE] =
   createRequestActionTypes('rooms/CANCLE');
 const [COMPLETE, COMPLETE_SUCCESS, COMPLETE_FAILURE] =
   createRequestActionTypes('rooms/COMPLETE');
+const [LOAD_INFO, LOAD_INFO_SUCCESS, LOAD_INFO_FAILURE] =
+  createRequestActionTypes('rooms/LOAD_INFO');
 const RESET_ALL_DATA = 'rooms/RESET_ALL_DATA';
 const RESET_ARTICLE_DATA = 'rooms/RESET_ARTICLE_DATA';
-const LOAD_INFO = 'rooms/LOAD_INFO';
 const CHANGE_EDITMODE = 'rooms/CHANGE_EDITMODE';
 
 export const createRoom = createAction(CREATE, (article) => article);
@@ -47,6 +48,7 @@ const createSaga = createRequestSaga(CREATE, roomApi.createRoom);
 const editSaga = createRequestSaga(EDIT, roomApi.editRoomInfo);
 const deleteSaga = createRequestSaga(DELETE, roomApi.deleteRoom);
 const loadRoomListSaga = createRequestSaga(LOADLIST, roomApi.getRoomList);
+const loadArticleInfoSaga = createRequestSaga(LOAD_INFO, roomApi.getOneRoom);
 const joinRoomSaga = createRequestSaga(JOIN, roomApi.joinRoom);
 const cancleRoomSaga = createRequestSaga(CANCLE, roomApi.cancleRoom);
 const completeRoomSaga = createRequestSaga(COMPLETE, roomApi.completeRoom);
@@ -56,6 +58,7 @@ export function* rooomSaga() {
   yield takeLatest(EDIT, editSaga);
   yield takeLatest(DELETE, deleteSaga);
   yield takeLatest(LOADLIST, loadRoomListSaga);
+  yield takeLatest(LOAD_INFO, loadArticleInfoSaga);
   yield takeLatest(JOIN, joinRoomSaga);
   yield takeLatest(CANCLE, cancleRoomSaga);
   yield takeLatest(COMPLETE, completeRoomSaga);
@@ -65,7 +68,6 @@ const initialState = {
   editMode: false,
   articleInfo: null,
   roomList: [],
-  joinRoomList: [],
   completeRoomList: [],
   requestError: null,
 };
@@ -94,11 +96,11 @@ const rooms = handleActions(
     }),
 
     // edit
-    [EDIT_SUCCESS]: (state, { payload: { article } }) => ({
+    [EDIT_SUCCESS]: (state, { payload }) => ({
       ...state,
       requestError: null,
       roomList: state.roomList.map((room) =>
-        room.articleId === article.articleId ? article : room,
+        room.articleId === payload.articleId ? payload : room,
       ),
     }),
     [EDIT_FAILURE]: (state, { payload: e }) => ({
@@ -107,28 +109,21 @@ const rooms = handleActions(
     }),
 
     // Delete
-    [DELETE_SUCCESS]: (state, { payload: articleId }) =>
-      produce(state, (draft) => {
-        draft.requestError = null;
-        const index = draft.roomList.findIndex(
-          (c) => c.articleId === articleId,
-        );
-        draft.roomList.splice(index, 1);
-      }),
+    [DELETE_SUCCESS]: (state, { payload: article }) => ({
+      ...state,
+      roomList: state.roomList.filter(
+        (room) => room.articleId !== article.articleId,
+      ),
+    }),
     [DELETE_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
     }),
 
     // join
-    [JOIN_SUCCESS]: (state, { payload: article }) =>
-      produce(state, (draft) => {
-        draft.requestError = null;
-        const room = draft.roomList.find(
-          (c) => c.articleId === article.articleId,
-        );
-        draft.joinRoomList.push(room);
-      }),
+    [JOIN_SUCCESS]: (state) => ({
+      ...state,
+    }),
     [JOIN_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
@@ -160,17 +155,22 @@ const rooms = handleActions(
       requestError: e,
     }),
 
+    // load info
+    [LOAD_INFO_SUCCESS]: (state, { payload: articleInfo }) => ({
+      ...state,
+      articleInfo,
+    }),
+    [LOAD_INFO_FAILURE]: (state, { payload: e }) => ({
+      ...state,
+      requestError: e,
+    }),
+
     [RESET_ALL_DATA]: () => initialState,
     [RESET_ARTICLE_DATA]: (state) => ({
       ...state,
       articleInfo: null,
     }),
-    [LOAD_INFO]: (state, { payload: article }) => ({
-      ...state,
-      articleInfo: state.roomList.find(
-        (room) => room.articleId === article.articleId,
-      ),
-    }),
+
     [CHANGE_EDITMODE]: (state, { payload: isEditMode }) => ({
       ...state,
       editMode: isEditMode,

@@ -3,10 +3,13 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
+import Box from '@mui/material/Box';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/esm/locale';
 import PropTypes from 'prop-types';
-import produce from 'immer';
 import { useDispatch, useSelector } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../styles/CreateRoomForm.scss';
@@ -231,7 +234,6 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     setArticle({
       ...article,
       matchConditionDto: matchingOption,
-      // 10일 이하에서 post error 나서 수정
       date:
         bookingDate.getDate() < 10
           ? `${bookingDate.getFullYear()}-${
@@ -311,27 +313,21 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
         </div>
         <div className="option-field">
           <h2>모집 인원</h2>
-          <TextField
-            style={{ width: '100px' }}
-            size="small"
-            type="number"
-            value={article.participantNumMax}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            onInput={(e) => {
-              setArticle(
-                produce(article, (draft) => {
-                  draft.participantNumMax = Math.max(
-                    1,
-                    parseInt(e.target.value, 10),
-                  )
-                    .toString()
-                    .slice(0, 3);
-                }),
-              );
-            }}
-          />
+          <Box sx={{ minWidth: 60 }}>
+            <FormControl fullWidth>
+              <Select
+                name="participantNumMax"
+                value={article.participantNumMax}
+                onChange={articleHandler}
+              >
+                {Array.from({ length: 10 }, (x, i) => (
+                  <MenuItem key={i + 1} value={i + 1}>
+                    {i + 1}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
         </div>
       </div>
       <TextField

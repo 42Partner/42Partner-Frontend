@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -12,17 +11,18 @@ import {
   completeRoom,
   deleteRoom,
   joinRoom,
+  loadArticleInfo,
+  resetArticleData,
 } from '../../modules/rooms';
 import '../../styles/RoomDetailForm.scss';
 import CustomColorButton from '../common/CustomColorButton';
 import DialogContainer from '../common/DialogContainer';
 
-const RoomDetailForm = ({ roomInfoPart, commetPart, articleInfo, onClose }) => {
+const RoomDetailForm = ({ articleId, roomInfoPart, commetPart, onClose }) => {
   const dispatch = useDispatch();
-  const { articleId } = articleInfo;
-  const { joinRoomList, completeRoomList, userId } = useSelector(
+  const { articleInfo, completeRoomList, userId } = useSelector(
     ({ rooms, login }) => ({
-      joinRoomList: rooms.joinRoomList,
+      articleInfo: rooms.articleInfo,
       completeRoomList: rooms.completeRoomList,
       userId: login.userId,
     }),
@@ -38,8 +38,8 @@ const RoomDetailForm = ({ roomInfoPart, commetPart, articleInfo, onClose }) => {
   const handleConfirmClose = (isDelete) => {
     if (isDelete) {
       dispatch(deleteRoom({ articleId }));
+      onClose();
     }
-
     setComfirmOpen(false);
   };
 
@@ -59,9 +59,12 @@ const RoomDetailForm = ({ roomInfoPart, commetPart, articleInfo, onClose }) => {
 
   const isAlreadyJoin = () => {
     if (
-      joinRoomList.find((room) => room.articleId === articleId) !== undefined
+      articleInfo &&
+      articleInfo.participantsOrAuthor.find((x) => x.isMe) !== undefined
     ) {
       setJoin(true);
+    } else {
+      setJoin(false);
     }
   };
 
@@ -75,82 +78,95 @@ const RoomDetailForm = ({ roomInfoPart, commetPart, articleInfo, onClose }) => {
   };
 
   useEffect(() => {
+    dispatch(loadArticleInfo({ articleId }));
     isAlreadyJoin();
     isAleradyComplete();
+
+    return () => {
+      dispatch(resetArticleData());
+    };
   }, []);
 
+  useEffect(() => {
+    isAlreadyJoin();
+  }, [articleInfo]);
+
   return (
-    <div className="room-detail-form">
-      <div className="close-button">
-        <IconButton onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      </div>
-      {roomInfoPart}
-      <div className="paragraph button-wrapper">
-        {articleInfo.userId === userId ? (
-          <div className="botton-group-wrapper">
-            <CustomColorButton
-              className="button"
-              button={
-                <Button
-                  variant="contained"
-                  disabled={complete}
-                  onClick={completeRoomHandler}
-                  color="complete"
-                >
-                  매칭 완료
-                </Button>
-              }
-            />
-            <div>
+    <div>
+      {articleInfo && (
+        <div className="room-detail-form">
+          <div className="close-button">
+            <IconButton onClick={onClose}>
+              <CloseIcon />
+            </IconButton>
+          </div>
+          {roomInfoPart}
+          <div className="paragraph button-wrapper">
+            {articleInfo.userId === userId ? (
+              <div className="botton-group-wrapper">
+                <CustomColorButton
+                  className="button"
+                  button={
+                    <Button
+                      variant="contained"
+                      disabled={complete}
+                      onClick={completeRoomHandler}
+                      color="complete"
+                    >
+                      매칭 완료
+                    </Button>
+                  }
+                />
+                <div>
+                  <CustomColorButton
+                    className="button"
+                    button={
+                      <Button
+                        variant="contained"
+                        onClick={() => dispatch(changeEditMode(true))}
+                        disabled={complete}
+                      >
+                        수정
+                      </Button>
+                    }
+                  />
+                  <Button
+                    style={{ background: '#cccccc', color: 'black' }}
+                    className="button"
+                    disabled={complete}
+                    variant="contained"
+                    onClick={handleConfirmOpen}
+                  >
+                    삭제
+                  </Button>
+                  <DialogContainer
+                    open={comfirmOpen}
+                    onClose={handleConfirmClose}
+                  />
+                </div>
+              </div>
+            ) : (
               <CustomColorButton
-                className="button"
                 button={
                   <Button
+                    disabled={
+                      articleInfo.participantNum ===
+                        articleInfo.participantNumMax || complete
+                    }
+                    className="button"
                     variant="contained"
-                    onClick={() => dispatch(changeEditMode(true))}
-                    disabled={complete}
+                    onClick={joinRoomHandler}
+                    color={join ? 'cancle' : 'primary'}
                   >
-                    수정
+                    {join ? '참여 취소' : '참여'}
                   </Button>
                 }
               />
-              <Button
-                style={{ background: '#cccccc', color: 'black' }}
-                className="button"
-                disabled={complete}
-                variant="contained"
-                onClick={handleConfirmOpen}
-              >
-                삭제
-              </Button>
-              <DialogContainer
-                open={comfirmOpen}
-                onClose={handleConfirmClose}
-              />
-            </div>
+            )}
           </div>
-        ) : (
-          <CustomColorButton
-            button={
-              <Button
-                disabled={
-                  articleInfo.participantNum ===
-                    articleInfo.participantNumMax || complete
-                }
-                className="button"
-                variant="contained"
-                onClick={joinRoomHandler}
-                color={join ? 'cancle' : 'primary'}
-              >
-                {join ? '참여 취소' : '참여'}
-              </Button>
-            }
-          />
-        )}
-      </div>
-      {commetPart}
+          {commetPart}
+        </div>
+      )}
     </div>
   );
 };
@@ -158,30 +174,7 @@ const RoomDetailForm = ({ roomInfoPart, commetPart, articleInfo, onClose }) => {
 RoomDetailForm.propTypes = {
   roomInfoPart: PropTypes.element.isRequired,
   commetPart: PropTypes.element.isRequired,
-  articleInfo: PropTypes.shape({
-    anonymity: PropTypes.bool,
-    articleId: PropTypes.string,
-    content: PropTypes.string,
-    contentCategory: PropTypes.string,
-    createdAt: PropTypes.string,
-    date: PropTypes.string,
-    isToday: PropTypes.bool,
-    // eslint-disable-next-line react/forbid-prop-types
-    matchConditionDto: PropTypes.object,
-    // (
-    //   PropTypes.shape({
-    //     placeList: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-    //     timeOfEatingList: PropTypes.arrayOf(PropTypes.string),
-    //     typeOfStudyList: PropTypes.arrayOf(PropTypes.string),
-    //     wayOfEatingList: PropTypes.arrayOf(PropTypes.string),
-    //   }),
-    // ),
-    nickname: PropTypes.string,
-    participantNum: PropTypes.number,
-    participantNumMax: PropTypes.number,
-    title: PropTypes.string,
-    userId: PropTypes.string,
-  }).isRequired,
+  articleId: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 

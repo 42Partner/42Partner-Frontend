@@ -45,7 +45,16 @@ const CommentPart = ({ articleId }) => {
   }, []);
 
   useEffect(() => {
-    setOneLevelCommetList(commentsList.filter((c) => c.level === 1));
+    if (commentsList) {
+      const tmpList = commentsList.filter((c) => c.level === 1);
+      const sortList = tmpList.sort((a, b) => {
+        if (a.createdAt > b.createdAt) return -1;
+        if (a.createdAt < b.createdAt) return 1;
+        return 0;
+      });
+
+      setOneLevelCommetList(sortList);
+    }
   }, [commentsList]);
 
   return (
