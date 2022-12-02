@@ -40,7 +40,6 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     timeOfEatingList: [
       { checked: false, value: 'BREAKFAST', label: '아침' },
       { checked: false, value: 'LUNCH', label: '점심' },
-      { checked: false, value: 'DUNCH', label: '점저' },
       { checked: false, value: 'DINNER', label: '저녁' },
       { checked: false, value: 'MIDNIGHT', label: '야식' },
     ],

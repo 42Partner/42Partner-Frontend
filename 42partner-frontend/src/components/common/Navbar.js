@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../styles/Navbar.scss';
 import { BsPersonCircle, BsList } from 'react-icons/bs';
 import {
@@ -21,6 +21,8 @@ import {
 import { BiHome } from 'react-icons/bi';
 import { GiMeal, GiPencil } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProfile } from '../../modules/mypage';
 
 const useStyles = makeStyles(() => ({
   navbar: {
@@ -60,6 +62,13 @@ const useStyles = makeStyles(() => ({
 const Navbar = () => {
   const { navbar, navbarContents, logo, description, button } = useStyles();
   const [sidebar, setSidebar] = React.useState(false);
+  const dispatch = useDispatch();
+  const { user } = useSelector(({ mypage }) => ({
+    user: mypage.user,
+  }));
+  useEffect(() => {
+    dispatch(getProfile());
+  }, []);
 
   const getProfileButton = () => {
     return (
@@ -151,9 +160,21 @@ const Navbar = () => {
           {MainLogo} {LogoDesc}
         </div>
         <div>
-          <Link to="/mypage" style={{ color: 'white', textDecoration: 'none' }}>
-            {getProfileButton()}
-          </Link>
+          {user ? (
+            <Link
+              to="/mypage"
+              style={{ color: 'white', textDecoration: 'none' }}
+            >
+              {getProfileButton()}
+            </Link>
+          ) : (
+            <Link
+              to="/login"
+              style={{ color: 'white', textDecoration: 'none' }}
+            >
+              {getProfileButton()}
+            </Link>
+          )}
         </div>
       </Toolbar>
     );

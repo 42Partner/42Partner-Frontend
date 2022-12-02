@@ -44,11 +44,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-// import MealOption from './MealOption';
 import '../../styles/Random.scss';
 import cn from 'classnames';
 import { Button } from '@material-ui/core/index';
-import RandomOption from './MealOption';
+import RandomOption from './RandomOption';
 import MealMatching from './MealMatching';
 
 const RandomContainer = () => {
