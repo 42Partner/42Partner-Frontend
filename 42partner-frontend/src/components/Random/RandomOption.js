@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core/index';
 import CheckBoxList from '../common/CheckBoxListRandom';
 import '../../styles/Option.scss';
+// import { postRandomMatch } from '../../modules/random';
 
 const RandomOption = ({ topic }) => {
+  //   const dispatch = useDispatch();
+  //   const { randomMatchOption } = useSelector(({ random }) => ({
+  //     randomMatchOption: random.option,
+  //   }));
+
   const [options, setOptions] = useState({
     placeList: [
       { checked: false, value: 'SEOCHO', label: '개포' },
@@ -18,13 +25,13 @@ const RandomOption = ({ topic }) => {
       { checked: false, value: 'MIDNIGHT', label: '야식' },
     ],
     typeOfStudyList: [
-      { value: 'INNER_CIRCLE', label: '본 과정' },
-      { value: 'NOT_INNER_CIRCLE', label: '비 본 과정' },
+      { checked: false, value: 'INNER_CIRCLE', label: '본 과정' },
+      { checked: false, value: 'NOT_INNER_CIRCLE', label: '비 본 과정' },
     ],
     wayOfEatingList: [
-      { value: 'DELIVERY', label: '배달' },
-      { value: 'EATOUT', label: '도보' },
-      { value: 'TAKEOUT', label: '기타' },
+      { checked: false, value: 'DELIVERY', label: '배달' },
+      { checked: false, value: 'EATOUT', label: '도보' },
+      { checked: false, value: 'TAKEOUT', label: '기타' },
     ],
   });
   const [matchingOption, setMatchingOption] = useState({
@@ -32,6 +39,15 @@ const RandomOption = ({ topic }) => {
     timeOfEatingList: [],
     typeOfStudyList: [],
     wayOfEatingList: [],
+  });
+
+  const [sendOption, setSendOption] = useState({
+    contentCategory: null,
+    matchConditionRandomMatchDto: {
+      placeList: null,
+      typeOfStudyList: null,
+      wayOfEatingList: null,
+    },
   });
 
   const checkData = (name, value, check) => {
@@ -54,11 +70,52 @@ const RandomOption = ({ topic }) => {
       });
     }
   };
+  console.log('options: ', options, 'matchingOption: ', matchingOption);
 
   const checkBoxOptionHandler = (e) => {
     const { name, value, checked } = e.target;
     checkData(name, value, checked);
   };
+
+  useEffect(() => {
+    const initCheckBoxOptions = () => {
+      setOptions({
+        placeList: [
+          { checked: false, value: 'SEOCHO', label: '개포' },
+          { checked: false, value: 'GAEPO', label: '서초' },
+          { checked: false, value: 'OUT_OF_CLUSTER', label: '기타 (외부)' },
+        ],
+        typeOfStudyList: [
+          { checked: false, value: 'INNER_CIRCLE', label: '본 과정' },
+          { checked: false, value: 'NOT_INNER_CIRCLE', label: '비 본 과정' },
+        ],
+        wayOfEatingList: [
+          { checked: false, value: 'DELIVERY', label: '배달' },
+          { checked: false, value: 'EATOUT', label: '도보' },
+          { checked: false, value: 'TAKEOUT', label: '기타' },
+        ],
+      });
+    };
+    initCheckBoxOptions();
+  }, []);
+
+  useEffect(() => {
+    setSendOption({
+      contentCategory: `${topic}`,
+      matchConditionRandomMatchDto: {
+        placeList: [`${matchingOption.placeList}`],
+        typeOfStudyList: [`${matchingOption.typeOfStudyList}`],
+        wayOfEatingList: [`${matchingOption.wayOfEatingList}`],
+      },
+    });
+  }, [matchingOption]);
+
+  const matchingHandler = () => {
+    console.log(sendOption);
+    // 	dispatch(postRandomMatch({ sendOption }));
+  };
+
+  //   console.log(randomMatchOption);
 
   return (
     <div className="option-wrapper">
@@ -112,7 +169,12 @@ const RandomOption = ({ topic }) => {
         <Button style={{ marginRight: 20, backgroundColor: '#dee1e3' }}>
           초기화
         </Button>
-        <Button style={{ backgroundColor: 'lightpink' }}>매칭</Button>
+        <Button
+          onClick={matchingHandler}
+          style={{ backgroundColor: 'lightpink' }}
+        >
+          매칭
+        </Button>
       </div>
     </div>
   );

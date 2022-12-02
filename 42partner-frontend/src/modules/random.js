@@ -6,11 +6,11 @@ import createRequestSaga, {
 import * as randomApi from '../api/random';
 
 const [POST_RANDOM, POST_RANDOM_SUCCESS, POST_RANDOM_FAILURE] =
-  createRequestActionTypes('mypage/POST_RANDOM');
+  createRequestActionTypes('random/POST_RANDOM');
 const [CANCEL_RANDOM, CANCEL_RANDOM_SUCCESS, CANCEL_RANDOM_FAILURE] =
-  createRequestActionTypes('mypage/CANCEL_RANDOM');
+  createRequestActionTypes('random/CANCEL_RANDOM');
 
-export const postRandomMatch = createAction(POST_RANDOM);
+export const postRandomMatch = createAction(POST_RANDOM, (option) => option);
 export const cancelRandomMatch = createAction(CANCEL_RANDOM);
 
 const postRandomMatchSaga = createRequestSaga(

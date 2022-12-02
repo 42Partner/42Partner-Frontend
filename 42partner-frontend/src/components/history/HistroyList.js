@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import '../../styles/HistroyList.scss';
+import PropTypes from 'prop-types';
 import HistroyItem from './HistroyItem';
 import ConvertMap from '../common/ConvertMap';
 
@@ -45,3 +45,8 @@ const HistroyList = ({ match }) => {
 };
 
 export default HistroyList;
+
+HistroyList.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  match: PropTypes.object.isRequired,
+};

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-// import { useDispatch, useSelector } from 'react-redux';
 import '../../styles/HistroyItem.scss';
 import ModalTemplate from '../common/ModalTemplate';
 import HistoryDetailForm from './HistoryDetailForm';

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -8,6 +7,7 @@ import '../../styles/HistoryDetailForm.scss';
 import { getDetail } from '../../modules/mypage';
 import HistoryDetailContent from './HistoryDetailContent';
 
+// eslint-disable-next-line react/prop-types
 const HistoryDetailForm = ({ matchId, open, onClose }) => {
   const dispatch = useDispatch();
   const { detail } = useSelector(({ mypage }) => ({

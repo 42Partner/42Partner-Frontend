@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import '../../styles/HistoryDetailForm.scss';
 import ConvertMap from '../common/ConvertMap';
 
@@ -52,3 +51,8 @@ const HistoryDetailContent = ({ detail }) => {
 };
 
 export default HistoryDetailContent;
+
+HistoryDetailContent.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  detail: PropTypes.object.isRequired,
+};

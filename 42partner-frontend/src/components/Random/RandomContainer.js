@@ -4,7 +4,7 @@ import '../../styles/Random.scss';
 import cn from 'classnames';
 import { Button } from '@material-ui/core/index';
 import RandomOption from './RandomOption';
-import MealMatching from './MealMatching';
+import RandomMatching from './RandomMatching';
 
 const RandomContainer = () => {
   const location = useLocation();
@@ -41,7 +41,7 @@ const RandomContainer = () => {
         <div className="card back">
           <div className="card-body d-flex justify-content-center align-items-center">
             <p className="card-text fs-1 fw-bold">
-              <MealMatching />
+              <RandomMatching topic={topic} />
             </p>
           </div>
         </div>

@@ -1,7 +1,14 @@
 import client from './client';
 
-export const postRandomMatch = () => {
-  return client.post(`/api/random-matches`);
+export const postRandomMatch = ({ option }) => {
+  client
+    .post(`/api/random-matches`, option)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((e) => {
+      console.error(e);
+    });
 };
 
 export const cancelRandomMatch = () => {

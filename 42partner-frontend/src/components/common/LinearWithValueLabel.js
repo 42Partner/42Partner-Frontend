@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-
 import React from 'react';
 import { Box, LinearProgress, Typography } from '@material-ui/core/index';
 import PropTypes from 'prop-types';
@@ -11,10 +10,12 @@ const LinearProgressWithLabel = (props) => {
         <LinearProgress variant="determinate" {...props} />
       </Box>
       <Box sx={{ minWidth: 35 }}>
-        <Typography variant="body2" color="text.secondary">{`${Math.round(
-          // eslint-disable-next-line react/destructuring-assignment
-          props.value,
-        )}%`}</Typography>
+        <Typography component="span" variant="body2" color="secondary">
+          {`${Math.round(
+            // eslint-disable-next-line react/destructuring-assignment
+            props.value,
+          )}%`}
+        </Typography>
       </Box>
     </Box>
   );
