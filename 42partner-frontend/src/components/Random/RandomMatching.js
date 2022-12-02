@@ -1,10 +1,15 @@
 import React from 'react';
+// import { useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core/index';
 import PropTypes from 'prop-types';
 import '../../styles/Matching.scss';
 import LinearWithValueLabel from '../common/LinearWithValueLabel';
 
 const RandomMatching = ({ topic }) => {
+  // const dispatch = useDispatch();
+  //   const { randomMatching } = useSelector(({ random }) => ({
+  //     randomMatching : random.option,
+  //   }));
   return (
     <div className="matching-wrapper">
       <h3 className="matching-description" style={{ color: '#0099a4' }}>

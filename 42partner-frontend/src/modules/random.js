@@ -32,24 +32,26 @@ const initialState = {
   category: '',
 };
 
-const random = handleActions({
-  [POST_RANDOM_SUCCESS]: (state, { payload: options }) => ({
-    ...state,
-    options,
-  }),
-  [POST_RANDOM_FAILURE]: (state, { payload: e }) => ({
-    ...state,
-    requestError: e,
-  }),
-  [CANCEL_RANDOM_SUCCESS]: (state, { payload: category }) => ({
-    ...state,
-    category,
-  }),
-  [CANCEL_RANDOM_FAILURE]: (state, { payload: e }) => ({
-    ...state,
-    requestError: e,
-  }),
+const random = handleActions(
+  {
+    [POST_RANDOM_SUCCESS]: (state, { payload: options }) => ({
+      ...state,
+      options,
+    }),
+    [POST_RANDOM_FAILURE]: (state, { payload: e }) => ({
+      ...state,
+      requestError: e,
+    }),
+    [CANCEL_RANDOM_SUCCESS]: (state, { payload: category }) => ({
+      ...state,
+      category,
+    }),
+    [CANCEL_RANDOM_FAILURE]: (state, { payload: e }) => ({
+      ...state,
+      requestError: e,
+    }),
+  },
   initialState,
-});
+);
 
 export default random;

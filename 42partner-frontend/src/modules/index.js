@@ -6,6 +6,7 @@ import loading from './loading';
 import login from './login';
 import rooms, { rooomSaga } from './rooms';
 import mypage, { mypageSaga } from './mypage';
+import random, { randomSaga } from './random';
 
 const rootReducer = combineReducers({
   comments,
@@ -13,10 +14,11 @@ const rootReducer = combineReducers({
   rooms,
   login,
   mypage,
+  random,
 });
 
 export function* rootSaga() {
-  yield all([commentSaga(), rooomSaga(), mypageSaga()]);
+  yield all([commentSaga(), rooomSaga(), mypageSaga(), randomSaga()]);
 }
 
 export default rootReducer;

@@ -26,7 +26,8 @@ const HistoryDetailContent = ({ detail }) => {
         <h2>
           [{mealOrStudy}] {randomOrRoom}
         </h2>
-        <h3>{/* 매칭 파트너 : {detail.} */}</h3>
+        {console.log(detail.participantsOrAuthor.MemberDto)}
+        {/* <h3>매칭 파트너 : {detail.participantsOrAuthor.MemberDto}</h3> */}
       </div>
       <div className="select-info-wrapper">
         {mealOrStudy === '밥트너' ? (
