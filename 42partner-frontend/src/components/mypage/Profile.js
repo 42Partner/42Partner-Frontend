@@ -11,7 +11,6 @@ const Profile = () => {
   useEffect(() => {
     dispatch(getProfile());
   }, []);
-  console.log(user);
 
   if (!user) return null;
   return (

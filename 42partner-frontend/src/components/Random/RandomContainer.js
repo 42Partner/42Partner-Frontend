@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import '../../styles/Random.scss';
 import cn from 'classnames';
 import { Button } from '@material-ui/core/index';
-import StudyOption from './StudyOption';
-import StudyMatching from './StudyMatching';
+import RandomOption from './RandomOption';
+import MealMatching from './MealMatching';
 
-const StudyRandom = () => {
+const RandomContainer = () => {
+  const location = useLocation();
+  const [topic, setTopic] = useState('MEAL');
   const [showBack, setShowBack] = useState(false);
 
   const handleClick = () => {
     setShowBack(!showBack);
   };
+
+  useEffect(() => {
+    if (location.pathname.includes('meal')) {
+      setTopic('MEAL');
+    } else {
+      setTopic('STUDY');
+    }
+  }, [location]);
 
   return (
     <div className="flip-card-outer">
@@ -23,14 +34,14 @@ const StudyRandom = () => {
         <div className="card front">
           <div className="card-body d-flex justify-content-center align-items-center">
             <p className="card-text fs-1 fw-bold">
-              <StudyOption />
+              <RandomOption topic={topic} />
             </p>
           </div>
         </div>
         <div className="card back">
           <div className="card-body d-flex justify-content-center align-items-center">
             <p className="card-text fs-1 fw-bold">
-              <StudyMatching />
+              <MealMatching />
             </p>
           </div>
         </div>
@@ -39,4 +50,4 @@ const StudyRandom = () => {
   );
 };
 
-export default StudyRandom;
+export default RandomContainer;

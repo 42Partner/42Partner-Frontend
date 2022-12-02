@@ -147,9 +147,7 @@ const Navbar = () => {
   );
 
   const LogoDesc = (
-    <span className={description}>
-      Find partner to eat and to study in 42Seoul
-    </span>
+    <span className={description}>Find partner to eat and to study</span>
   );
 
   const display = () => {

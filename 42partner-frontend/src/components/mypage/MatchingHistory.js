@@ -23,7 +23,6 @@ const MatchingHistory = () => {
         matches.map((match) => (
           <HistroyList key={match.matchId} match={match} />
         ))}
-      {console.log('!!11111', matches)}
     </div>
   );
 };

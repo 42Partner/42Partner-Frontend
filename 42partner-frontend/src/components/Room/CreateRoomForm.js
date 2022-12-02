@@ -40,6 +40,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     timeOfEatingList: [
       { checked: false, value: 'BREAKFAST', label: '아침' },
       { checked: false, value: 'LUNCH', label: '점심' },
+      { checked: false, value: 'DUNCH', label: '점저' },
       { checked: false, value: 'DINNER', label: '저녁' },
       { checked: false, value: 'MIDNIGHT', label: '야식' },
     ],
@@ -230,9 +231,15 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     setArticle({
       ...article,
       matchConditionDto: matchingOption,
-      date: `${bookingDate.getFullYear()}-${
-        bookingDate.getMonth() + 1
-      }-${bookingDate.getDate()}`,
+      // 10일 이하에서 post error 나서 수정
+      date:
+        bookingDate.getDate() < 10
+          ? `${bookingDate.getFullYear()}-${
+              bookingDate.getMonth() + 1
+            }-0${bookingDate.getDate()}`
+          : `${bookingDate.getFullYear()}-${
+              bookingDate.getMonth() + 1
+            }-${bookingDate.getDate()}`,
     });
   }, [bookingDate, matchingOption]);
 

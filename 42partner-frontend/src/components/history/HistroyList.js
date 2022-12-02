@@ -15,7 +15,7 @@ const HistroyList = ({ match }) => {
   const changeDateFormat = (date) => {
     return date.substr(0, 10);
   };
-  // console.log(matches.content[0].matchConditionDto.timeOfEatingList);
+
   useEffect(() => {
     const getMatchData = async () => {
       try {
@@ -31,12 +31,11 @@ const HistroyList = ({ match }) => {
     };
     getMatchData();
   }, []);
-  console.log('ihhihhih', matchData);
 
   return (
     <div className="history-list">
       <HistroyItem
-        id={matchData[0]}
+        matchId={matchData[0]}
         content={matchData[1]}
         method={matchData[2]}
         date={matchData[3]}

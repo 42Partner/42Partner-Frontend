@@ -1,11 +1,11 @@
 import React from 'react';
-import StudyRandom from '../components/study-random/StudyRandom';
+import RandomContainer from '../components/Random/RandomContainer';
 import '../styles/Random.scss';
 
 const StudyRandomPage = () => {
   return (
     <div className="random-content-wrapper">
-      <StudyRandom />
+      <RandomContainer />
     </div>
   );
 };

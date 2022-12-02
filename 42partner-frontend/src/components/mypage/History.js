@@ -9,7 +9,6 @@ const History = () => {
   const { matchesNum } = useSelector(({ mypage }) => ({
     matchesNum: mypage.matchesNum,
   }));
-  console.log('1111', matchesNum);
   useEffect(() => {
     dispatch(getMatches());
   }, []);

@@ -1,15 +1,8 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  FormGroup,
-  Checkbox,
-  CheckBoxList,
-} from '@material-ui/core/index';
-import '../../styles/Option.scss';
 import PropTypes from 'prop-types';
+import { Button } from '@material-ui/core/index';
+import CheckBoxList from '../common/CheckBoxListRandom';
+import '../../styles/Option.scss';
 
 const RandomOption = ({ topic }) => {
   const [options, setOptions] = useState({
@@ -21,7 +14,6 @@ const RandomOption = ({ topic }) => {
     timeOfEatingList: [
       { checked: false, value: 'BREAKFAST', label: '아침' },
       { checked: false, value: 'LUNCH', label: '점심' },
-      { checked: false, value: 'DUNCH', label: '점저' },
       { checked: false, value: 'DINNER', label: '저녁' },
       { checked: false, value: 'MIDNIGHT', label: '야식' },
     ],
@@ -75,62 +67,47 @@ const RandomOption = ({ topic }) => {
       </h3>
       {topic === 'MEAL' ? (
         <div className="option-where">
-          <span className="tag">Where ?</span>
           <div className="option-group">
             <CheckBoxList
               list={options.placeList}
               topic="장소"
-              type="timeOfEatingList"
+              type="placeList"
               checkBoxOptionHandler={checkBoxOptionHandler}
             />
           </div>
-          <span className="tag">How ?</span>
           <div className="option-group">
             <CheckBoxList
               list={options.wayOfEatingList}
               topic="식사 방식"
-              type="timeOfEatingList"
+              type="wayOfEatingList"
               checkBoxOptionHandler={checkBoxOptionHandler}
             />
           </div>
         </div>
       ) : (
         <div>
-          <CheckBoxList
-            list={options.timeOfEatingList}
-            topic="시간대"
-            type="timeOfEatingList"
-            checkBoxOptionHandler={checkBoxOptionHandler}
-          />
+          <div className="option-where">
+            <div className="option-group">
+              <CheckBoxList
+                list={options.placeList}
+                topic="장소"
+                type="placeList"
+                checkBoxOptionHandler={checkBoxOptionHandler}
+              />
+            </div>
+          </div>
+          <div className="option-what">
+            <div className="option-group">
+              <CheckBoxList
+                list={options.typeOfStudyList}
+                topic="공부 종류"
+                type="typeOfStudyList"
+                checkBoxOptionHandler={checkBoxOptionHandler}
+              />
+            </div>
+          </div>
         </div>
       )}
-      <div className="option-where">
-        <span className="tag">Where ?</span>
-        <div className="option-group">
-          <RadioGroup row aria-labelledby="where" name="where">
-            <FormControlLabel value="gaepo" control={<Radio />} label="개포" />
-            <FormControlLabel value="secho" control={<Radio />} label="서초" />
-            <FormControlLabel value="etc" control={<Radio />} label="기타" />
-          </RadioGroup>
-        </div>
-      </div>
-      <div className="option-how">
-        <span className="tag">How ?</span>
-        <div className="option-group">
-          <FormGroup row aria-labelledby="how" name="how">
-            <FormControlLabel
-              value="togo"
-              control={<Checkbox />}
-              label="도보"
-            />
-            <FormControlLabel
-              value="delivery"
-              control={<Checkbox />}
-              label="배달"
-            />
-          </FormGroup>
-        </div>
-      </div>
       <div className="option-btn">
         <Button style={{ marginRight: 20, backgroundColor: '#dee1e3' }}>
           초기화

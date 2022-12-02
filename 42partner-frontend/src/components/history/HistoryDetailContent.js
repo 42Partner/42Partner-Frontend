@@ -5,9 +5,7 @@ import '../../styles/HistoryDetailForm.scss';
 import ConvertMap from '../common/ConvertMap';
 
 const HistoryDetailContent = ({ detail }) => {
-  console.log(detail);
   const mealOrStudy = ConvertMap.get(detail.contentCategory);
-  console.log(mealOrStudy);
   const randomOrRoom = ConvertMap.get(detail.methodCategory);
   const place = detail.matchConditionDto.placeList.map((ele) =>
     ConvertMap.get(ele),

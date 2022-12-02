@@ -10,6 +10,7 @@ import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import MealRandomPage from './pages/MealRandomPage';
 import StudyRandomPage from './pages/StudyRandomPage';
+
 import './App.scss';
 import './styles/Layout.scss';
 

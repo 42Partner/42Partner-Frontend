@@ -13,10 +13,8 @@ const HistoryDetailForm = ({ matchId, open, onClose }) => {
   const { detail } = useSelector(({ mypage }) => ({
     detail: mypage.detail,
   }));
-  console.log('222222', detail);
 
   useEffect(() => {
-    console.log('hihhi!', detail);
     dispatch(getDetail({ matchId }));
   }, []);
 
@@ -28,31 +26,6 @@ const HistoryDetailForm = ({ matchId, open, onClose }) => {
         </IconButton>
       </div>
       {detail && <HistoryDetailContent detail={detail} />}
-
-      {/* <div className="paragraph">
-        {ConvertMap.get()}
-        <h2>
-          [{mealOrStudy}]{randomOrRoom}
-        </h2>
-      </div>
-      <div className="select-info-wrapper">
-        {mealOrStudy === '밥트너' ? (
-          <>
-            <div>장소 : {place}</div>
-            {randomOrRoom === '랜덤매칭' ? null : (
-              <div>시간대 : {timeToEat}</div>
-            )}
-            <div>배달여부 : {wayToEat}</div>
-            <h1>MEAL</h1>
-          </>
-        ) : (
-          <>
-            <div>장소 : {place} </div>
-            <div>학습 종류 : {typeToStudy}</div>
-            <h1>STUDY</h1>
-          </>
-        )}
-      </div> */}
     </div>
   );
 };
