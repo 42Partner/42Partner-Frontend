@@ -1,0 +1,21 @@
+@import './utils.scss';
+
+.review-wrapper {
+  // @include flex-center-sort;
+
+  .rating-member {
+    margin: 2rem;
+    @include flex-vertical-center;
+    justify-content: space-around;
+  }
+
+  .profile-image {
+    @include flex-vertical-center;
+    flex-direction: column;
+    img {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 5px;
+    }
+  }
+}

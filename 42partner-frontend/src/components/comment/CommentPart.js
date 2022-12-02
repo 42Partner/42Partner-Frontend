@@ -23,13 +23,12 @@ const CommentPart = ({ articleId }) => {
     dispatch(loadCommentList({ articleId }));
   });
 
-  const commentInputHandler = (e) => {
+  const commentInputHandler = useCallback((e) => {
     setComment(e.target.value);
-  };
+  }, []);
 
-  const addNewComment = () => {
+  const addNewComment = useCallback(() => {
     if (comment.length < 1) return;
-
     const commentInfo = {
       articleId,
       content: comment,
@@ -38,7 +37,7 @@ const CommentPart = ({ articleId }) => {
     };
     dispatch(createComment({ commentInfo }));
     setComment('');
-  };
+  }, [comment]);
 
   useEffect(() => {
     getCommentList();
@@ -97,4 +96,4 @@ CommentPart.propTypes = {
   articleId: PropTypes.string.isRequired,
 };
 
-export default CommentPart;
+export default React.memo(CommentPart);

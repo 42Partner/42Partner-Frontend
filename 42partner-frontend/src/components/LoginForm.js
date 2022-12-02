@@ -1,12 +1,8 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useEffect } from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
-// import useHistory from 'react-router-dom';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import '../styles/LoginForm.scss';
-// eslint-disable-next-line no-unused-vars
-import axios from 'axios';
-
-axios.defaults.withCredentials = true;
 
 const LoginForm = () => {
   const requestLogin = () => {
@@ -17,8 +13,8 @@ const LoginForm = () => {
   return (
     <div className="login-form">
       <div className="image-wrapper">
-        <img alt="meal_icon" src="/images/meal_icon.png" />
-        <img alt="study_icon" src="/images/study_icon.jpeg" />
+        <RestaurantIcon className="icon" />
+        <MenuBookIcon className="icon" />
       </div>
       <Button
         sx={{ m: 1, width: '220px' }}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Fab from '@mui/material/Fab';
@@ -25,12 +25,12 @@ const RoomContainer = () => {
   const [topic, setTopic] = useState('MEAL');
   const [curList, setCurList] = useState([]);
 
-  const handleWriteOpen = () => {
+  const handleWriteOpen = useCallback(() => {
     setOpen(true);
-  };
-  const handleWriteClose = () => {
+  }, []);
+  const handleWriteClose = useCallback(() => {
     setOpen(false);
-  };
+  }, []);
 
   useEffect(() => {
     if (location.pathname.includes('meal')) {

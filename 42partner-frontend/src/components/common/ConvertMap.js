@@ -22,4 +22,11 @@ ConvertMap.set('DELIVERY', '배달');
 ConvertMap.set('EATOUT', '외식');
 ConvertMap.set('TAKEOUT', '포장');
 
+ConvertMap.set(0, 'MATCH_ABSENT');
+ConvertMap.set(1, 'MATCH_REVIEW_1');
+ConvertMap.set(2, 'MATCH_REVIEW_2');
+ConvertMap.set(3, 'MATCH_REVIEW_3');
+ConvertMap.set(4, 'MATCH_REVIEW_4');
+ConvertMap.set(5, 'MATCH_REVIEW_5');
+
 export default ConvertMap;

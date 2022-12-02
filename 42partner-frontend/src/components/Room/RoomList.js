@@ -1,27 +1,24 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import RoomItem from './RoomItem';
-import { optionList } from '../utils';
+import ConvertMap from '../common/ConvertMap';
 
 const RoomList = ({ roomList }) => {
-  const makeHashTag = (articleInfo) => {
+  const makeHashTag = useCallback((articleInfo) => {
     const res = [`#${articleInfo.date.slice(5).replace('-', '/')} `];
     const { matchConditionDto } = articleInfo;
 
     for (let i = 0; i < Object.keys(matchConditionDto).length; ) {
       const name = Object.keys(matchConditionDto)[i];
       for (let j = 0; j < matchConditionDto[name].length; ) {
-        const element = matchConditionDto[name][j];
-        res.push(
-          `#${optionList[name].find((op) => op.value === element).label} `,
-        );
+        res.push(`#${ConvertMap.get(matchConditionDto[name][j])} `);
         j += 1;
       }
       i += 1;
     }
 
     return res;
-  };
+  }, []);
 
   return (
     <div className="room-list">

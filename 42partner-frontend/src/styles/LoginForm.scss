@@ -1,8 +1,16 @@
 @import './utils.scss';
 
-$pc-img-size: 150px;
-$mobile-img-size: 70px;
+$pc-img-size: 120px;
+$mobile-img-size: 50px;
 $tablet-img-size: 120px;
+
+@mixin resize-icon($img-size, $margin-size) {
+  .icon {
+    width: $img-size;
+    height: $img-size;
+    margin: $margin-size;
+  }
+}
 
 .login-form {
   width: 100%;
@@ -12,11 +20,7 @@ $tablet-img-size: 120px;
   align-items: center;
   flex-direction: column;
 
-  img {
-    width: $pc-img-size;
-    height: $pc-img-size;
-    margin: 4rem;
-  }
+  @include resize-icon($pc-img-size, 6rem);
 
   @include mobile {
     .image-wrapper {
@@ -24,17 +28,10 @@ $tablet-img-size: 120px;
       margin-bottom: 2rem;
     }
 
-    img {
-      width: $mobile-img-size;
-      height: $mobile-img-size;
-      margin: 1rem;
-    }
+    @include resize-icon($mobile-img-size, 1rem);
   }
 
   @include tablet {
-    img {
-      width: $tablet-img-size;
-      height: $tablet-img-size;
-    }
+    @include resize-icon($tablet-img-size, 6rem);
   }
 }

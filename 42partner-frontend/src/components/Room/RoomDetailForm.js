@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-
 import {
   cancleRoom,
   changeEditMode,
@@ -31,33 +30,36 @@ const RoomDetailForm = ({ articleId, roomInfoPart, commetPart, onClose }) => {
   const [complete, setComplete] = useState(false);
   const [join, setJoin] = useState(false);
 
-  const handleConfirmOpen = () => {
+  const handleConfirmOpen = useCallback(() => {
     setComfirmOpen(true);
-  };
+  });
 
-  const handleConfirmClose = (isDelete) => {
-    if (isDelete) {
-      dispatch(deleteRoom({ articleId }));
-      onClose();
-    }
-    setComfirmOpen(false);
-  };
+  const handleConfirmClose = useCallback(
+    (isDelete) => {
+      if (isDelete) {
+        dispatch(deleteRoom({ articleId }));
+        onClose();
+      }
+      setComfirmOpen(false);
+    },
+    [dispatch],
+  );
 
-  const completeRoomHandler = () => {
+  const completeRoomHandler = useCallback(() => {
     dispatch(completeRoom({ articleId }));
     setComplete(true);
-  };
+  }, [dispatch]);
 
-  const joinRoomHandler = () => {
+  const joinRoomHandler = useCallback(() => {
     setJoin(!join);
     if (join) {
       dispatch(cancleRoom({ articleId }));
     } else {
       dispatch(joinRoom({ articleId }));
     }
-  };
+  }, [join, dispatch]);
 
-  const isAlreadyJoin = () => {
+  const isAlreadyJoin = useCallback(() => {
     if (
       articleInfo &&
       articleInfo.participantsOrAuthor.find((x) => x.isMe) !== undefined
@@ -66,16 +68,16 @@ const RoomDetailForm = ({ articleId, roomInfoPart, commetPart, onClose }) => {
     } else {
       setJoin(false);
     }
-  };
+  }, [articleInfo]);
 
-  const isAleradyComplete = () => {
+  const isAleradyComplete = useCallback(() => {
     if (
       completeRoomList.find((room) => room.articleId === articleId) !==
       undefined
     ) {
       setComplete(true);
     }
-  };
+  }, [completeRoomList]);
 
   useEffect(() => {
     dispatch(loadArticleInfo({ articleId }));
@@ -178,4 +180,4 @@ RoomDetailForm.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default RoomDetailForm;
+export default React.memo(RoomDetailForm);
