@@ -8,7 +8,7 @@ import { cancelRandomMatch, getRandomMatch } from '../../modules/random';
 import ConvertMap from '../common/ConvertMap';
 // import ConvertMap from '../common/ConvertMap';
 
-const RandomMatching = ({ topic, flip }) => {
+const RandomMatching = ({ topic, showBack }) => {
   const dispatch = useDispatch();
   const [category, setCategory] = useState({
     contentCategory: null,
@@ -23,14 +23,20 @@ const RandomMatching = ({ topic, flip }) => {
     setCategory({
       contentCategory: `${topic}`,
     });
-    const url = topic.toLowerCase();
-    dispatch(getRandomMatch({ url }));
-    console.log(url);
   }, []);
+
+  useEffect(() => {
+    if (showBack) {
+      const url = topic.toLowerCase();
+      dispatch(getRandomMatch({ url }));
+      console.log(url);
+    }
+    console.log(showBack);
+  }, [showBack]);
 
   const cancelHandler = (e) => {
     dispatch(cancelRandomMatch({ category }));
-    flip(e);
+    showBack(e);
   };
 
   return (
@@ -95,5 +101,5 @@ export default RandomMatching;
 
 RandomMatching.propTypes = {
   topic: PropTypes.string.isRequired,
-  flip: PropTypes.func.isRequired,
+  showBack: PropTypes.bool.isRequired,
 };

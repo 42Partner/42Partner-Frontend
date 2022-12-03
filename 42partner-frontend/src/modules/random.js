@@ -42,6 +42,7 @@ const initialState = {
   options: null,
   category: '',
   data: null,
+  showBack: false,
 };
 
 const random = handleActions(
@@ -49,6 +50,7 @@ const random = handleActions(
     [POST_RANDOM_SUCCESS]: (state, { payload: options }) => ({
       ...state,
       options,
+      showBack: true,
     }),
     [POST_RANDOM_FAILURE]: (state, { payload: e }) => ({
       ...state,
@@ -57,6 +59,7 @@ const random = handleActions(
     [CANCEL_RANDOM_SUCCESS]: (state, { payload: category }) => ({
       ...state,
       category,
+      showBack: false,
     }),
     [CANCEL_RANDOM_FAILURE]: (state, { payload: e }) => ({
       ...state,

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import '../../styles/Random.scss';
 import cn from 'classnames';
+import { useSelector } from 'react-redux';
 import { Button } from '@material-ui/core/index';
 import { MdMeetingRoom } from 'react-icons/md';
 import RandomOption from './RandomOption';
@@ -10,11 +11,9 @@ import RandomMatching from './RandomMatching';
 const RandomContainer = () => {
   const location = useLocation();
   const [topic, setTopic] = useState('MEAL');
-  const [showBack, setShowBack] = useState(false);
-
-  const handleClick = () => {
-    setShowBack(!showBack);
-  };
+  const { showBack } = useSelector(({ random }) => ({
+    showBack: random.showBack,
+  }));
 
   useEffect(() => {
     if (location.pathname.includes('meal')) {
@@ -42,14 +41,14 @@ const RandomContainer = () => {
           <div className="card front">
             <div className="card-body d-flex justify-content-center align-items-center">
               <div className="card-text fs-1 fw-bold">
-                <RandomOption topic={topic} flip={handleClick} />
+                <RandomOption topic={topic} showBack={showBack} />
               </div>
             </div>
           </div>
           <div className="card back">
             <div className="card-body d-flex justify-content-center align-items-center">
               <div className="card-text fs-1 fw-bold">
-                <RandomMatching topic={topic} flip={handleClick} />
+                <RandomMatching topic={topic} showBack={showBack} />
               </div>
             </div>
           </div>

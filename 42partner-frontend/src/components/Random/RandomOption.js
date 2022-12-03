@@ -6,7 +6,7 @@ import CheckBoxList from '../common/CheckBoxListRandom';
 import '../../styles/Option.scss';
 import { postRandomMatch } from '../../modules/random';
 
-const RandomOption = ({ topic, flip }) => {
+const RandomOption = ({ topic }) => {
   const dispatch = useDispatch();
   //   const { sendOption } = useSelector(({ random }) => ({
   //     sendOption: random.option,
@@ -30,7 +30,7 @@ const RandomOption = ({ topic, flip }) => {
     ],
     wayOfEatingList: [
       { checked: false, value: 'DELIVERY', label: '배달' },
-      { checked: false, value: 'EATOUT', label: '도보' },
+      { checked: false, value: 'EATOUT', label: '식당' },
       { checked: false, value: 'TAKEOUT', label: '포장' },
     ],
   });
@@ -93,7 +93,7 @@ const RandomOption = ({ topic, flip }) => {
       ],
       wayOfEatingList: [
         { checked: false, value: 'DELIVERY', label: '배달' },
-        { checked: false, value: 'EATOUT', label: '도보' },
+        { checked: false, value: 'EATOUT', label: '식당' },
         { checked: false, value: 'TAKEOUT', label: '포장' },
       ],
     });
@@ -117,8 +117,7 @@ const RandomOption = ({ topic, flip }) => {
     });
   }, [matchingOption]);
 
-  const matchingHandler = (e) => {
-    flip(e);
+  const matchingHandler = () => {
     console.log(option);
     dispatch(postRandomMatch({ option }));
   };
@@ -194,5 +193,4 @@ export default RandomOption;
 
 RandomOption.propTypes = {
   topic: PropTypes.string.isRequired,
-  flip: PropTypes.func.isRequired,
 };
