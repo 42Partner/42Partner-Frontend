@@ -36,7 +36,7 @@ const RoomDetailForm = ({ articleId, roomInfoPart, commetPart, onClose }) => {
 
   const handleConfirmClose = useCallback(
     (isDelete) => {
-      if (isDelete) {
+      if (!isDelete) {
         dispatch(deleteRoom({ articleId }));
         onClose();
       }

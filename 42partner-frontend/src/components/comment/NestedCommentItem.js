@@ -32,7 +32,7 @@ const NestedCommentItem = ({ commentInfo, anonymity, onDelete, onEdit }) => {
   }, []);
 
   const handleConfirmClose = useCallback((isDelete) => {
-    if (isDelete) {
+    if (!isDelete) {
       onDelete(commentInfo.opinionId);
     }
 

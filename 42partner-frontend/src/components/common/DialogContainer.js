@@ -13,8 +13,8 @@ const DialogContainer = ({ open, onClose }) => {
         <DialogContentText>삭제 하시겠습니까?</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => onClose(false)}>취소</Button>
-        <Button onClick={() => onClose(true)} autoFocus>
+        <Button onClick={() => onClose(true)}>취소</Button>
+        <Button onClick={() => onClose(false)} autoFocus>
           삭제
         </Button>
       </DialogActions>
