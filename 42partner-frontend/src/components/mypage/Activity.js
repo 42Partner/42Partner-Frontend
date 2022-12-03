@@ -1,23 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getScore } from '../../modules/mypage';
 // import axios from 'axios';
 
 const Activity = () => {
-  const [score, setScore] = useState(0);
+  const dispatch = useDispatch();
+  const { score } = useSelector(({ mypage }) => ({
+    score: mypage.score,
+  }));
   useEffect(() => {
-    const getScore = async () => {
-      try {
-        // const activity = await axios.get(
-        //   `${process.env.REACT_APP_API_KEY}/activities/score`,
-        // );
-        // setScore(activity.score);
-
-        setScore(10);
-      } catch (e) {
-        Promise.reject(e);
-      }
-    };
-
-    getScore();
+    dispatch(getScore());
   }, []);
 
   return (

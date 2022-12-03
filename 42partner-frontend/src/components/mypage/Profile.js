@@ -1,24 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
-import Instance from '../common/Instance';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProfile } from '../../modules/mypage';
 
 const Profile = () => {
-  const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
+  const { user } = useSelector(({ mypage }) => ({
+    user: mypage.user,
+  }));
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        const userData = await Instance.get(
-          `${process.env.REACT_APP_API_KEY}/users/5caab2b6-8da4-474e-8a67-2b157acedf0a`,
-        );
-        setUser(userData.data);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    getUser();
+    dispatch(getProfile());
   }, []);
-  console.log(user);
 
   if (!user) return null;
   return (

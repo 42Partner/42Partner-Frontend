@@ -1,7 +1,7 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import HistroyItem from './HistroyItem';
 import '../../styles/HistroyList.scss';
+import PropTypes from 'prop-types';
+import HistroyItem from './HistroyItem';
 import ConvertMap from '../common/ConvertMap';
 
 const HistroyList = ({ match }) => {
@@ -15,7 +15,7 @@ const HistroyList = ({ match }) => {
   const changeDateFormat = (date) => {
     return date.substr(0, 10);
   };
-  // console.log(matches.content[0].matchConditionDto.timeOfEatingList);
+
   useEffect(() => {
     const getMatchData = async () => {
       try {
@@ -35,7 +35,7 @@ const HistroyList = ({ match }) => {
   return (
     <div className="history-list">
       <HistroyItem
-        id={matchData[0]}
+        matchId={matchData[0]}
         content={matchData[1]}
         method={matchData[2]}
         date={matchData[3]}
@@ -45,3 +45,8 @@ const HistroyList = ({ match }) => {
 };
 
 export default HistroyList;
+
+HistroyList.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  match: PropTypes.object.isRequired,
+};

@@ -5,6 +5,7 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import CircularProgress from '@mui/material/CircularProgress';
 import Button from '@mui/material/Button';
+import { GiPerspectiveDiceSixFacesRandom } from 'react-icons/gi';
 import ModalTemplate from '../common/ModalTemplate';
 import CreateRoomForm from './CreateRoomForm';
 import { loadRoomList } from '../../modules/rooms';
@@ -50,8 +51,18 @@ const RoomContainer = () => {
     }
   }, [articleList]);
 
+  const url = topic.toLowerCase();
+
   return (
     <div>
+      <Link to={`/${url}/random`} style={{ textDecoration: 'none' }}>
+        <Button>
+          <GiPerspectiveDiceSixFacesRandom
+            style={{ width: '40px', height: '40px' }}
+          />
+          Random Matching
+        </Button>
+      </Link>
       <div className="room-container">
         <CustomColorButton
           button={

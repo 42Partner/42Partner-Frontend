@@ -1,11 +1,11 @@
 import React from 'react';
-import MealRandom from '../components/meal-random/MealRandom';
+import RandomContainer from '../components/Random/RandomContainer';
 import '../styles/Random.scss';
 
 const MealRandomPage = () => {
   return (
     <div className="random-content-wrapper">
-      <MealRandom />
+      <RandomContainer />
     </div>
   );
 };
