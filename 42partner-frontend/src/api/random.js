@@ -13,6 +13,21 @@ export const postRandomMatch = ({ option }) => {
     });
 };
 
-export const cancelRandomMatch = () => {
-  return client.post(`/api/random-matches/mine`);
+export const cancelRandomMatch = ({ category }) => {
+  client
+    .post(`/api/random-matches/mine`, category)
+    .then((res) => {
+      console.log('!!!!', category);
+      return res.data;
+    })
+    .catch((e) => {
+      console.log('errrrr', category);
+      console.error(e);
+    });
+};
+
+export const getRandomMatch = ({ category }) => {
+  return client.get(
+    `/api/random-matches/condition/mine?contentCategory=${category}`,
+  );
 };

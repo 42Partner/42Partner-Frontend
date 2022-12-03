@@ -9,9 +9,15 @@ const [POST_RANDOM, POST_RANDOM_SUCCESS, POST_RANDOM_FAILURE] =
   createRequestActionTypes('random/POST_RANDOM');
 const [CANCEL_RANDOM, CANCEL_RANDOM_SUCCESS, CANCEL_RANDOM_FAILURE] =
   createRequestActionTypes('random/CANCEL_RANDOM');
+const [GET_RANDOM, GET_RANDOM_SUCCESS, GET_RANDOM_FAILURE] =
+  createRequestActionTypes('random/GET_RANDOM');
 
 export const postRandomMatch = createAction(POST_RANDOM, (option) => option);
-export const cancelRandomMatch = createAction(CANCEL_RANDOM);
+export const cancelRandomMatch = createAction(
+  CANCEL_RANDOM,
+  (category) => category,
+);
+export const getRandomMatch = createAction(GET_RANDOM, (category) => category);
 
 const postRandomMatchSaga = createRequestSaga(
   POST_RANDOM,
@@ -21,10 +27,15 @@ const cancelRandomMatchSaga = createRequestSaga(
   CANCEL_RANDOM,
   randomApi.cancelRandomMatch,
 );
+const getRandomMatchSaga = createRequestSaga(
+  GET_RANDOM,
+  randomApi.getRandomMatch,
+);
 
 export function* randomSaga() {
   yield takeLatest(POST_RANDOM, postRandomMatchSaga);
   yield takeLatest(CANCEL_RANDOM, cancelRandomMatchSaga);
+  yield takeLatest(GET_RANDOM, getRandomMatchSaga);
 }
 
 const initialState = {
@@ -47,6 +58,14 @@ const random = handleActions(
       category,
     }),
     [CANCEL_RANDOM_FAILURE]: (state, { payload: e }) => ({
+      ...state,
+      requestError: e,
+    }),
+    [GET_RANDOM_SUCCESS]: (state, { payload: options }) => ({
+      ...state,
+      options,
+    }),
+    [GET_RANDOM_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
     }),

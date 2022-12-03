@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
+// import { useDispatch, useSelector } from 'react-redux';
 import '../../styles/HistroyItem.scss';
 import ModalTemplate from '../common/ModalTemplate';
 import HistoryDetailForm from './HistoryDetailForm';
+// import { getDetail } from '../../modules/mypage';
 
 // eslint-disable-next-line react/prop-types
 const HistroyItem = ({ matchId, content, method, date }) => {

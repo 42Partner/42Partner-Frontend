@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@material-ui/core/index';
 
-const MealComplete = () => {
+const MatchingComplete = () => {
   return (
     <div className="matching-wrapper">
       <h3 style={{ color: '#0099a4' }}>매칭 완료 ( 4 / 4 명 )</h3>
@@ -23,4 +23,4 @@ const MealComplete = () => {
   );
 };
 
-export default MealComplete;
+export default MatchingComplete;
