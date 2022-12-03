@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core/index';
 import CheckBoxList from '../common/CheckBoxListRandom';
 import '../../styles/Option.scss';
-import { postRandomMatch } from '../../modules/random';
+import { getRandomMatch, postRandomMatch } from '../../modules/random';
 
 const RandomOption = ({ topic, flip }) => {
   const dispatch = useDispatch();
@@ -121,6 +121,8 @@ const RandomOption = ({ topic, flip }) => {
     flip(e);
     console.log(option);
     dispatch(postRandomMatch({ option }));
+    const url = topic.toLowerCase();
+    dispatch(getRandomMatch({ url }));
   };
 
   const clearHandler = () => {

@@ -17,7 +17,7 @@ export const cancelRandomMatch = createAction(
   CANCEL_RANDOM,
   (category) => category,
 );
-export const getRandomMatch = createAction(GET_RANDOM, (category) => category);
+export const getRandomMatch = createAction(GET_RANDOM, (url) => url);
 
 const postRandomMatchSaga = createRequestSaga(
   POST_RANDOM,
