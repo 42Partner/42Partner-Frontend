@@ -231,17 +231,13 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
   }, [targetArticle]);
 
   useEffect(() => {
+    const newDate = `00${bookingDate.getDate().toString()}`.slice(-2);
     setArticle({
       ...article,
       matchConditionDto: matchingOption,
-      date:
-        bookingDate.getDate() < 10
-          ? `${bookingDate.getFullYear()}-${
-              bookingDate.getMonth() + 1
-            }-0${bookingDate.getDate()}`
-          : `${bookingDate.getFullYear()}-${
-              bookingDate.getMonth() + 1
-            }-${bookingDate.getDate()}`,
+      date: `${bookingDate.getFullYear()}-${
+        bookingDate.getMonth() + 1
+      }-${newDate}`,
     });
   }, [bookingDate, matchingOption]);
 
