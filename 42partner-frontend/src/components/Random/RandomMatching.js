@@ -4,8 +4,9 @@ import { Button } from '@material-ui/core/index';
 import PropTypes from 'prop-types';
 import '../../styles/Matching.scss';
 import LinearWithValueLabel from '../common/LinearWithValueLabel';
-import { cancelRandomMatch } from '../../modules/random';
+import { cancelRandomMatch, getRandomMatch } from '../../modules/random';
 import ConvertMap from '../common/ConvertMap';
+// import ConvertMap from '../common/ConvertMap';
 
 const RandomMatching = ({ topic, flip }) => {
   const dispatch = useDispatch();
@@ -16,18 +17,15 @@ const RandomMatching = ({ topic, flip }) => {
   const { data } = useSelector(({ random }) => ({
     data: random.data,
   }));
-  console.log('!@#$!$@!@', data);
-
-  //   useEffect(() => {
-  //     const url = topic.toLowerCase();
-  //     dispatch(getRandomMatch({ url }));
-  //   }, []);
+  console.log(data);
 
   useEffect(() => {
     setCategory({
       contentCategory: `${topic}`,
     });
-    // console.log(url);
+    const url = topic.toLowerCase();
+    dispatch(getRandomMatch({ url }));
+    console.log(url);
   }, []);
 
   const cancelHandler = (e) => {
