@@ -23,47 +23,53 @@ const RandomMatching = ({ topic, flip }) => {
       contentCategory: `${topic}`,
     });
   }, []);
+
   const cancelHandler = (e) => {
     dispatch(cancelRandomMatch({ category }));
     flip(e);
   };
 
   return (
-    <div className="matching-wrapper">
-      <h3 className="matching-description" style={{ color: '#0099a4' }}>
-        매칭 진행 중
-      </h3>
-      {topic === 'MEAL' ? (
-        <div className="matching-field">
-          <div className="matching-group">
-            <h3>장소</h3>
-            <span>개포 클러스터</span>
+    <div>
+      <div className="matching-wrapper">
+        <h3 className="matching-description" style={{ color: '#0099a4' }}>
+          매칭 진행 중
+        </h3>
+        {topic === 'MEAL' ? (
+          <div className="matching-field">
+            <div className="matching-group">
+              <h3>장소</h3>
+              <span>개포 클러스터</span>
+            </div>
+            <div className="matching-group">
+              <h3>식사 방식</h3>
+              <span>배달</span>
+            </div>
           </div>
-          <div className="matching-group">
-            <h3>식사 방식</h3>
-            <span>배달</span>
+        ) : (
+          <div className="matching-field">
+            <div className="matching-group">
+              <h3>장소</h3>
+              <span>개포 클러스터</span>
+            </div>
+            <div className="matching-group">
+              <h3>학습 종류</h3>
+              <span>42 과제 외 학습</span>
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className="matching-field">
-          <div className="matching-group">
-            <h3>장소</h3>
-            <span>개포 클러스터</span>
-          </div>
-          <div className="matching-group">
-            <h3>학습 종류</h3>
-            <span>42 과제 외 학습</span>
-          </div>
-        </div>
-      )}
+        )}
 
-      <div className="matching-progress">
-        <LinearWithValueLabel />
-      </div>
-      <div className="matching-btn">
-        <Button onClick={cancelHandler} style={{ backgroundColor: '#0099a4' }}>
-          매칭 취소
-        </Button>
+        <div className="matching-progress">
+          <LinearWithValueLabel />
+        </div>
+        <div className="matching-btn">
+          <Button
+            onClick={cancelHandler}
+            style={{ backgroundColor: '#0099a4' }}
+          >
+            매칭 취소
+          </Button>
+        </div>
       </div>
     </div>
   );

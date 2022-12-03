@@ -1,7 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
 import { takeLatest } from 'redux-saga/effects';
-// eslint-disable-next-line no-unused-vars
-import produce from 'immer';
 import createRequestSaga, {
   createRequestActionTypes,
 } from '../api/createRequestSaga';
@@ -9,10 +7,8 @@ import * as commentApi from '../api/comment';
 
 const [CREATE, CREATE_SUCCESS, CREATE_FAILURE] =
   createRequestActionTypes('comment/CREATE');
-// eslint-disable-next-line no-unused-vars
 const [EDIT, EDIT_SUCCESS, EDIT_FAILURE] =
   createRequestActionTypes('comment/EDIT');
-// eslint-disable-next-line no-unused-vars
 const [DELETE, DELETE_SUCCESS, DELETE_FAILURE] =
   createRequestActionTypes('comment/DELETE');
 const [LOADLIST, LOADLIST_SUCCESS, LOADLIST_FAILURE] =

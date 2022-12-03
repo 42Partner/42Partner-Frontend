@@ -11,7 +11,7 @@ const NestedComments = ({ parentId, anonymity }) => {
   }));
   const [nestedCommentList, setNestedCommentList] = useState([]);
 
-  const getNestedComments = () => {
+  const getNestedComments = useCallback(() => {
     const tmpList = commentList.filter(
       (comment) => comment.parentId === parentId,
     );
@@ -22,10 +22,6 @@ const NestedComments = ({ parentId, anonymity }) => {
     });
 
     setNestedCommentList(sortList);
-  };
-
-  useEffect(() => {
-    getNestedComments();
   }, [commentList]);
 
   const onDelete = useCallback(
@@ -35,9 +31,16 @@ const NestedComments = ({ parentId, anonymity }) => {
     [dispatch],
   );
 
-  const onEdit = (content, opinionId) => {
-    dispatch(editComment({ content, opinionId }));
-  };
+  const onEdit = useCallback(
+    (content, opinionId) => {
+      dispatch(editComment({ content, opinionId }));
+    },
+    [dispatch],
+  );
+
+  useEffect(() => {
+    getNestedComments();
+  }, [commentList]);
 
   return (
     <div>
@@ -64,4 +67,4 @@ NestedComments.propTypes = {
   parentId: PropTypes.string.isRequired,
 };
 
-export default NestedComments;
+export default React.memo(NestedComments);

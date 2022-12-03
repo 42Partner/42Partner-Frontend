@@ -26,8 +26,8 @@ export const cancelRandomMatch = ({ category }) => {
     });
 };
 
-export const getRandomMatch = ({ category }) => {
+export const getRandomMatch = ({ value }) => {
   return client.get(
-    `/api/random-matches/condition/mine?contentCategory=${category}`,
+    `/api/random-matches/condition/mine?contentCategory=${value}`,
   );
 };

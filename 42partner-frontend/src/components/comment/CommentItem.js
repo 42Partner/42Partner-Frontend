@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import IconButton from '@mui/material/IconButton';
@@ -27,42 +27,42 @@ const CommentItem = ({
   const [editMode, setEditMode] = useState(false);
   const [nestedComment, setNestedComment] = useState(false);
 
-  const handleEditMode = () => {
+  const handleEditMode = useCallback(() => {
     setNewContent(content);
     setEditMode(!editMode);
-  };
+  }, [editMode]);
 
-  const handleNewContent = (e) => {
+  const handleNewContent = useCallback((e) => {
     setNewContent(e.target.value);
-  };
+  }, []);
 
-  const handleConfirmOpen = () => {
+  const handleConfirmOpen = useCallback(() => {
     setComfirmOpen(true);
-  };
+  }, []);
 
-  const handleConfirmClose = (isDelete) => {
+  const handleConfirmClose = useCallback((isDelete) => {
     if (isDelete) {
       onDelete(commentInfo.opinionId);
     }
 
     setComfirmOpen(false);
-  };
+  }, []);
 
-  const changeDateFormat = (date) => {
+  const changeDateFormat = useCallback((date) => {
     return date.substr(0, 10);
-  };
+  }, []);
 
-  const editComment = () => {
+  const editComment = useCallback(() => {
     if (newContent !== content) {
       onEdit(newContent, commentInfo.opinionId);
     }
 
     handleEditMode();
-  };
+  }, [newContent]);
 
-  const handleNestedComment = () => {
+  const handleNestedComment = useCallback(() => {
     setNestedComment(!nestedComment);
-  };
+  }, [nestedComment]);
 
   return (
     <div className="comment-item">

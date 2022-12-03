@@ -1,13 +1,10 @@
 @import './utils.scss';
 
-$pc-img-size: 270px;
-$mobile-img-size: 100px;
-$tablet-img-size: 200px;
+$pc-img-size: 150px;
+$mobile-img-size: 30px;
+$tablet-img-size: 100px;
 
 @mixin tablet-mobile-view($img-size) {
-  width: 100%;
-  height: 100%;
-  @include flex-center-sort;
   flex-direction: column;
 
   .select-button {
@@ -19,7 +16,7 @@ $tablet-img-size: 200px;
     @include flex-center-sort;
   }
 
-  img {
+  .icon {
     width: $img-size;
     height: $img-size;
     margin: 1rem;
@@ -44,17 +41,20 @@ $tablet-img-size: 200px;
     background-color: pink;
   }
 
-  img {
+  .icon {
     width: $pc-img-size;
     height: $pc-img-size;
     margin: 1rem;
   }
 
   @include tablet {
+    display: flex;
+    align-items: center;
     @include tablet-mobile-view($tablet-img-size);
   }
 
   @include mobile {
+    width: 70%;
     @include tablet-mobile-view($mobile-img-size);
   }
 }

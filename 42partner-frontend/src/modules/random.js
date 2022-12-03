@@ -41,6 +41,7 @@ export function* randomSaga() {
 const initialState = {
   options: null,
   category: '',
+  data: null,
 };
 
 const random = handleActions(
@@ -61,9 +62,9 @@ const random = handleActions(
       ...state,
       requestError: e,
     }),
-    [GET_RANDOM_SUCCESS]: (state, { payload: options }) => ({
+    [GET_RANDOM_SUCCESS]: (state, { payload: data }) => ({
       ...state,
-      options,
+      data,
     }),
     [GET_RANDOM_FAILURE]: (state, { payload: e }) => ({
       ...state,

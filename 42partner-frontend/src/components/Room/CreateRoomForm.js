@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
@@ -140,18 +140,18 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     setCheckWritable(true);
   };
 
-  const createRoomHandler = () => {
+  const createRoomHandler = useCallback(() => {
     dispatch(createRoom({ article }));
     onClose();
-  };
+  }, [dispatch, article]);
 
-  const editRoomHandler = () => {
+  const editRoomHandler = useCallback(() => {
     dispatch(editRoom({ article, articleId }));
     dispatch(changeEditMode(false));
     onClose();
-  };
+  }, [dispatch, article]);
 
-  const initCheckBoxOptions = () => {
+  const initCheckBoxOptions = useCallback(() => {
     const { matchConditionDto } = targetArticle;
     const tmpOption = {
       placeList: [
@@ -186,9 +186,9 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
       placeList: tmpOption.placeList,
       timeOfEatingList: tmpOption.timeOfEatingList,
     });
-  };
+  }, []);
 
-  const initData = () => {
+  const initData = useCallback(() => {
     setArticle({
       ...article,
       anonymity: targetArticle.anonymity,
@@ -209,7 +209,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     }
 
     initCheckBoxOptions();
-  };
+  }, []);
 
   useEffect(() => {
     if (editMode) {
@@ -377,4 +377,4 @@ CreateRoomForm.defaultProps = {
   articleId: '',
 };
 
-export default CreateRoomForm;
+export default React.memo(CreateRoomForm);
