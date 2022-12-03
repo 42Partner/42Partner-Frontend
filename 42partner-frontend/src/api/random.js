@@ -1,33 +1,23 @@
 import client from './client';
 
-export const postRandomMatch = ({ option }) => {
-  client
-    .post(`/api/random-matches`, option)
-    .then((res) => {
-      console.log('!!!!', option);
-      return res.data;
-    })
-    .catch((e) => {
-      console.log('errrrr', option);
-      console.error(e);
-    });
-};
-
-export const cancelRandomMatch = ({ category }) => {
-  client
-    .post(`/api/random-matches/mine`, category)
-    .then((res) => {
-      console.log('!!!!', category);
-      return res.data;
-    })
-    .catch((e) => {
-      console.log('errrrr', category);
-      console.error(e);
-    });
-};
-
-export const getRandomMatch = ({ url }) => {
+export const getRandomMatch = ({ contentCategory }) => {
   return client.get(
-    `/api/random-matches/condition/mine?contentCategory=${url}`,
+    `/api/random-matches/condition/mine?contentCategory=${contentCategory}`,
   );
+};
+
+export const postRandomMatch = async ({ option }) => {
+  await client.post(`/api/random-matches`, option);
+  return getRandomMatch(option);
+};
+
+export const cancelRandomMatch = ({ contentCategory }) => {
+  client
+    .post(`/api/random-matches/mine`, { contentCategory })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((e) => {
+      console.error(e);
+    });
 };

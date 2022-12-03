@@ -1,42 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@material-ui/core/index';
 import PropTypes from 'prop-types';
 import '../../styles/Matching.scss';
 import LinearWithValueLabel from '../common/LinearWithValueLabel';
-import { cancelRandomMatch, getRandomMatch } from '../../modules/random';
+import { cancelRandomMatch } from '../../modules/random';
 import ConvertMap from '../common/ConvertMap';
-// import ConvertMap from '../common/ConvertMap';
 
-const RandomMatching = ({ topic, showBack }) => {
+const RandomMatching = ({ topic }) => {
   const dispatch = useDispatch();
-  const [category, setCategory] = useState({
-    contentCategory: null,
-  });
 
   const { data } = useSelector(({ random }) => ({
-    data: random.data,
+    data: random.options,
   }));
-  console.log(data);
 
-  useEffect(() => {
-    setCategory({
-      contentCategory: `${topic}`,
-    });
-  }, []);
-
-  useEffect(() => {
-    if (showBack) {
-      const url = topic.toLowerCase();
-      dispatch(getRandomMatch({ url }));
-      console.log(url);
-    }
-    console.log(showBack);
-  }, [showBack]);
-
-  const cancelHandler = (e) => {
-    dispatch(cancelRandomMatch({ category }));
-    showBack(e);
+  const cancelHandler = () => {
+    const contentCategory = topic;
+    dispatch(cancelRandomMatch({ contentCategory }));
   };
 
   return (
@@ -80,7 +60,6 @@ const RandomMatching = ({ topic, showBack }) => {
                 </div>
               </div>
             )}
-
         <div className="matching-progress">
           <LinearWithValueLabel />
         </div>
@@ -101,5 +80,4 @@ export default RandomMatching;
 
 RandomMatching.propTypes = {
   topic: PropTypes.string.isRequired,
-  showBack: PropTypes.bool.isRequired,
 };
