@@ -44,7 +44,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "aws s3 sync ./build s3://42partner-frontend --profile=hyenam"
+    "deploy": "aws s3 sync ./build s3://42partner --profile=hyenam",
+    "invalidate": "aws cloudfront create-invalidation --profil=hyenam --distribution-id E2NGCK2VT0CNPL --paths /*",
+    "all": "yarn build && yarn deploy && yarn invalidate"
   },
   "eslintConfig": {
     "extends": [
@@ -71,5 +73,5 @@
     "prettier": "^2.7.1"
   },
   "proxy": "https://api.42partner.com/",
-  "homepage": "https://42partner-frontend.s3-website.ap-northeast-2.amazonaws.com/"
+  "homepage": "https://42partner.s3-website.ap-northeast-2.amazonaws.com/"
 }
