@@ -2,17 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import '../../styles/Random.scss';
 import cn from 'classnames';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@material-ui/core/index';
 import { MdMeetingRoom } from 'react-icons/md';
 import RandomOption from './RandomOption';
 import RandomMatching from './RandomMatching';
+import { getRandomMatch } from '../../modules/random';
 
 const RandomContainer = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const [topic, setTopic] = useState('MEAL');
-  const { showBack } = useSelector(({ random }) => ({
+  const { showBack, requestError } = useSelector(({ random }) => ({
     showBack: random.showBack,
+    requestError: random.requestError,
   }));
 
   useEffect(() => {
@@ -22,6 +25,15 @@ const RandomContainer = () => {
       setTopic('STUDY');
     }
   }, [location]);
+
+  useEffect(() => {
+    const contentCategory = topic;
+    dispatch(getRandomMatch({ contentCategory }));
+  }, [topic]);
+
+  useEffect(() => {
+    console.log('requestError', requestError);
+  }, [requestError]);
 
   const url = topic.toLowerCase();
   return (

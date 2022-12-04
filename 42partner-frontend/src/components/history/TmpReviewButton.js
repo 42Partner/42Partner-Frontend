@@ -12,14 +12,14 @@ const tmpData = [
 ];
 
 const TmpReviewButton = () => {
-  const [open, setOpen] = useState(false);
+  const [reviewOpen, setReviewOpen] = useState(false);
 
   const writeModalOpen = () => {
-    setOpen(true);
+    setReviewOpen(true);
   };
 
   const writeModalClose = () => {
-    setOpen(false);
+    setReviewOpen(false);
   };
 
   return (
@@ -37,7 +37,7 @@ const TmpReviewButton = () => {
         상세
       </Button>
 
-      <ModalTemplate open={open} onClose={writeModalClose}>
+      <ModalTemplate open={reviewOpen} onClose={writeModalClose}>
         <ReviewModal
           matchId="matchId"
           memberList={tmpData}

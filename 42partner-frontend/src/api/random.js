@@ -1,8 +1,13 @@
 import client from './client';
 
 export const getRandomMatch = ({ contentCategory }) => {
+  console.log('getRandomMatch');
+  const res = client.get(
+    `/api/random-matches/mine?contentCategory=${contentCategory}`,
+  );
+  console.log('res', res);
   return client.get(
-    `/api/random-matches/condition/mine?contentCategory=${contentCategory}`,
+    `/api/random-matches/mine?contentCategory=${contentCategory}`,
   );
 };
 
@@ -12,15 +17,7 @@ export const postRandomMatch = async ({ option }) => {
 };
 
 export const cancelRandomMatch = ({ contentCategory }) => {
-  client
-    .post(`/api/random-matches/mine`, { contentCategory })
-    .then((res) => {
-      return res.data;
-    })
-    .catch((e) => {
-      // eslint-disable-next-line no-console
-      console.error(e);
-    });
+  return client.post(`/api/random-matches/mine`, { contentCategory });
 };
 
 export const completeRandomMatch = ({ contentCategory }) => {

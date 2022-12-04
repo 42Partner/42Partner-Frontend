@@ -1,13 +1,73 @@
-import React, { useState } from 'react';
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import '../../styles/HistroyItem.scss';
+import ReviewModal from './ReviewModal';
 import ModalTemplate from '../common/ModalTemplate';
 import HistoryDetailForm from './HistoryDetailForm';
-// import { getDetail } from '../../modules/mypage';
+import { getDetail } from '../../modules/mypage';
 
-// eslint-disable-next-line react/prop-types
+// const tmpData = [
+//   { nickname: 'hyenam', isAuthor: true, isMe: true },
+//   { nickname: 'asdf', isAuthor: false, isMe: false },
+//   { nickname: 'ddd', isAuthor: false, isMe: false },
+//   { nickname: 'vvvv', isAuthor: false, isMe: false },
+//   { nickname: 'aaa', isAuthor: false, isMe: false },
+// ];
+
+const ReviewButton = ({ matchId, detail }) => {
+  const [reviewOpen, setReviewOpen] = useState(false);
+
+  const writeModalOpen = () => {
+    setReviewOpen(true);
+  };
+
+  const writeModalClose = () => {
+    setReviewOpen(false);
+  };
+
+  return (
+    <div>
+      {detail && matchId && (
+        <div>
+          <Button
+            style={{
+              background: '#cccccc',
+              color: 'black',
+              backgroundColor: 'lightPink',
+            }}
+            id="button"
+            variant="contained"
+            onClick={writeModalOpen}
+          >
+            리뷰
+          </Button>
+
+          <ModalTemplate open={reviewOpen} onClose={writeModalClose}>
+            <ReviewModal
+              matchId={matchId}
+              memberList={detail.participantsOrAuthor}
+              onClose={writeModalClose}
+            />
+          </ModalTemplate>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const HistroyItem = ({ matchId, content, method, date }) => {
+  const dispatch = useDispatch();
+  const { detail } = useSelector(({ mypage }) => ({
+    detail: mypage.detail,
+  }));
+
+  useEffect(() => {
+    console.log(matchId);
+    dispatch(getDetail({ matchId }));
+    console.log(detail);
+  }, [matchId]);
   const [open, setOpen] = useState(false);
 
   const handleDetaileOpen = () => {
@@ -38,6 +98,9 @@ const HistroyItem = ({ matchId, content, method, date }) => {
             onClose={handleDetaileClose}
           />
         </ModalTemplate>
+        {matchId && detail && (
+          <ReviewButton matchId={matchId} detail={detail} />
+        )}
       </div>
     </div>
   );

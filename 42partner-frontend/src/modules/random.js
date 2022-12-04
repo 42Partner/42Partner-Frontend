@@ -17,9 +17,12 @@ const [COMPLETE_RANDOM, COMPLETE_RANDOM_SUCCESS, COMPLETE_RANDOM_FAILURE] =
 export const postRandomMatch = createAction(POST_RANDOM, (option) => option);
 export const cancelRandomMatch = createAction(
   CANCEL_RANDOM,
-  (category) => category,
+  (contentCategory) => contentCategory,
 );
-export const getRandomMatch = createAction(GET_RANDOM, (url) => url);
+export const getRandomMatch = createAction(
+  GET_RANDOM,
+  (contentCategory) => contentCategory,
+);
 export const completeRandomMatch = createAction(
   COMPLETE_RANDOM,
   (category) => category,
@@ -52,7 +55,6 @@ export function* randomSaga() {
 const initialState = {
   options: null,
   category: '',
-  data: null,
   showBack: null,
   match: null,
 };
@@ -63,9 +65,9 @@ const random = handleActions(
       ...state,
       options: option.option,
     }),
-    [POST_RANDOM_SUCCESS]: (state, { payload: isExist }) => ({
+    [POST_RANDOM_SUCCESS]: (state) => ({
       ...state,
-      showBack: isExist,
+      showBack: true,
     }),
     [POST_RANDOM_FAILURE]: (state, { payload: e }) => ({
       ...state,
@@ -74,18 +76,15 @@ const random = handleActions(
     [CANCEL_RANDOM_SUCCESS]: (state, { payload: category }) => ({
       ...state,
       category,
-      data: null,
       showBack: false,
     }),
     [CANCEL_RANDOM_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
-      data: null,
-      showBack: false,
     }),
-    [GET_RANDOM_SUCCESS]: (state, { payload: data }) => ({
+    [GET_RANDOM_SUCCESS]: (state, { payload: isExist }) => ({
       ...state,
-      data,
+      showBack: isExist.isExist,
     }),
     [GET_RANDOM_FAILURE]: (state, { payload: e }) => ({
       ...state,
