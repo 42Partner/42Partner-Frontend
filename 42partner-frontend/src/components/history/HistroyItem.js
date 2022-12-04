@@ -2,19 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import '../../styles/HistroyItem.scss';
 import ReviewModal from './ReviewModal';
 import ModalTemplate from '../common/ModalTemplate';
 import HistoryDetailForm from './HistoryDetailForm';
 import { getDetail } from '../../modules/mypage';
-
-// const tmpData = [
-//   { nickname: 'hyenam', isAuthor: true, isMe: true },
-//   { nickname: 'asdf', isAuthor: false, isMe: false },
-//   { nickname: 'ddd', isAuthor: false, isMe: false },
-//   { nickname: 'vvvv', isAuthor: false, isMe: false },
-//   { nickname: 'aaa', isAuthor: false, isMe: false },
-// ];
+import '../../styles/HistroyItem.scss';
 
 const ReviewButton = ({ matchId, detail }) => {
   const [reviewOpen, setReviewOpen] = useState(false);
@@ -28,7 +20,7 @@ const ReviewButton = ({ matchId, detail }) => {
   };
 
   return (
-    <div>
+    <div className="history-button">
       {detail && matchId && (
         <div>
           <Button
@@ -82,15 +74,16 @@ const HistroyItem = ({ matchId, content, method, date }) => {
       <h3>{content}</h3>
       <h3>{method}</h3>
       <h3>{date}</h3>
-      <div>
+      <div className="button-wrapper">
         <Button
           style={{ background: '#f1f1f1', color: 'black' }}
-          className="detail-button"
+          className="history-button"
           variant="contained"
           onClick={handleDetaileOpen}
         >
           상세
         </Button>
+        <ReviewButton matchId={matchId} detail={detail} />
         <ModalTemplate open={open} onClose={handleDetaileClose}>
           <HistoryDetailForm
             matchId={matchId}
@@ -98,9 +91,6 @@ const HistroyItem = ({ matchId, content, method, date }) => {
             onClose={handleDetaileClose}
           />
         </ModalTemplate>
-        {matchId && detail && (
-          <ReviewButton matchId={matchId} detail={detail} />
-        )}
       </div>
     </div>
   );

@@ -22,7 +22,7 @@ const CheckBoxList = ({ list, topic, type, checkBoxOptionHandler }) => {
 
   return (
     <div className="option-field">
-      <h2>{topic}*</h2>
+      <h2>{topic}</h2>
       <FormGroup row>{checkBoxList}</FormGroup>
     </div>
   );
