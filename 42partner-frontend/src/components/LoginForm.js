@@ -17,11 +17,16 @@ const LoginForm = () => {
         <MenuBookIcon className="icon" />
       </div>
       <Button
-        sx={{ m: 1, width: '220px' }}
-        variant="contained"
         onClick={requestLogin}
+        style={{
+          color: 'white',
+          backgroundColor: 'lightPink',
+          fontFamily: 'ubuntu-medium',
+          fontSize: '18px',
+          boxShadow: '1.5px 1.5px 1.5px 1.5px lightgray ',
+        }}
       >
-        Sign in with 42 Intra
+        Login with 42Intra
       </Button>
     </div>
   );
