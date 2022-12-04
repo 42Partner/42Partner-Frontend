@@ -6,9 +6,15 @@
   .check-option-wrapper {
     margin-bottom: 1rem;
 
+    .option-field + .option-field {
+      border-top: 1px solid #e0d7d3;
+    }
+
     .option-field {
       display: flex;
       align-items: center;
+      padding-top: 10px;
+      padding-bottom: 10px;
 
       .react-datepicker-wrapper {
         width: unset;
@@ -39,11 +45,20 @@
   h2 {
     display: inline;
     margin-right: 1rem;
+    min-width: 90px;
   }
 }
 
 @include mobile {
   .create-room-form {
     padding: 1.5rem;
+  }
+
+  .option-field {
+    padding: 10px;
+  }
+
+  h2 {
+    min-width: 65px;
   }
 }
