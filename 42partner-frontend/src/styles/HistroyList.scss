@@ -1,13 +1,5 @@
 @import './utils.scss';
 
-.history-list {
-  width: 100%;
-  height: 90%;
-  overflow: auto;
-  @include pink-border-template;
-  border: 0px;
-}
-
 .history-list::-webkit-scrollbar {
   display: none;
 }

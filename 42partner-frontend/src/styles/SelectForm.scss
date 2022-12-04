@@ -8,8 +8,8 @@ $tablet-img-size: 100px;
   flex-direction: column;
 
   .select-button {
-    width: 100%;
-    height: 60%;
+    width: 70%;
+    height: 20%;
     margin: 1rem;
     padding: 1.5rem;
     @include pink-border-template;
@@ -24,12 +24,12 @@ $tablet-img-size: 100px;
 }
 
 .select-form {
-  width: 100%;
   display: flex;
+  align-items: center;
+  height: 100%;
   justify-content: center;
 
   .select-button {
-    height: 60%;
     margin: 2rem;
     padding: 7rem;
     @include pink-border-template;
@@ -54,7 +54,6 @@ $tablet-img-size: 100px;
   }
 
   @include mobile {
-    width: 70%;
     @include tablet-mobile-view($mobile-img-size);
   }
 }
