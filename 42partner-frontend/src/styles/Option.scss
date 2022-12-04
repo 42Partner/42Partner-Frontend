@@ -1,21 +1,28 @@
 @import './utils.scss';
 
-.option-wrapper {
-	span {
-		font-family: 'tway_air'
-	}
-	@include mobile {
+@include mobile {
+	.option-wrapper {
+		padding-top: 13px;
+		.option-description{
+			font-size: 14px;
+			padding-bottom: 10px;
+		}
 		span {
 			font-size: 13px;
 		}
-	  .option-group {
-		margin-left: 40px !important;
-		margin-right: 40px;
-	  }
-	  .option-btn {
-		padding-right: 60px !important;
-		padding-top: 25px;
-	  }
+		.option-group {
+		  margin-left: 40px !important;
+		  margin-right: 40px;
+		}
+		.option-btn {
+		  padding-right: 60px !important;
+		  padding-top: 25px;
+		}
+	}
+}
+.option-wrapper {
+	span {
+		font-family: 'tway_air'
 	}
 	
 	display: flex;

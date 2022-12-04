@@ -16,7 +16,7 @@ ConvertMap.set('RANDOM', '랜덤 매칭');
 ConvertMap.set('MANUAL', '방 매칭');
 
 ConvertMap.set('INNER_CIRCLE', '42과제');
-ConvertMap.set('NOT_INNER_CIRCLE', '기타 (42과제 외)');
+ConvertMap.set('NOT_INNER_CIRCLE', '기타');
 
 ConvertMap.set('DELIVERY', '배달');
 ConvertMap.set('EATOUT', '식당');

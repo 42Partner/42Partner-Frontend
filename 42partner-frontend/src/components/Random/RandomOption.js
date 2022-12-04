@@ -26,7 +26,7 @@ const RandomOption = ({ topic }) => {
     ],
     typeOfStudyList: [
       { checked: false, value: 'INNER_CIRCLE', label: '42과제' },
-      { checked: false, value: 'NOT_INNER_CIRCLE', label: '기타 (42과제 외)' },
+      { checked: false, value: 'NOT_INNER_CIRCLE', label: '기타' },
     ],
     wayOfEatingList: [
       { checked: false, value: 'DELIVERY', label: '배달' },
@@ -88,7 +88,7 @@ const RandomOption = ({ topic }) => {
         {
           checked: false,
           value: 'NOT_INNER_CIRCLE',
-          label: '기타 (42과제 외)',
+          label: '기타',
         },
       ],
       wayOfEatingList: [

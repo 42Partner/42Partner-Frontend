@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@material-ui/core/index';
 import PropTypes from 'prop-types';
 import '../../styles/Matching.scss';
-import LinearWithValueLabel from '../common/LinearWithValueLabel';
+// import LinearWithValueLabel from '../common/LinearWithValueLabel';
 import { cancelRandomMatch, completeRandomMatch } from '../../modules/random';
 import ConvertMap from '../common/ConvertMap';
 import MatchingComplete from './MatchingComplete';
@@ -75,9 +75,9 @@ const RandomMatching = ({ topic }) => {
                     </div>
                   </div>
                 )}
-            <div className="matching-progress">
+            {/* <div className="matching-progress">
               <LinearWithValueLabel />
-            </div>
+            </div> */}
             <div className="matching-btn">
               <Button
                 onClick={cancelHandler}
