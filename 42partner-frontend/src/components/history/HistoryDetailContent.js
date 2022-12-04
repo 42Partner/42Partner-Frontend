@@ -27,7 +27,14 @@ const HistoryDetailContent = ({ detail }) => {
           [{mealOrStudy}] {randomOrRoom}
         </h2>
         {detail.participantsOrAuthor.MemberDto}
-        {/* <h3>매칭 파트너 : {detail.participantsOrAuthor.MemberDto}</h3> */}
+        {
+          ('!!!',
+          console.log(detail.participantsOrAuthor.map((e) => `${e.nickname} `)))
+        }
+        <h3>
+          매칭 파트너 :{' '}
+          {detail.participantsOrAuthor.map((e) => `${e.nickname} `)}
+        </h3>
       </div>
       <div className="select-info-wrapper">
         {mealOrStudy === '밥트너' ? (
