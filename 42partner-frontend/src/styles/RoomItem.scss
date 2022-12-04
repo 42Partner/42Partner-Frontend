@@ -48,6 +48,10 @@
   div + div {
     margin-top: 2rem;
   }
+
+  @include pc {
+    max-width: 43%;
+  }
 }
 
 @include mobile {

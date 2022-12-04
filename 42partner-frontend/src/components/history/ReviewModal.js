@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Rating from '@mui/material/Rating';
-// import { useDispatch, useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CustomColorButton from '../common/CustomColorButton';
 import { writeReview } from '../../modules/history';
-// import { getProfile } from '../../modules/mypage';
 import '../../styles/ReviewModal.scss';
 
-const ReviewModal = ({ matchId, memberList, onClose }) => {
+const ReviewModal = ({ matchId, onClose, memberList }) => {
   const dispatch = useDispatch();
-  // const { user } = useSelector(({ mypage }) => ({
-  //   user: mypage.user,
-  // }));
+  const { detail } = useSelector(({ mypage }) => ({
+    detail: mypage.detail,
+  }));
   const [reviewList, setReviewList] = useState([]);
 
   const handleRatingValue = (e) => {
@@ -28,15 +26,17 @@ const ReviewModal = ({ matchId, memberList, onClose }) => {
   };
 
   const makeRatingList = () => {
-    const tmp = memberList
-      .filter((member) => member.isMe === false)
-      .map((member) => ({
-        nickname: member.nickname,
-        activityMatchScore: 0,
-        noShow: false,
-      }));
+    if (memberList) {
+      const tmp = memberList
+        .filter((member) => member.isMe === false)
+        .map((member) => ({
+          nickname: member.nickname,
+          activityMatchScore: 0,
+          noShow: false,
+        }));
 
-    setReviewList(tmp);
+      setReviewList(tmp);
+    }
   };
 
   const noShowHandler = (e) => {
@@ -51,10 +51,7 @@ const ReviewModal = ({ matchId, memberList, onClose }) => {
   const makeMemberList = () => {
     return reviewList.map((m) => (
       <div key={m.nickname} className="rating-member">
-        <div className="profile-image">
-          {/* <img src={user.imageUrl} alt="profile-img" /> */}
-          {m.nickname}
-        </div>
+        {m.nickname}
         <Rating
           name={m.nickname}
           value={m.activityMatchScore}
@@ -84,8 +81,9 @@ const ReviewModal = ({ matchId, memberList, onClose }) => {
   };
 
   useEffect(() => {
-    // dispatch(getProfile());
-    makeRatingList();
+    if (detail) {
+      makeRatingList();
+    }
   }, []);
 
   return (
@@ -109,13 +107,8 @@ const ReviewModal = ({ matchId, memberList, onClose }) => {
 
 ReviewModal.propTypes = {
   matchId: PropTypes.string.isRequired,
-  memberList: PropTypes.arrayOf(
-    PropTypes.shape({
-      nickname: PropTypes.string.isRequired,
-      isAuthor: PropTypes.bool.isRequired,
-      isMe: PropTypes.bool.isRequired,
-    }),
-  ).isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  memberList: PropTypes.arrayOf(PropTypes.object).isRequired,
   onClose: PropTypes.func.isRequired,
 };
 

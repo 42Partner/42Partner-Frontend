@@ -29,6 +29,7 @@ const RoomDetailForm = ({ articleId, roomInfoPart, commetPart, onClose }) => {
   const [comfirmOpen, setComfirmOpen] = useState(false);
   const [complete, setComplete] = useState(false);
   const [join, setJoin] = useState(false);
+  const [noEnter, setNoEnter] = useState(false);
 
   const handleConfirmOpen = useCallback(() => {
     setComfirmOpen(true);
@@ -60,13 +61,16 @@ const RoomDetailForm = ({ articleId, roomInfoPart, commetPart, onClose }) => {
   }, [join, dispatch]);
 
   const isAlreadyJoin = useCallback(() => {
-    if (
-      articleInfo &&
-      articleInfo.participantsOrAuthor.find((x) => x.isMe) !== undefined
-    ) {
-      setJoin(true);
-    } else {
-      setJoin(false);
+    if (articleInfo) {
+      if (articleInfo.participantsOrAuthor.find((x) => x.isMe)) {
+        setJoin(true);
+      } else {
+        setJoin(false);
+      }
+
+      if (articleInfo.participantNum === 1) {
+        setNoEnter(true);
+      }
     }
   }, [articleInfo]);
 
@@ -111,7 +115,7 @@ const RoomDetailForm = ({ articleId, roomInfoPart, commetPart, onClose }) => {
                   button={
                     <Button
                       variant="contained"
-                      disabled={complete}
+                      disabled={complete || noEnter}
                       onClick={completeRoomHandler}
                       color="complete"
                     >
@@ -153,7 +157,7 @@ const RoomDetailForm = ({ articleId, roomInfoPart, commetPart, onClose }) => {
                   <Button
                     disabled={
                       articleInfo.participantNum ===
-                        articleInfo.participantNumMax || complete
+                      articleInfo.participantNumMax
                     }
                     className="button"
                     variant="contained"

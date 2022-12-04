@@ -13,6 +13,7 @@
 
   .button-wrapper {
     display: flex;
+    min-width: 143px;
 
     .history-button + .history-button {
       margin-left: 15px;

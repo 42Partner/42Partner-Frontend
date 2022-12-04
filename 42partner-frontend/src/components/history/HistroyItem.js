@@ -1,99 +1,66 @@
-/* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import ReviewModal from './ReviewModal';
 import ModalTemplate from '../common/ModalTemplate';
 import HistoryDetailForm from './HistoryDetailForm';
-import { getDetail } from '../../modules/mypage';
 import '../../styles/HistroyItem.scss';
+import ReviewButton from './ReviewButton';
+import ConvertMap from '../common/ConvertMap';
+import { getDetail } from '../../modules/mypage';
 
-const ReviewButton = ({ matchId, detail }) => {
-  const [reviewOpen, setReviewOpen] = useState(false);
-
-  const writeModalOpen = () => {
-    setReviewOpen(true);
-  };
-
-  const writeModalClose = () => {
-    setReviewOpen(false);
-  };
-
-  return (
-    <div className="history-button">
-      {detail && matchId && (
-        <div>
-          <Button
-            style={{
-              background: '#cccccc',
-              color: 'black',
-              backgroundColor: 'lightPink',
-            }}
-            id="button"
-            variant="contained"
-            onClick={writeModalOpen}
-          >
-            리뷰
-          </Button>
-
-          <ModalTemplate open={reviewOpen} onClose={writeModalClose}>
-            <ReviewModal
-              matchId={matchId}
-              memberList={detail.participantsOrAuthor}
-              onClose={writeModalClose}
-            />
-          </ModalTemplate>
-        </div>
-      )}
-    </div>
-  );
-};
-
-const HistroyItem = ({ matchId, content, method, date }) => {
+const HistroyItem = ({ matchId, detail }) => {
   const dispatch = useDispatch();
-  const { detail } = useSelector(({ mypage }) => ({
-    detail: mypage.detail,
-  }));
-
-  useEffect(() => {
-    console.log(matchId);
-    if (matchId) dispatch(getDetail({ matchId }));
-  }, [matchId]);
-
   const [open, setOpen] = useState(false);
 
   const handleDetaileOpen = () => {
+    dispatch(getDetail({ matchId }));
     setOpen(true);
   };
   const handleDetaileClose = () => {
     setOpen(false);
   };
 
+  const changeDateFormat = (date) => {
+    return date.substr(0, 10);
+  };
+
   return (
-    <div className="history-item">
-      <h3>{content}</h3>
-      <h3>{method}</h3>
-      <h3>{date}</h3>
-      <div className="button-wrapper">
-        <Button
-          style={{ background: '#f1f1f1', color: 'black' }}
-          className="history-button"
-          variant="contained"
-          onClick={handleDetaileOpen}
-        >
-          상세
-        </Button>
-        <ReviewButton matchId={matchId} detail={detail} />
-        <ModalTemplate open={open} onClose={handleDetaileClose}>
-          <HistoryDetailForm
-            matchId={matchId}
-            open={open}
-            onClose={handleDetaileClose}
-          />
-        </ModalTemplate>
+    <div>
+      <div className="history-item">
+        <h3>{ConvertMap.get(detail.contentCategory)}</h3>
+        <h3>{ConvertMap.get(detail.methodCategory)}</h3>
+        <h3>{changeDateFormat(detail.createdAt)}</h3>
+        <div className="button-wrapper">
+          <Button
+            style={{ background: '#f1f1f1', color: 'black' }}
+            className="history-button"
+            variant="contained"
+            onClick={handleDetaileOpen}
+          >
+            상세
+          </Button>
+          {!detail.isReviewed && detail.participantsOrAuthor.length !== 1 && (
+            <ReviewButton matchId={matchId} detail={detail} />
+          )}
+          <ModalTemplate open={open} onClose={handleDetaileClose}>
+            <HistoryDetailForm
+              matchId={matchId}
+              detail={detail}
+              open={open}
+              onClose={handleDetaileClose}
+            />
+          </ModalTemplate>
+        </div>
       </div>
     </div>
   );
+};
+
+HistroyItem.propTypes = {
+  matchId: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  detail: PropTypes.object.isRequired,
 };
 
 export default HistroyItem;

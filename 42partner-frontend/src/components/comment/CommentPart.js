@@ -3,19 +3,15 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
 import { loadCommentList, createComment } from '../../modules/comments';
 import CommentList from './CommentList';
 import CustomColorButton from '../common/CustomColorButton';
 
 const CommentPart = ({ anonymity, articleId }) => {
   const dispatch = useDispatch();
-  const { commentsList, commetLoading } = useSelector(
-    ({ comments, loading }) => ({
-      commentsList: comments.commentList,
-      commetLoading: loading['comment/LOADLIST'],
-    }),
-  );
+  const { commentsList } = useSelector(({ comments }) => ({
+    commentsList: comments.commentList,
+  }));
   const [comment, setComment] = useState('');
   const [oneLevelCommetList, setOneLevelCommetList] = useState([]);
 
@@ -80,11 +76,6 @@ const CommentPart = ({ anonymity, articleId }) => {
           }
         />
       </div>
-      {commetLoading && (
-        <div className="loading-icon">
-          <CustomColorButton button={<CircularProgress />} />
-        </div>
-      )}
       {(commentsList !== undefined || commentsList !== null) && (
         <CommentList
           anonymity={anonymity}

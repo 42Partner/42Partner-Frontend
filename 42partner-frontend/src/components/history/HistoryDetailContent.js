@@ -27,13 +27,9 @@ const HistoryDetailContent = ({ detail }) => {
           [{mealOrStudy}] {randomOrRoom}
         </h2>
         {detail.participantsOrAuthor.MemberDto}
-        {
-          ('!!!',
-          console.log(detail.participantsOrAuthor.map((e) => `${e.nickname} `)))
-        }
         <h3>
           매칭 파트너 :{' '}
-          {detail.participantsOrAuthor.map((e) => `${e.nickname} `)}
+          {detail.participantsOrAuthor.map((m) => `${m.nickname} `)}
         </h3>
       </div>
       <div className="select-info-wrapper">
@@ -44,13 +40,11 @@ const HistoryDetailContent = ({ detail }) => {
               <div>시간대 : {timeToEat}</div>
             )}
             <div>배달여부 : {wayToEat}</div>
-            <h1>MEAL</h1>
           </>
         ) : (
           <>
             <div>장소 : {place} </div>
             <div>학습 종류 : {typeToStudy}</div>
-            <h1>STUDY</h1>
           </>
         )}
       </div>
