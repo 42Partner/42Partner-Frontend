@@ -41,14 +41,4 @@ $wrapper-side-margin: 20px;
 
 .App {
   font-family: 'ubuntu-regular', 'tway_air';
-  @include mobile {
-    .content-wrapper {
-      font-family: 'ubuntu-regular', 'tway_air';
-      margin: {
-        top: 120px;
-        left: $wrapper-side-margin;
-        right: $wrapper-side-margin;
-      }
-    }
-  }
 }

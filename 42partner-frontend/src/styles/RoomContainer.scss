@@ -1,37 +1,53 @@
 @import './utils.scss';
 
-.room-container {
+.room-container-wrapper {
   width: 100%;
-  height: 80%;
-  min-height: 35rem;
-  overflow: auto;
-  margin-bottom: 80px;
-  @include pink-border-template;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
 
-  .room-list {
-    display: flex;
-    flex-wrap: wrap;
+  .room-container {
+    width: 80%;
+    height: 70%;
+    overflow: auto;
+    @include pink-border-template;
+
+    .room-list {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .create-button {
+      margin: 0;
+      top: auto;
+      right: 4%;
+      bottom: 6%;
+      left: auto;
+      position: fixed;
+    }
+
+    .loading-icon {
+      width: 100%;
+      height: 100%;
+      @include flex-center-sort;
+    }
   }
 
-  .create-button {
-    margin: 0;
-    top: auto;
-    right: 5%;
-    bottom: 15%;
-    left: auto;
-    position: fixed;
+  .change-matching {
+    text-decoration: none;
+    width: 80%;
   }
 
-  .loading-icon {
-    width: 100%;
-    height: 100%;
-    @include flex-center-sort;
+  .room-container::-webkit-scrollbar {
+    display: none;
   }
-}
 
-.change-matching {
-  text-decoration: none;
-}
-.room-container::-webkit-scrollbar {
-  display: none;
+  @include tablet {
+    .room-container {
+      height: 80%;
+    }
+  }
 }

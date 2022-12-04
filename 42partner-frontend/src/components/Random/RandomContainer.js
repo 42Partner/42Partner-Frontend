@@ -39,7 +39,7 @@ const RandomContainer = () => {
 
   const url = topic.toLowerCase();
   return (
-    <div style={{ paddingTop: '17px' }}>
+    <div>
       <Link to={`/${url}/room`} className="change-matching">
         <div style={{ paddingBottom: '20px' }}>
           <CustomColorButton

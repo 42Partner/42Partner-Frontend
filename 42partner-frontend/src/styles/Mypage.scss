@@ -34,6 +34,11 @@ $tablet-img-size: 140px;
 }
 
 .mypage-div {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+
   h1 {
     color: lightpink;
     text-shadow: 2px 2px 2px #dbdbdb;
@@ -55,7 +60,6 @@ $tablet-img-size: 140px;
     .card {
       margin-left: 10px;
       margin-right: 10px;
-      // background: #FFF7F6;
       background-color: #fef8fb;
       margin-bottom: 30px;
       transition: 0.5s;
