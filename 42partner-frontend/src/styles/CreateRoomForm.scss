@@ -1,0 +1,69 @@
+@import './utils.scss';
+
+.create-room-form {
+	span{ 
+
+		font-family: 'ubuntu-regular', 'tway_air';
+	}
+
+  padding: 3rem;
+
+  .check-option-wrapper {
+    margin-bottom: 1rem;
+
+    .option-field + .option-field {
+      border-top: 1px solid #e0d7d3;
+    }
+
+    .option-field {
+      display: flex;
+      align-items: center;
+      padding-top: 10px;
+      padding-bottom: 10px;
+
+      .react-datepicker-wrapper {
+        width: unset;
+        input {
+          border: 1px solid darkgray;
+          width: 120px;
+          height: 30px;
+          border-radius: 4px;
+          text-align: center;
+          background: none;
+        }
+      }
+    }
+  }
+
+  .button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    .button {
+      margin: 10px;
+    }
+  }
+
+  .title-text {
+    font-size: 30px;
+  }
+
+  h2 {
+    display: inline;
+    margin-right: 1rem;
+    min-width: 90px;
+  }
+}
+
+@include mobile {
+  .create-room-form {
+    padding: 1.5rem;
+  }
+
+  .option-field {
+    padding: 10px;
+  }
+
+  h2 {
+    min-width: 65px;
+  }
+}

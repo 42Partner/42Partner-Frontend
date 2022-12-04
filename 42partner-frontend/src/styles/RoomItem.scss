@@ -1,0 +1,70 @@
+@import './utils.scss';
+
+.room-item {
+  max-height: 150px;
+  margin: 10px;
+  padding: 20px;
+  display: flex;
+  flex: 1 1 10%;
+  flex-direction: column;
+  background: white;
+  line-height: 0.5;
+  border: 0.2px solid lightsteelblue;
+  border-radius: 10px;
+
+  #button {
+    width: 80px;
+  }
+
+  .hashtag {
+    color: $hashtag;
+    width: 250px;
+    max-height: 100px;
+    line-height: 1;
+    word-break: break-all;
+    margin: 0;
+  }
+
+  .sort-edge {
+    @include flex-edge-sort;
+    align-items: center;
+  }
+
+  .title-text {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+    margin-right: 6px;
+  }
+
+  .people-count {
+    @include flex-vertical-center;
+  }
+
+  svg {
+    margin-right: 5px;
+  }
+
+  div + div {
+    margin-top: 2rem;
+  }
+
+  @include pc {
+    max-width: 43%;
+  }
+}
+
+@include mobile {
+  .room-item {
+    max-height: 250px;
+    min-width: 200px;
+  }
+
+  .title-text {
+    font-size: 17px;
+  }
+
+  .hashtag {
+    font-size: 12px;
+  }
+}

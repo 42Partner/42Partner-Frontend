@@ -1,0 +1,46 @@
+@import './utils.scss';
+
+.history-item {
+  margin: 1rem;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  h3 {
+    display: inline;
+  }
+
+  .button-wrapper {
+    display: flex;
+    min-width: 143px;
+
+    .history-button + .history-button {
+      margin-left: 15px;
+    }
+  }
+
+  @include mobile {
+    & {
+      padding-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: 15px;
+    }
+
+    .button-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      .css-sghohy-MuiButtonBase-root-MuiButton-root {
+        width: 50px;
+      }
+
+      .history-button + .history-button {
+        margin-top: 10px;
+      }
+    }
+  }
+}

@@ -1,0 +1,121 @@
+@import './utils.scss';
+
+$pc-img-size: 140px;
+$mobile-img-size: 90px;
+$tablet-img-size: 140px;
+
+@mixin profile-image-size($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin column-profile($img-size) {
+  .mypage-wrapper {
+    flex-direction: column;
+
+    .profile-header {
+      max-width: 100%;
+
+      img {
+        @include profile-image-size($img-size);
+      }
+    }
+
+    .card {
+      margin: {
+        left: 0;
+        right: 0;
+      }
+    }
+    .profile-header + .profile-header {
+      margin-left: 15px;
+    }
+  }
+}
+
+.mypage-div {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+
+  h1 {
+    color: lightpink;
+    text-shadow: 2px 2px 2px #dbdbdb;
+  }
+
+  .mypage-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    .activity-wrapper {
+      width: 100%;
+      display: flex;
+    }
+
+    .profile-header {
+      max-width: 50%;
+    }
+
+    .card {
+      margin-left: 10px;
+      margin-right: 10px;
+      background-color: #fef8fb;
+      margin-bottom: 30px;
+      transition: 0.5s;
+      border: 0;
+      border-radius: 20px;
+      display: inline-block;
+      position: relative;
+      width: 100%;
+      box-shadow: none;
+
+      .body {
+        font-size: 14px;
+        color: #424242;
+        padding: 20px;
+        font-weight: 400;
+      }
+    }
+
+    .profile-image img {
+      border-radius: 50%;
+      @include profile-image-size($pc-img-size);
+      border: 0px solid #fff;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    }
+
+    .score-description {
+      padding-top: 10px;
+    }
+    .profile-page {
+      .profile-header {
+        position: relative;
+      }
+
+      .profile-sub-header {
+        min-height: 60px;
+        width: 100%;
+      }
+    }
+
+    .social-icon a {
+      margin: 0 5px;
+    }
+
+    .row {
+      @include flex-center-sort;
+    }
+
+    .profile-image {
+      padding-right: 20px;
+    }
+  }
+
+  @include mobile {
+    @include column-profile($mobile-img-size);
+  }
+  @include tablet {
+    @include column-profile($tablet-img-size);
+  }
+}

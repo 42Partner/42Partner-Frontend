@@ -1,0 +1,59 @@
+@import './utils.scss';
+
+$pc-img-size: 150px;
+$mobile-img-size: 30px;
+$tablet-img-size: 100px;
+
+@mixin tablet-mobile-view($img-size) {
+  flex-direction: column;
+
+  .select-button {
+    width: 70%;
+    height: 20%;
+    margin: 1rem;
+    padding: 1.5rem;
+    @include pink-border-template;
+    @include flex-center-sort;
+  }
+
+  .icon {
+    width: $img-size;
+    height: $img-size;
+    margin: 1rem;
+  }
+}
+
+.select-form {
+  display: flex;
+  align-items: center;
+  height: 80%;
+  justify-content: center;
+
+  .select-button {
+    margin: 2rem;
+    padding: 7rem;
+    @include pink-border-template;
+    @include flex-center-sort;
+  }
+
+  .select-button:hover {
+    filter: grayscale(90%);
+    background-color: pink;
+  }
+
+  .icon {
+    width: $pc-img-size;
+    height: $pc-img-size;
+    margin: 1rem;
+  }
+
+  @include tablet {
+    display: flex;
+    align-items: center;
+    @include tablet-mobile-view($tablet-img-size);
+  }
+
+  @include mobile {
+    @include tablet-mobile-view($mobile-img-size);
+  }
+}

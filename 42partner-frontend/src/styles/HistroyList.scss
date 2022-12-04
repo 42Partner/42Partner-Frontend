@@ -1,0 +1,11 @@
+@import './utils.scss';
+
+.history-list::-webkit-scrollbar {
+  display: none;
+}
+
+@include mobile {
+  h3 {
+    font-size: 13px;
+  }
+}

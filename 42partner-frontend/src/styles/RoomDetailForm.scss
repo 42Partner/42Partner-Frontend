@@ -1,0 +1,54 @@
+@import './utils.scss';
+
+.room-detail-form {
+  margin: 2rem;
+
+  .close-button,
+  .button-wrapper {
+    @include flex-end-sort;
+  }
+
+  .paragraph {
+    border-bottom: 1px solid black;
+  }
+
+  .select-info-wrapper {
+    border: 1px solid lightpink;
+    border-radius: 10px;
+    padding: 1rem;
+    div + div {
+      margin-top: 10px;
+    }
+  }
+
+  .hashtag {
+    color: $hashtag;
+  }
+
+  .botton-group-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .button {
+    margin: 20px 10px;
+    max-height: 36px;
+  }
+
+  .comment-input-wrapper {
+    @include flex-center-sort;
+    width: 100%;
+  }
+
+  .loading-icon {
+    @include flex-center-sort;
+  }
+}
+
+@include mobile {
+  .room-detail-form {
+    margin: 1.5rem;
+  }
+}

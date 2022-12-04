@@ -1,0 +1,43 @@
+.comment-item {
+  border-bottom: 1px solid gray;
+  padding-bottom: 1rem;
+
+  .comment-info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 3;
+
+    h3 {
+      margin-right: 10px;
+      display: inline;
+    }
+  }
+
+  .editmode {
+    display: flex;
+  }
+
+  .reply-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 15px;
+    font-weight: bold;
+    color: lightslategray;
+  }
+
+  .reply-input, .nested-comment-wrapper {
+    padding: 10px;
+    margin: {
+      top: 5px;
+      left: 5px;
+    }
+
+    .comment-item {
+      border: none;
+    }
+  }
+}
