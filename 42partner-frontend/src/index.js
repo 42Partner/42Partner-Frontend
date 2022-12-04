@@ -26,7 +26,7 @@ function loadUserData() {
 
     if (!token || !userId) return;
 
-    client.defaults.headers.common.Authorization = `Bearer ${token}`;
+    client.defaults.headers.common['user-token'] = `Bearer ${token}`;
     store.dispatch(setToken(token));
     store.dispatch(setUserId(userId));
   } catch (e) {
