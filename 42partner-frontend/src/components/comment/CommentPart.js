@@ -8,7 +8,7 @@ import { loadCommentList, createComment } from '../../modules/comments';
 import CommentList from './CommentList';
 import CustomColorButton from '../common/CustomColorButton';
 
-const CommentPart = ({ articleId }) => {
+const CommentPart = ({ anonymity, articleId }) => {
   const dispatch = useDispatch();
   const { commentsList, commetLoading } = useSelector(
     ({ comments, loading }) => ({
@@ -86,13 +86,18 @@ const CommentPart = ({ articleId }) => {
         </div>
       )}
       {(commentsList !== undefined || commentsList !== null) && (
-        <CommentList articleId={articleId} commentList={oneLevelCommetList} />
+        <CommentList
+          anonymity={anonymity}
+          articleId={articleId}
+          commentList={oneLevelCommetList}
+        />
       )}
     </div>
   );
 };
 
 CommentPart.propTypes = {
+  anonymity: PropTypes.bool.isRequired,
   articleId: PropTypes.string.isRequired,
 };
 

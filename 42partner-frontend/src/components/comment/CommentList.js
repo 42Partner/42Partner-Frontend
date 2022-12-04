@@ -1,15 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import CommentItem from './CommentItem';
 import { deleteComment, editComment } from '../../modules/comments';
 
-const CommentList = ({ articleId, commentList }) => {
+const CommentList = ({ articleId, anonymity, commentList }) => {
   const dispatch = useDispatch();
-  const { roomList } = useSelector(({ rooms }) => ({
-    roomList: rooms.roomList,
-  }));
-  const [anonymity, setAnonymity] = useState(false);
+  // const { roomList } = useSelector(({ rooms }) => ({
+  //   roomList: rooms.roomList,
+  // }));
+  // const [anonymity, setAnonymity] = useState(false);
   // let anonymity = false;
 
   const onDelete = useCallback(
@@ -26,11 +27,17 @@ const CommentList = ({ articleId, commentList }) => {
     [dispatch],
   );
 
-  useEffect(() => {
-    if (roomList.find((room) => room.articleId === articleId) !== undefined) {
-      setAnonymity(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (roomList.find((room) => room.articleId === articleId) !== undefined) {
+  //     setAnonymity(true);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   if (roomList.find((room) => room.articleId === articleId) !== undefined) {
+  //     setAnonymity(true);
+  //   }
+  // }, [anonymity]);
 
   return (
     <div>
@@ -52,6 +59,7 @@ const CommentList = ({ articleId, commentList }) => {
 
 CommentList.propTypes = {
   articleId: PropTypes.string.isRequired,
+  anonymity: PropTypes.bool.isRequired,
   commentList: PropTypes.arrayOf(
     PropTypes.shape({
       content: PropTypes.string,
