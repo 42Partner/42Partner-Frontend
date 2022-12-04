@@ -66,7 +66,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     contentCategory: topic,
     date: new Date(),
     matchConditionDto: null,
-    participantNumMax: 1,
+    participantNumMax: 2,
     title: '',
   });
 
@@ -307,11 +307,12 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
               <Select
                 name="participantNumMax"
                 value={article.participantNumMax}
+                defaultValue={2}
                 onChange={articleHandler}
               >
-                {Array.from({ length: 10 }, (x, i) => (
-                  <MenuItem key={i + 1} value={i + 1}>
-                    {i + 1}
+                {Array.from({ length: 9 }, (x, i) => (
+                  <MenuItem key={i + 2} value={i + 2}>
+                    {i + 2}
                   </MenuItem>
                 ))}
               </Select>
