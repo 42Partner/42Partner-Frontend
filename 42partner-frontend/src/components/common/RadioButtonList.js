@@ -21,7 +21,7 @@ const RadioButtonList = ({
 
   return (
     <div className="option-field">
-      <h2>{topic}*</h2>
+      <h2>{topic}</h2>
       <RadioGroup row value={radioOption} onChange={radioOptionHandler}>
         {buttonList}
       </RadioGroup>

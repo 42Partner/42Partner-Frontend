@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import CommentItem from './CommentItem';
@@ -9,7 +9,8 @@ const CommentList = ({ articleId, commentList }) => {
   const { roomList } = useSelector(({ rooms }) => ({
     roomList: rooms.roomList,
   }));
-  let anonymity = false;
+  const [anonymity, setAnonymity] = useState(false);
+  // let anonymity = false;
 
   const onDelete = useCallback(
     (opinionId) => {
@@ -27,7 +28,7 @@ const CommentList = ({ articleId, commentList }) => {
 
   useEffect(() => {
     if (roomList.find((room) => room.articleId === articleId) !== undefined) {
-      anonymity = true;
+      setAnonymity(true);
     }
   }, []);
 

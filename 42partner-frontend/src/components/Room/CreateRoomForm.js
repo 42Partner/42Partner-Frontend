@@ -24,10 +24,6 @@ import CheckBoxList from '../common/CheckBoxList';
 import RadioButtonList from '../common/RadioButtonList';
 import CustomColorButton from '../common/CustomColorButton';
 
-const textFieldStyle = {
-  mb: 2,
-};
-
 const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
   const dispatch = useDispatch();
   const { targetArticle } = useSelector(({ rooms }) => ({
@@ -36,14 +32,13 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
   const [bookingDate, setBookingDate] = useState(new Date());
   const [options, setOptions] = useState({
     placeList: [
-      { checked: false, value: 'SEOCHO', label: '개포' },
-      { checked: false, value: 'GAEPO', label: '서초' },
+      { checked: false, value: 'SEOCHO', label: '서초 클러스터' },
+      { checked: false, value: 'GAEPO', label: '개포 클러스터' },
       { checked: false, value: 'OUT_OF_CLUSTER', label: '기타 (외부)' },
     ],
     timeOfEatingList: [
       { checked: false, value: 'BREAKFAST', label: '아침' },
       { checked: false, value: 'LUNCH', label: '점심' },
-      { checked: false, value: 'DUNCH', label: '점저' },
       { checked: false, value: 'DINNER', label: '저녁' },
       { checked: false, value: 'MIDNIGHT', label: '야식' },
     ],
@@ -53,7 +48,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     ],
     wayOfEatingList: [
       { value: 'DELIVERY', label: '배달' },
-      { value: 'EATOUT', label: '도보' },
+      { value: 'EATOUT', label: '식당' },
       { value: 'TAKEOUT', label: '기타' },
     ],
   });
@@ -155,14 +150,13 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
     const { matchConditionDto } = targetArticle;
     const tmpOption = {
       placeList: [
-        { checked: false, value: 'SEOCHO', label: '개포' },
-        { checked: false, value: 'GAEPO', label: '서초' },
+        { checked: false, value: 'SEOCHO', label: '서초 클러스터' },
+        { checked: false, value: 'GAEPO', label: '개포 클러스터' },
         { checked: false, value: 'OUT_OF_CLUSTER', label: '기타 (외부)' },
       ],
       timeOfEatingList: [
         { checked: false, value: 'BREAKFAST', label: '아침' },
         { checked: false, value: 'LUNCH', label: '점심' },
-        { checked: false, value: 'DUNCH', label: '점저' },
         { checked: false, value: 'DINNER', label: '저녁' },
         { checked: false, value: 'MIDNIGHT', label: '야식' },
       ],
@@ -256,7 +250,6 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
       <TextField
         required
         fullWidth
-        sx={textFieldStyle}
         className="title-text"
         variant="standard"
         placeholder="제목을 입력해 주세요 (필수)"
@@ -273,7 +266,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
           checkBoxOptionHandler={checkBoxOptionHandler}
         />
         {topic === 'MEAL' ? (
-          <div>
+          <>
             <CheckBoxList
               list={options.timeOfEatingList}
               topic="시간대"
@@ -287,7 +280,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
               radioOption={radioOption}
               radioOptionHandler={radioOptionHandler}
             />
-          </div>
+          </>
         ) : (
           <RadioButtonList
             list={options.typeOfStudyList}
@@ -327,7 +320,6 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
         </div>
       </div>
       <TextField
-        sx={textFieldStyle}
         fullWidth
         placeholder="방 설명을 입력해 주세요 (필수)"
         multiline

@@ -1,7 +1,7 @@
 import client from './client';
 
 export const getRoomList = () => {
-  return client.get(`/api/articles`);
+  return client.get(`/api/articles?isComplete=false`);
 };
 
 export const getOneRoom = ({ articleId }) => {
@@ -13,9 +13,6 @@ export const createRoom = async ({ article }) => {
     .post(`/api/articles`, JSON.stringify(article))
     .then((res) => {
       return res.data;
-    })
-    .catch((e) => {
-      console.error(e);
     });
   return getOneRoom(articleId);
 };
