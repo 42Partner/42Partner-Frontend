@@ -55,13 +55,24 @@ const RoomContainer = () => {
 
   return (
     <div>
-      <Link to={`/${url}/random`} style={{ textDecoration: 'none' }}>
-        <Button>
-          <GiPerspectiveDiceSixFacesRandom
-            style={{ width: '40px', height: '40px' }}
+      <Link to={`/${url}/random`} className="change-matching">
+        <div style={{ paddingBottom: '20px' }}>
+          <CustomColorButton
+            button={
+              <Button
+                style={{ color: 'white', fontFamily: 'ubuntu-medium' }}
+                sx={{ mt: 2 }}
+                fullWidth
+                variant="contained"
+              >
+                <GiPerspectiveDiceSixFacesRandom
+                  style={{ width: '30px', height: '30px' }}
+                />
+                Random Matching
+              </Button>
+            }
           />
-          Random Matching
-        </Button>
+        </div>
       </Link>
       <div className="room-container">
         <CustomColorButton
@@ -95,15 +106,6 @@ const RoomContainer = () => {
           <span className="loading-icon">방이 존재하지 않습니다</span>
         )}
       </div>
-      <Link to="/meal/random" className="change-matching">
-        <CustomColorButton
-          button={
-            <Button sx={{ mt: 2 }} fullWidth variant="contained">
-              랜덤매칭하기
-            </Button>
-          }
-        />
-      </Link>
     </div>
   );
 };

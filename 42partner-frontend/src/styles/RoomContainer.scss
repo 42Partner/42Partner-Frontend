@@ -5,6 +5,7 @@
   height: 80%;
   min-height: 35rem;
   overflow: auto;
+  margin-bottom: 80px;
   @include pink-border-template;
 
   .room-list {

@@ -1,5 +1,5 @@
 .content-wrapper {
-	margin-top: 150px;	
+	margin-top: 90px;
 	height: auto;
   	min-height:  70vh;
 	flex: 1;
@@ -22,6 +22,7 @@
 }
 
 .app-wrapper {
+	margin-bottom: -20px;
 	display: flex;
 	flex-direction: column;
 	height: auto;
