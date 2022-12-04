@@ -11,6 +11,8 @@ const [CANCEL_RANDOM, CANCEL_RANDOM_SUCCESS, CANCEL_RANDOM_FAILURE] =
   createRequestActionTypes('random/CANCEL_RANDOM');
 const [GET_RANDOM, GET_RANDOM_SUCCESS, GET_RANDOM_FAILURE] =
   createRequestActionTypes('random/GET_RANDOM');
+const [COMPLETE_RANDOM, COMPLETE_RANDOM_SUCCESS, COMPLETE_RANDOM_FAILURE] =
+  createRequestActionTypes('random/COMPLETE_RANDOM');
 
 export const postRandomMatch = createAction(POST_RANDOM, (option) => option);
 export const cancelRandomMatch = createAction(
@@ -18,6 +20,10 @@ export const cancelRandomMatch = createAction(
   (category) => category,
 );
 export const getRandomMatch = createAction(GET_RANDOM, (url) => url);
+export const completeRandomMatch = createAction(
+  COMPLETE_RANDOM,
+  (category) => category,
+);
 
 const postRandomMatchSaga = createRequestSaga(
   POST_RANDOM,
@@ -31,11 +37,16 @@ const getRandomMatchSaga = createRequestSaga(
   GET_RANDOM,
   randomApi.getRandomMatch,
 );
+const completeRandomMatchSaga = createRequestSaga(
+  GET_RANDOM,
+  randomApi.completeRandomMatch,
+);
 
 export function* randomSaga() {
   yield takeLatest(POST_RANDOM, postRandomMatchSaga);
   yield takeLatest(CANCEL_RANDOM, cancelRandomMatchSaga);
   yield takeLatest(GET_RANDOM, getRandomMatchSaga);
+  yield takeLatest(GET_RANDOM, completeRandomMatchSaga);
 }
 
 const initialState = {
@@ -43,6 +54,7 @@ const initialState = {
   category: '',
   data: null,
   showBack: null,
+  match: null,
 };
 
 const random = handleActions(
@@ -74,6 +86,14 @@ const random = handleActions(
       data,
     }),
     [GET_RANDOM_FAILURE]: (state, { payload: e }) => ({
+      ...state,
+      requestError: e,
+    }),
+    [COMPLETE_RANDOM_SUCCESS]: (state, { payload: match }) => ({
+      ...state,
+      match,
+    }),
+    [COMPLETE_RANDOM_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
     }),

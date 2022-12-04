@@ -2,9 +2,9 @@ const ConvertMap = new Map();
 ConvertMap.set('MEAL', '밥트너');
 ConvertMap.set('STUDY', '공트너');
 
-ConvertMap.set('SEOCHO', '서초');
-ConvertMap.set('GAEPO', '개포');
-ConvertMap.set('OUT_OF_CLUSTER', '기타');
+ConvertMap.set('SEOCHO', '서초 클러스터');
+ConvertMap.set('GAEPO', '개포 클러스터');
+ConvertMap.set('OUT_OF_CLUSTER', '기타 (외부)');
 
 ConvertMap.set('BREAKFAST', '아침');
 ConvertMap.set('LUNCH', '점심');
@@ -12,11 +12,11 @@ ConvertMap.set('DINNER', '저녁');
 ConvertMap.set('DUNCH', '점저');
 ConvertMap.set('MIDNIGHT', '야식');
 
-ConvertMap.set('RANDOM', '랜덤매칭');
-ConvertMap.set('MANUAL', '방매칭');
+ConvertMap.set('RANDOM', '랜덤 매칭');
+ConvertMap.set('MANUAL', '방 매칭');
 
 ConvertMap.set('INNER_CIRCLE', '42과제');
-ConvertMap.set('NOT_INNER_CIRCLE', '기타 공부');
+ConvertMap.set('NOT_INNER_CIRCLE', '기타 (42과제 외)');
 
 ConvertMap.set('DELIVERY', '배달');
 ConvertMap.set('EATOUT', '외식');

@@ -18,6 +18,13 @@ export const cancelRandomMatch = ({ contentCategory }) => {
       return res.data;
     })
     .catch((e) => {
+      // eslint-disable-next-line no-console
       console.error(e);
     });
+};
+
+export const completeRandomMatch = ({ contentCategory }) => {
+  return client.get(
+    `/api/matches?contentCategory=${contentCategory}&sort=createdAt,DESC&size=1`, // &methodCategory=RANDOM
+  );
 };

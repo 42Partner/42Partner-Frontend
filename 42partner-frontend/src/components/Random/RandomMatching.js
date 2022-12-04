@@ -50,12 +50,18 @@ const RandomMatching = ({ topic }) => {
               <div className="matching-field">
                 <div className="matching-group">
                   <h3>장소</h3>
-                  <span>{data.matchConditionRandomMatchDto.placeList}</span>
+                  <span>
+                    {data.matchConditionRandomMatchDto.placeList.map((el) =>
+                      ConvertMap.get(el),
+                    )}
+                  </span>
                 </div>
                 <div className="matching-group">
                   <h3>학습 종류</h3>
                   <span>
-                    {data.matchConditionRandomMatchDto.typeOfStudyList}
+                    {data.matchConditionRandomMatchDto.typeOfStudyList.map(
+                      (el) => ConvertMap.get(el),
+                    )}
                   </span>
                 </div>
               </div>

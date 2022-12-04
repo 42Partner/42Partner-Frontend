@@ -24,6 +24,7 @@ const RandomContainer = () => {
   }, [location]);
 
   const url = topic.toLowerCase();
+
   return (
     <div>
       <Link to={`/${url}/room`} style={{ textDecoration: 'none' }}>
@@ -38,20 +39,23 @@ const RandomContainer = () => {
             showBack,
           })}
         >
-          <div className="card front">
-            <div className="card-body d-flex justify-content-center align-items-center">
-              <div className="card-text fs-1 fw-bold">
-                <RandomOption topic={topic} showBack={showBack} />
+          {!showBack ? (
+            <div className="card front">
+              <div className="card-body d-flex justify-content-center align-items-center">
+                <div className="card-text fs-1 fw-bold">
+                  <RandomOption topic={topic} />
+                </div>
               </div>
             </div>
-          </div>
-          <div className="card back">
-            <div className="card-body d-flex justify-content-center align-items-center">
-              <div className="card-text fs-1 fw-bold">
-                <RandomMatching topic={topic} showBack={showBack} />
+          ) : (
+            <div className="card back">
+              <div className="card-body d-flex justify-content-center align-items-center">
+                <div className="card-text fs-1 fw-bold">
+                  <RandomMatching topic={topic} />
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
