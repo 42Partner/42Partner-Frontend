@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import { useDispatch } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core/index';
@@ -9,6 +8,9 @@ import { postRandomMatch } from '../../modules/random';
 
 const RandomOption = ({ topic }) => {
   const dispatch = useDispatch();
+  //   const { sendOption } = useSelector(({ random }) => ({
+  //     sendOption: random.option,
+  //   }));
 
   const [options, setOptions] = useState({
     placeList: [
@@ -116,7 +118,7 @@ const RandomOption = ({ topic }) => {
   }, [matchingOption]);
 
   const matchingHandler = () => {
-    // console.log(option);
+    console.log(option);
     dispatch(postRandomMatch({ option }));
   };
 

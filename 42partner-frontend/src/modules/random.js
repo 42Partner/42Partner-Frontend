@@ -74,11 +74,13 @@ const random = handleActions(
     [CANCEL_RANDOM_SUCCESS]: (state, { payload: category }) => ({
       ...state,
       category,
+      data: null,
       showBack: false,
     }),
     [CANCEL_RANDOM_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
+      data: null,
       showBack: false,
     }),
     [GET_RANDOM_SUCCESS]: (state, { payload: data }) => ({

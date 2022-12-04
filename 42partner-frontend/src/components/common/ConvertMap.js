@@ -19,7 +19,7 @@ ConvertMap.set('INNER_CIRCLE', '42과제');
 ConvertMap.set('NOT_INNER_CIRCLE', '기타 (42과제 외)');
 
 ConvertMap.set('DELIVERY', '배달');
-ConvertMap.set('EATOUT', '외식');
+ConvertMap.set('EATOUT', '식당');
 ConvertMap.set('TAKEOUT', '포장');
 
 ConvertMap.set(0, 'MATCH_ABSENT');
