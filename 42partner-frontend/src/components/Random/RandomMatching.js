@@ -1,75 +1,95 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@material-ui/core/index';
 import PropTypes from 'prop-types';
 import '../../styles/Matching.scss';
 import LinearWithValueLabel from '../common/LinearWithValueLabel';
-import { cancelRandomMatch } from '../../modules/random';
+import { cancelRandomMatch, completeRandomMatch } from '../../modules/random';
+import ConvertMap from '../common/ConvertMap';
+import MatchingComplete from './MatchingComplete';
 
-const RandomMatching = ({ topic, flip }) => {
+const RandomMatching = ({ topic }) => {
   const dispatch = useDispatch();
-  const [category, setCategory] = useState({
-    contentCategory: null,
-  });
-  //   const { options } = useSelector(({ random }) => ({
-  //     options: random.options,
-  //   }));
-  //   useEffect(() => {
-  //     dispatch(getRandomMatch(topic));
-  //     console.log(options);
-  //   }, []);
-  useEffect(() => {
-    setCategory({
-      contentCategory: `${topic}`,
-    });
-  }, []);
 
-  const cancelHandler = (e) => {
-    dispatch(cancelRandomMatch({ category }));
-    flip(e);
+  const { data, match } = useSelector(({ random }) => ({
+    data: random.options,
+    match: random.match,
+  }));
+
+  const cancelHandler = () => {
+    const contentCategory = topic;
+    dispatch(cancelRandomMatch({ contentCategory }));
   };
+
+  useEffect(() => {
+    const contentCategory = topic;
+    dispatch(completeRandomMatch({ contentCategory }));
+  }, [match]);
 
   return (
     <div>
       <div className="matching-wrapper">
-        <h3 className="matching-description" style={{ color: '#0099a4' }}>
-          매칭 진행 중
-        </h3>
-        {topic === 'MEAL' ? (
-          <div className="matching-field">
-            <div className="matching-group">
-              <h3>장소</h3>
-              <span>개포 클러스터</span>
+        {!match ? (
+          <div>
+            <h3 className="matching-description" style={{ color: '#0099a4' }}>
+              매칭 진행 중
+            </h3>
+            {topic === 'MEAL'
+              ? data && (
+                  <div className="matching-field">
+                    <div className="matching-group">
+                      <h3>장소</h3>
+                      <span>
+                        {data.matchConditionRandomMatchDto.placeList.map((el) =>
+                          ConvertMap.get(el),
+                        )}
+                      </span>
+                    </div>
+                    <div className="matching-group">
+                      <h3>식사 방식</h3>
+                      <span>
+                        {data.matchConditionRandomMatchDto.wayOfEatingList.map(
+                          (el) => ConvertMap.get(el),
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                )
+              : data && (
+                  <div className="matching-field">
+                    <div className="matching-group">
+                      <h3>장소</h3>
+                      <span>
+                        {data.matchConditionRandomMatchDto.placeList.map((el) =>
+                          ConvertMap.get(el),
+                        )}
+                      </span>
+                    </div>
+                    <div className="matching-group">
+                      <h3>학습 종류</h3>
+                      <span>
+                        {data.matchConditionRandomMatchDto.typeOfStudyList.map(
+                          (el) => ConvertMap.get(el),
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                )}
+            <div className="matching-progress">
+              <LinearWithValueLabel />
             </div>
-            <div className="matching-group">
-              <h3>식사 방식</h3>
-              <span>배달</span>
+            <div className="matching-btn">
+              <Button
+                onClick={cancelHandler}
+                style={{ backgroundColor: '#0099a4' }}
+              >
+                매칭 취소
+              </Button>
             </div>
           </div>
         ) : (
-          <div className="matching-field">
-            <div className="matching-group">
-              <h3>장소</h3>
-              <span>개포 클러스터</span>
-            </div>
-            <div className="matching-group">
-              <h3>학습 종류</h3>
-              <span>42 과제 외 학습</span>
-            </div>
-          </div>
+          <MatchingComplete match={match} />
         )}
-
-        <div className="matching-progress">
-          <LinearWithValueLabel />
-        </div>
-        <div className="matching-btn">
-          <Button
-            onClick={cancelHandler}
-            style={{ backgroundColor: '#0099a4' }}
-          >
-            매칭 취소
-          </Button>
-        </div>
       </div>
     </div>
   );
@@ -79,5 +99,4 @@ export default RandomMatching;
 
 RandomMatching.propTypes = {
   topic: PropTypes.string.isRequired,
-  flip: PropTypes.func.isRequired,
 };

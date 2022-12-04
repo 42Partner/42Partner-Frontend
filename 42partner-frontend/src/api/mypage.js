@@ -14,5 +14,6 @@ export const getMatches = () => {
 };
 
 export const getDetail = ({ matchId }) => {
+  console.log(matchId);
   return client.get(`/api/matches/${matchId}`);
 };

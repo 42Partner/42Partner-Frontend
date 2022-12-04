@@ -14,21 +14,12 @@ const MainForm = () => {
     dispatch(setUserId(params.userId));
     dispatch(setToken(params.access_token));
 
-    if (Object.keys(params).length === 0) {
-      const header = client.defaults.headers.common.Authorization;
-
-      if (header === undefined || header === 'Bearer undefined') {
-        navigate('/login');
-      } else {
-        navigate('/select');
-      }
-    } else {
+    if (Object.keys(params).length !== 0) {
       localStorage.setItem('accessToken', params.access_token);
       localStorage.setItem('userId', params.userId);
-
       client.defaults.headers.common.Authorization = `Bearer ${params.access_token}`;
-      navigate('/select');
     }
+    navigate('/select');
   }, []);
 
   return (

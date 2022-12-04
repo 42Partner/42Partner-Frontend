@@ -6,7 +6,7 @@ import CheckBoxList from '../common/CheckBoxListRandom';
 import '../../styles/Option.scss';
 import { postRandomMatch } from '../../modules/random';
 
-const RandomOption = ({ topic, flip }) => {
+const RandomOption = ({ topic }) => {
   const dispatch = useDispatch();
   //   const { sendOption } = useSelector(({ random }) => ({
   //     sendOption: random.option,
@@ -14,8 +14,8 @@ const RandomOption = ({ topic, flip }) => {
 
   const [options, setOptions] = useState({
     placeList: [
-      { checked: false, value: 'SEOCHO', label: '개포 클러스터' },
-      { checked: false, value: 'GAEPO', label: '서초 클러스터' },
+      { checked: false, value: 'SEOCHO', label: '서초 클러스터' },
+      { checked: false, value: 'GAEPO', label: '개포 클러스터' },
       { checked: false, value: 'OUT_OF_CLUSTER', label: '기타 (외부)' },
     ],
     timeOfEatingList: [
@@ -30,8 +30,8 @@ const RandomOption = ({ topic, flip }) => {
     ],
     wayOfEatingList: [
       { checked: false, value: 'DELIVERY', label: '배달' },
-      { checked: false, value: 'EATOUT', label: '도보' },
-      { checked: false, value: 'TAKEOUT', label: '기타' },
+      { checked: false, value: 'EATOUT', label: '식당' },
+      { checked: false, value: 'TAKEOUT', label: '포장' },
     ],
   });
   const [matchingOption, setMatchingOption] = useState({
@@ -79,8 +79,8 @@ const RandomOption = ({ topic, flip }) => {
   const initCheckBoxOptions = () => {
     setOptions({
       placeList: [
-        { checked: false, value: 'SEOCHO', label: '개포 클러스터' },
-        { checked: false, value: 'GAEPO', label: '서초 클러스터' },
+        { checked: false, value: 'SEOCHO', label: '서초 클러스터' },
+        { checked: false, value: 'GAEPO', label: '개포 클러스터' },
         { checked: false, value: 'OUT_OF_CLUSTER', label: '기타 (외부)' },
       ],
       typeOfStudyList: [
@@ -93,8 +93,8 @@ const RandomOption = ({ topic, flip }) => {
       ],
       wayOfEatingList: [
         { checked: false, value: 'DELIVERY', label: '배달' },
-        { checked: false, value: 'EATOUT', label: '도보' },
-        { checked: false, value: 'TAKEOUT', label: '기타' },
+        { checked: false, value: 'EATOUT', label: '식당' },
+        { checked: false, value: 'TAKEOUT', label: '포장' },
       ],
     });
   };
@@ -117,9 +117,7 @@ const RandomOption = ({ topic, flip }) => {
     });
   }, [matchingOption]);
 
-  const matchingHandler = (e) => {
-    flip(e);
-    console.log(option);
+  const matchingHandler = () => {
     dispatch(postRandomMatch({ option }));
   };
 
@@ -194,5 +192,4 @@ export default RandomOption;
 
 RandomOption.propTypes = {
   topic: PropTypes.string.isRequired,
-  flip: PropTypes.func.isRequired,
 };
