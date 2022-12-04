@@ -21,6 +21,15 @@
 			 padding-right: 100px !important;
 			//   padding-top: 25px;
 			}
+			.matching-notice {
+				display: flex;
+				margin: 13px;
+				padding: 10px;
+				width: 85%;
+				color: gray;
+				background-color: antiquewhite;
+				font-size: 12px;
+			}
 		}
 	}
 
@@ -34,6 +43,18 @@
   float: right;
 }
 
+.matching-notice {
+	text-align: center;
+	display: flex;
+	margin-left: 130px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	padding: 10px;
+	width: 60%;
+	color: gray;
+	background-color: antiquewhite;
+	font-size: 12px;
+}
 .matching-description {
   display: flex;
   justify-content: center;
