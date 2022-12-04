@@ -1,8 +1,36 @@
 @import './utils.scss';
 
+$pc-img-size: 140px;
+$mobile-img-size: 90px;
+$tablet-img-size: 140px;
+
 @mixin profile-image-size($size) {
   width: $size;
   height: $size;
+}
+
+@mixin column-profile($img-size) {
+  .mypage-wrapper {
+    flex-direction: column;
+
+    .profile-header {
+      max-width: 100%;
+
+      img {
+        @include profile-image-size($img-size);
+      }
+    }
+
+    .card {
+      margin: {
+        left: 0;
+        right: 0;
+      }
+    }
+    .profile-header + .profile-header {
+      margin-left: 15px;
+    }
+  }
 }
 
 .mypage-div {
@@ -43,15 +71,14 @@
         color: #424242;
         padding: 20px;
         font-weight: 400;
-
-        .profile-image img {
-          border-radius: 50%;
-          @include profile-image-size(140px);
-          border: 0px solid #fff;
-          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
-            0 3px 6px rgba(0, 0, 0, 0.23);
-        }
       }
+    }
+
+    .profile-image img {
+      border-radius: 50%;
+      @include profile-image-size($pc-img-size);
+      border: 0px solid #fff;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     }
 
     .score-description {
@@ -80,14 +107,11 @@
       padding-right: 20px;
     }
   }
-}
 
-@include mobile {
-  .mypage-wrapper {
-    flex-direction: column;
-
-    .profile-image img {
-      @include profile-image-size(90px);
-    }
+  @include mobile {
+    @include column-profile($mobile-img-size);
+  }
+  @include tablet {
+    @include column-profile($tablet-img-size);
   }
 }

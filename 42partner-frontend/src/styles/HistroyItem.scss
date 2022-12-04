@@ -11,12 +11,35 @@
     display: inline;
   }
 
+  .button-wrapper {
+    display: flex;
+
+    .history-button + .history-button {
+      margin-left: 15px;
+    }
+  }
+
   @include mobile {
     & {
       padding-bottom: 1rem;
     }
-    .detail-button {
-      font-size: 12px;
+
+    h3 {
+      font-size: 15px;
+    }
+
+    .button-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      .css-sghohy-MuiButtonBase-root-MuiButton-root {
+        width: 50px;
+      }
+
+      .history-button + .history-button {
+        margin-top: 10px;
+      }
     }
   }
 }

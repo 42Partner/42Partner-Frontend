@@ -9,6 +9,7 @@ const MatchingHistory = () => {
   const { matches } = useSelector(({ mypage }) => ({
     matches: mypage.matches,
   }));
+
   useEffect(() => {
     dispatch(getMatches());
   }, []);
