@@ -7,7 +7,7 @@ import { Button } from '@material-ui/core/index';
 import { MdMeetingRoom } from 'react-icons/md';
 import RandomOption from './RandomOption';
 import RandomMatching from './RandomMatching';
-import { getRandomMatch } from '../../modules/random';
+import { getMatchCondition, getRandomMatch } from '../../modules/random';
 import CustomColorButton from '../common/CustomColorButton';
 
 const RandomContainer = () => {
@@ -31,15 +31,15 @@ const RandomContainer = () => {
     dispatch(getRandomMatch({ contentCategory }));
   }, [topic]);
 
+  useEffect(() => {
+    if (showBack) {
+      dispatch(getMatchCondition({ topic }));
+    }
+  }, [showBack]);
+
   const url = topic.toLowerCase();
   return (
     <div style={{ paddingTop: '17px' }}>
-      {/* <Link to={`/${url}/room`} style={{ textDecoration: 'none' }}>
-        <Button>
-          <MdMeetingRoom style={{ width: '40px', height: '40px' }} /> Room
-          Matching
-        </Button>
-      </Link> */}
       <Link to={`/${url}/room`} className="change-matching">
         <div style={{ paddingBottom: '20px' }}>
           <CustomColorButton

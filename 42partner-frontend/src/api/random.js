@@ -6,6 +6,12 @@ export const getRandomMatch = ({ contentCategory }) => {
   );
 };
 
+export const getMatchCondition = ({ topic }) => {
+  return client.get(
+    `/api/random-matches/condition/mine?contentCategory=${topic}`,
+  );
+};
+
 export const postRandomMatch = async ({ option }) => {
   await client.post(`/api/random-matches`, option);
   return getRandomMatch(option);
@@ -13,10 +19,4 @@ export const postRandomMatch = async ({ option }) => {
 
 export const cancelRandomMatch = ({ contentCategory }) => {
   return client.post(`/api/random-matches/mine`, { contentCategory });
-};
-
-export const completeRandomMatch = ({ contentCategory }) => {
-  return client.get(
-    `/api/matches?contentCategory=${contentCategory}&sort=createdAt,DESC&size=1`, // &methodCategory=RANDOM
-  );
 };

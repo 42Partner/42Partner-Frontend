@@ -1,3 +1,29 @@
+@import './utils.scss';
+
+@include mobile {
+		.matching-wrapper {
+			.matching-field {
+				padding-bottom: 30px;
+			}
+			padding-top: 13px;
+			.matching-description{
+				font-size: 18px;
+				padding-bottom: 10px;
+			}
+			span {
+				font-size: 13px;
+			}
+			.matching-group {
+			  margin-left: 40px !important;
+			  margin-right: 40px;
+			}
+			.matching-btn {
+			 padding-right: 100px !important;
+			//   padding-top: 25px;
+			}
+		}
+	}
+
 .matching-history-wrapper {
   margin-bottom: 10vh;
 }
