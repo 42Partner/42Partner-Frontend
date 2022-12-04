@@ -1,8 +1,14 @@
 import client from './client';
 
-export const getRandomMatch = async ({ contentCategory }) => {
+export const getRandomMatch = ({ contentCategory }) => {
   return client.get(
     `/api/random-matches/mine?contentCategory=${contentCategory}`,
+  );
+};
+
+export const getMatchCondition = ({ topic }) => {
+  return client.get(
+    `/api/random-matches/condition/mine?contentCategory=${topic}`,
   );
 };
 
@@ -13,10 +19,4 @@ export const postRandomMatch = async ({ option }) => {
 
 export const cancelRandomMatch = ({ contentCategory }) => {
   return client.post(`/api/random-matches/mine`, { contentCategory });
-};
-
-export const completeRandomMatch = ({ contentCategory }) => {
-  return client.get(
-    `/api/matches?contentCategory=${contentCategory}&sort=createdAt,DESC&size=1`, // &methodCategory=RANDOM
-  );
 };

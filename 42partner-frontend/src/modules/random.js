@@ -11,22 +11,13 @@ const [CANCEL_RANDOM, CANCEL_RANDOM_SUCCESS, CANCEL_RANDOM_FAILURE] =
   createRequestActionTypes('random/CANCEL_RANDOM');
 const [GET_RANDOM, GET_RANDOM_SUCCESS, GET_RANDOM_FAILURE] =
   createRequestActionTypes('random/GET_RANDOM');
-const [COMPLETE_RANDOM, COMPLETE_RANDOM_SUCCESS, COMPLETE_RANDOM_FAILURE] =
-  createRequestActionTypes('random/COMPLETE_RANDOM');
+const [GET_MATCH_INFO, GET_MATCH_INFO_SUCCESS, GET_MATCH_INFO_FAILURE] =
+  createRequestActionTypes('random/GET_MATCH_INFO');
 
 export const postRandomMatch = createAction(POST_RANDOM, (option) => option);
-export const cancelRandomMatch = createAction(
-  CANCEL_RANDOM,
-  (contentCategory) => contentCategory,
-);
-export const getRandomMatch = createAction(
-  GET_RANDOM,
-  (contentCategory) => contentCategory,
-);
-export const completeRandomMatch = createAction(
-  COMPLETE_RANDOM,
-  (category) => category,
-);
+export const cancelRandomMatch = createAction(CANCEL_RANDOM, (topic) => topic);
+export const getRandomMatch = createAction(GET_RANDOM, (topic) => topic);
+export const getMatchCondition = createAction(GET_MATCH_INFO, (topic) => topic);
 
 const postRandomMatchSaga = createRequestSaga(
   POST_RANDOM,
@@ -40,16 +31,16 @@ const getRandomMatchSaga = createRequestSaga(
   GET_RANDOM,
   randomApi.getRandomMatch,
 );
-const completeRandomMatchSaga = createRequestSaga(
-  GET_RANDOM,
-  randomApi.completeRandomMatch,
+const getMatchConditionSaga = createRequestSaga(
+  GET_MATCH_INFO,
+  randomApi.getMatchCondition,
 );
 
 export function* randomSaga() {
   yield takeLatest(POST_RANDOM, postRandomMatchSaga);
   yield takeLatest(CANCEL_RANDOM, cancelRandomMatchSaga);
   yield takeLatest(GET_RANDOM, getRandomMatchSaga);
-  yield takeLatest(GET_RANDOM, completeRandomMatchSaga);
+  yield takeLatest(GET_MATCH_INFO, getMatchConditionSaga);
 }
 
 const initialState = {
@@ -84,17 +75,17 @@ const random = handleActions(
     }),
     [GET_RANDOM_SUCCESS]: (state, { payload: isExist }) => ({
       ...state,
-      showBack: isExist,
+      showBack: isExist.isExist,
     }),
     [GET_RANDOM_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
     }),
-    [COMPLETE_RANDOM_SUCCESS]: (state, { payload: match }) => ({
+    [GET_MATCH_INFO_SUCCESS]: (state, { payload: options }) => ({
       ...state,
-      match,
+      options,
     }),
-    [COMPLETE_RANDOM_FAILURE]: (state, { payload: e }) => ({
+    [GET_MATCH_INFO_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
     }),

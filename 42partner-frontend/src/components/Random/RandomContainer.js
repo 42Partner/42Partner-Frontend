@@ -7,7 +7,7 @@ import { Button } from '@material-ui/core/index';
 import { MdMeetingRoom } from 'react-icons/md';
 import RandomOption from './RandomOption';
 import RandomMatching from './RandomMatching';
-import { getRandomMatch } from '../../modules/random';
+import { getMatchCondition, getRandomMatch } from '../../modules/random';
 import CustomColorButton from '../common/CustomColorButton';
 
 const RandomContainer = () => {
@@ -30,6 +30,12 @@ const RandomContainer = () => {
     const contentCategory = topic;
     dispatch(getRandomMatch({ contentCategory }));
   }, [topic]);
+
+  useEffect(() => {
+    if (showBack) {
+      dispatch(getMatchCondition({ topic }));
+    }
+  }, [showBack]);
 
   const url = topic.toLowerCase();
   return (
