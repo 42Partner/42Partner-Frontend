@@ -1,10 +1,6 @@
 import client from './client';
 
-export const getRandomMatch = ({ contentCategory }) => {
-  const res = client.get(
-    `/api/random-matches/mine?contentCategory=${contentCategory}`,
-  );
-  console.log(res);
+export const getRandomMatch = async ({ contentCategory }) => {
   return client.get(
     `/api/random-matches/mine?contentCategory=${contentCategory}`,
   );

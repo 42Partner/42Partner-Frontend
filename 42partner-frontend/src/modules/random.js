@@ -84,7 +84,7 @@ const random = handleActions(
     }),
     [GET_RANDOM_SUCCESS]: (state, { payload: isExist }) => ({
       ...state,
-      showBack: isExist.isExist,
+      showBack: isExist,
     }),
     [GET_RANDOM_FAILURE]: (state, { payload: e }) => ({
       ...state,
