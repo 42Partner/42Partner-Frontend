@@ -14,15 +14,9 @@ const MatchingHistory = () => {
     dispatch(getMatches());
   }, []);
 
-  //   if (matches.length === 0)
-  //     return <div className="matching-history-wrapper">No Matching History</div>;
-
   return (
     <div className="matching-history-wrapper">
-      {matches &&
-        matches.map((match) => (
-          <HistroyList key={match.matchId} match={match} />
-        ))}
+      {matches && <HistroyList matcheList={matches} />}
     </div>
   );
 };

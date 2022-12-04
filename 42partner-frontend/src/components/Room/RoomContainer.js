@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import CircularProgress from '@mui/material/CircularProgress';
 import Button from '@mui/material/Button';
 import { GiPerspectiveDiceSixFacesRandom } from 'react-icons/gi';
 import ModalTemplate from '../common/ModalTemplate';
@@ -16,12 +15,9 @@ import '../../styles/RoomContainer.scss';
 const RoomContainer = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { articleList, roomListLoading } = useSelector(
-    ({ rooms, loading }) => ({
-      articleList: rooms.roomList,
-      roomListLoading: loading['rooms/LOADLIST'],
-    }),
-  );
+  const { articleList } = useSelector(({ rooms }) => ({
+    articleList: rooms.roomList,
+  }));
   const [open, setOpen] = useState(false);
   const [topic, setTopic] = useState('MEAL');
   const [curList, setCurList] = useState([]);
@@ -95,11 +91,6 @@ const RoomContainer = () => {
             onClose={handleWriteClose}
           />
         </ModalTemplate>
-        {roomListLoading && (
-          <div className="loading-icon">
-            <CustomColorButton button={<CircularProgress />} />
-          </div>
-        )}
         {curList.length ? (
           <RoomList roomList={curList} />
         ) : (

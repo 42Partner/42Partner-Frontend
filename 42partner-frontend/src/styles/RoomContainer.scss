@@ -18,6 +18,7 @@
     .room-list {
       display: flex;
       flex-wrap: wrap;
+      justify-content: space-between;
     }
 
     .create-button {

@@ -1,22 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 import '../../styles/HistoryDetailForm.scss';
-import { getDetail } from '../../modules/mypage';
 import HistoryDetailContent from './HistoryDetailContent';
 
-// eslint-disable-next-line react/prop-types
-const HistoryDetailForm = ({ matchId, open, onClose }) => {
-  const dispatch = useDispatch();
+const HistoryDetailForm = ({ open, onClose }) => {
   const { detail } = useSelector(({ mypage }) => ({
     detail: mypage.detail,
   }));
-
-  useEffect(() => {
-    dispatch(getDetail({ matchId }));
-  }, []);
 
   return (
     <div className="history-detail-form">

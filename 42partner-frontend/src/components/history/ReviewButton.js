@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import ReviewModal from './ReviewModal';
 import ModalTemplate from '../common/ModalTemplate';
+import { getDetail } from '../../modules/mypage';
 
-const tmpData = [
-  { nickname: 'hyenam', isAuthor: true, isMe: true },
-  { nickname: 'asdf', isAuthor: false, isMe: false },
-  { nickname: 'ddd', isAuthor: false, isMe: false },
-  { nickname: 'vvvv', isAuthor: false, isMe: false },
-  { nickname: 'aaa', isAuthor: false, isMe: false },
-];
-
-const TmpReviewButton = () => {
+const ReviewButton = ({ matchId, detail }) => {
+  const dispatch = useDispatch();
   const [reviewOpen, setReviewOpen] = useState(false);
 
   const writeModalOpen = () => {
+    dispatch(getDetail({ matchId }));
     setReviewOpen(true);
   };
 
@@ -23,7 +20,7 @@ const TmpReviewButton = () => {
   };
 
   return (
-    <div>
+    <div className="history-button">
       <Button
         style={{
           background: '#cccccc',
@@ -39,8 +36,8 @@ const TmpReviewButton = () => {
 
       <ModalTemplate open={reviewOpen} onClose={writeModalClose}>
         <ReviewModal
-          matchId="matchId"
-          memberList={tmpData}
+          matchId={matchId}
+          memberList={detail.participantsOrAuthor}
           onClose={writeModalClose}
         />
       </ModalTemplate>
@@ -48,4 +45,10 @@ const TmpReviewButton = () => {
   );
 };
 
-export default TmpReviewButton;
+ReviewButton.propTypes = {
+  matchId: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  detail: PropTypes.object.isRequired,
+};
+
+export default ReviewButton;

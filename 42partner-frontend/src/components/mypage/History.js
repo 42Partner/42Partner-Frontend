@@ -1,17 +1,10 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getMatches } from '../../modules/mypage';
-
-// import axios from 'axios';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 const History = () => {
-  const dispatch = useDispatch();
   const { matchesNum } = useSelector(({ mypage }) => ({
     matchesNum: mypage.matchesNum,
   }));
-  useEffect(() => {
-    dispatch(getMatches());
-  }, []);
 
   return (
     <div className="card profile-header">
