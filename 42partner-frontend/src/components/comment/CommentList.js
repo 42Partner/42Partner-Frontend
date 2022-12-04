@@ -1,17 +1,11 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-// import { useDispatch, useSelector } from 'react-redux';
 import CommentItem from './CommentItem';
 import { deleteComment, editComment } from '../../modules/comments';
 
 const CommentList = ({ articleId, anonymity, commentList }) => {
   const dispatch = useDispatch();
-  // const { roomList } = useSelector(({ rooms }) => ({
-  //   roomList: rooms.roomList,
-  // }));
-  // const [anonymity, setAnonymity] = useState(false);
-  // let anonymity = false;
 
   const onDelete = useCallback(
     (opinionId) => {
@@ -26,18 +20,6 @@ const CommentList = ({ articleId, anonymity, commentList }) => {
     },
     [dispatch],
   );
-
-  // useEffect(() => {
-  //   if (roomList.find((room) => room.articleId === articleId) !== undefined) {
-  //     setAnonymity(true);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   if (roomList.find((room) => room.articleId === articleId) !== undefined) {
-  //     setAnonymity(true);
-  //   }
-  // }, [anonymity]);
 
   return (
     <div>
