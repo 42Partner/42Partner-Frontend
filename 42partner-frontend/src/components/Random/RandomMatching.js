@@ -72,6 +72,12 @@ const RandomMatching = ({ topic }) => {
             {/* <div className="matching-progress">
               <LinearWithValueLabel />
             </div> */}
+            <div className="matching-notice">
+              매칭 신청 시간으로부터 30분 내에 매칭되지 않으면 자동으로 매칭
+              취소가 진행됩니다. <br />
+              또한 새로운 매칭은 기존 매칭 취소 후 가능합니다. <br /> (단,
+              밥트너-공트너/룸-랜덤 간의 매칭은 중복 가능합니다.)
+            </div>
             <div className="matching-btn">
               <Button
                 onClick={cancelHandler}
