@@ -54,7 +54,7 @@ const RoomContainer = () => {
   const url = topic.toLowerCase();
 
   return (
-    <div>
+    <div className="room-container-wrapper">
       <Link to={`/${url}/random`} className="change-matching">
         <div style={{ paddingBottom: '20px' }}>
           <CustomColorButton

@@ -17,10 +17,10 @@ import './styles/Layout.scss';
 const App = () => {
   return (
     <div className="App">
+      <div>
+        <Navbar />
+      </div>
       <div className="app-wrapper">
-        <div>
-          <Navbar />
-        </div>
         <div className="content-wrapper">
           <Routes>
             <Route path="/" element={<Main />} />
@@ -33,9 +33,9 @@ const App = () => {
             <Route path="mypage" element={<MyPage />} />
           </Routes>
         </div>
-        <div className="footer">
-          <Footer />
-        </div>
+      </div>
+      <div className="footer">
+        <Footer />
       </div>
     </div>
   );

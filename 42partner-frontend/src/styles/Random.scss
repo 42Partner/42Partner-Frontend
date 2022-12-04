@@ -1,13 +1,19 @@
 @import './utils.scss';
+
+.change-matching {
+  text-decoration: none;
+  width: 100%;
+}
+
 .flip-card-outer {
   width: 700px;
   height: 400px;
   margin: 10px 0;
 
   @include mobile {
-	width: 300px;
-	height: 500px;
-	margin-bottom: 50px;
+    width: 300px;
+    height: 500px;
+    margin-bottom: 50px;
   }
   .flip-card-inner {
     transform-style: preserve-3d;
@@ -51,4 +57,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
