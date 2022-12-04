@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import qs from 'query-string';
 import { useDispatch } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { setUserId, setToken } from '../modules/login';
 import client from '../api/client';
 
 const MainForm = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = qs.parse(window.location.search);
 
@@ -19,7 +19,7 @@ const MainForm = () => {
       localStorage.setItem('userId', params.userId);
       client.defaults.headers.common.Authorization = `Bearer ${params.access_token}`;
     }
-    // navigate('/select');
+    navigate('/select');
   }, []);
 
   return (
