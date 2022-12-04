@@ -1,7 +1,14 @@
+@import './utils.scss';
 .flip-card-outer {
   width: 700px;
   height: 400px;
-  margin: 25px 0;
+  margin: 10px 0;
+
+  @include mobile {
+	width: 300px;
+	height: 500px;
+	margin-bottom: 50px;
+  }
 
   .flip-card-inner {
     transform-style: preserve-3d;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import '../../styles/Navbar.scss';
 import { BsPersonCircle, BsList } from 'react-icons/bs';
 import {
@@ -7,6 +7,7 @@ import {
   makeStyles,
   Button,
   Typography,
+  useMediaQuery,
 } from '@material-ui/core/index';
 
 import {
@@ -21,15 +22,19 @@ import {
 import { BiHome } from 'react-icons/bi';
 import { GiMeal, GiPencil } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getProfile } from '../../modules/mypage';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { getProfile } from '../../modules/mypage';
 
 const useStyles = makeStyles(() => ({
   navbar: {
     backgroundColor: '#ffdbe0', // 'lightpink', // #f8dadc
     paddingRight: '60px',
     paddingLeft: '60px',
-    height: '100px',
+    height: '80px',
+  },
+  navbarMobile: {
+    backgroundColor: '#ffdbe0',
+    height: '80px',
   },
   logo: {
     fontFamily: 'Ubuntu-medium',
@@ -60,15 +65,16 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Navbar = () => {
-  const { navbar, navbarContents, logo, description, button } = useStyles();
-  const [sidebar, setSidebar] = React.useState(false);
-  const dispatch = useDispatch();
-  const { user } = useSelector(({ mypage }) => ({
-    user: mypage.user,
-  }));
-  useEffect(() => {
-    dispatch(getProfile());
-  }, []);
+  const { navbar, navbarMobile, navbarContents, logo, button } = useStyles();
+  const isMobile = useMediaQuery('(max-width: 757px)');
+  const [sidebar, setSidebar] = useState(false);
+  //   const dispatch = useDispatch();
+  //   const { user } = useSelector(({ mypage }) => ({
+  //     user: mypage.user,
+  //   }));
+  //   useEffect(() => {
+  //     dispatch(getProfile());
+  //   }, []);
 
   const getProfileButton = () => {
     return (
@@ -115,7 +121,6 @@ const Navbar = () => {
                 <ListItemIcon>
                   {index === 0 ? <BiHome /> : condition1(index)}
                 </ListItemIcon>
-
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
@@ -146,40 +151,35 @@ const Navbar = () => {
     </Link>
   );
 
-  const LogoDesc = (
-    <span className={description}>Find partner to eat and to study</span>
-  );
+  //   const LogoDesc = (
+  //     <span className={description}>Find partner to eat and to study</span>
+  //   );
 
   const display = () => {
     return (
       <Toolbar className={navbarContents}>
         <div>{getMenuButton()}</div>
-        <div className="logo-div">
-          {MainLogo} {LogoDesc}
-        </div>
+        <div className="logo-div">{MainLogo}</div>
         <div>
-          {user ? (
-            <Link
-              to="/mypage"
-              style={{ color: 'white', textDecoration: 'none' }}
-            >
-              {getProfileButton()}
-            </Link>
-          ) : (
-            <Link
-              to="/login"
-              style={{ color: 'white', textDecoration: 'none' }}
-            >
-              {getProfileButton()}
-            </Link>
-          )}
+          {/* {user ? ( */}
+          <Link to="/mypage" style={{ color: 'white', textDecoration: 'none' }}>
+            {getProfileButton()}
+          </Link>
+          {/* //   ) : (
+        //     <Link
+        //       to="/login"
+        //       style={{ color: 'white', textDecoration: 'none' }}
+        //     >
+        //       {getProfileButton()}
+        //     </Link>
+        //   )} */}
         </div>
       </Toolbar>
     );
   };
   return (
     <header>
-      <AppBar className={navbar}>{display()}</AppBar>
+      <AppBar className={isMobile ? navbarMobile : navbar}>{display()}</AppBar>
     </header>
   );
 };

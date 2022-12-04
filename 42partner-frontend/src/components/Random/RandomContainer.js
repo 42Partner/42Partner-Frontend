@@ -8,6 +8,7 @@ import { MdMeetingRoom } from 'react-icons/md';
 import RandomOption from './RandomOption';
 import RandomMatching from './RandomMatching';
 import { getRandomMatch } from '../../modules/random';
+import CustomColorButton from '../common/CustomColorButton';
 
 const RandomContainer = () => {
   const dispatch = useDispatch();
@@ -32,12 +33,33 @@ const RandomContainer = () => {
 
   const url = topic.toLowerCase();
   return (
-    <div>
-      <Link to={`/${url}/room`} style={{ textDecoration: 'none' }}>
+    <div style={{ paddingTop: '17px' }}>
+      {/* <Link to={`/${url}/room`} style={{ textDecoration: 'none' }}>
         <Button>
           <MdMeetingRoom style={{ width: '40px', height: '40px' }} /> Room
           Matching
         </Button>
+      </Link> */}
+      <Link to={`/${url}/room`} className="change-matching">
+        <div style={{ paddingBottom: '20px' }}>
+          <CustomColorButton
+            button={
+              <Button
+                style={{
+                  backgroundColor: 'lightpink',
+                  color: 'white',
+                  fontFamily: 'ubuntu-medium',
+                }}
+                sx={{ mt: 2 }}
+                fullWidth
+                variant="contained"
+              >
+                <MdMeetingRoom style={{ width: '30px', height: '30px' }} />
+                Room Matching
+              </Button>
+            }
+          />
+        </div>
       </Link>
       <div className="flip-card-outer">
         <div
