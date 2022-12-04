@@ -13,11 +13,14 @@ const [GET_RANDOM, GET_RANDOM_SUCCESS, GET_RANDOM_FAILURE] =
   createRequestActionTypes('random/GET_RANDOM');
 const [GET_MATCH_INFO, GET_MATCH_INFO_SUCCESS, GET_MATCH_INFO_FAILURE] =
   createRequestActionTypes('random/GET_MATCH_INFO');
+const [GET_MATCH_COUNT, GET_MATCH_COUNT_SUCCESS, GET_MATCH_COUNT_FAILURE] =
+  createRequestActionTypes('random/GET_MATCH_COUNT');
 
 export const postRandomMatch = createAction(POST_RANDOM, (option) => option);
 export const cancelRandomMatch = createAction(CANCEL_RANDOM, (topic) => topic);
 export const getRandomMatch = createAction(GET_RANDOM, (topic) => topic);
 export const getMatchCondition = createAction(GET_MATCH_INFO, (topic) => topic);
+export const getMatchCount = createAction(GET_MATCH_COUNT, (topic) => topic);
 
 const postRandomMatchSaga = createRequestSaga(
   POST_RANDOM,
@@ -35,12 +38,17 @@ const getMatchConditionSaga = createRequestSaga(
   GET_MATCH_INFO,
   randomApi.getMatchCondition,
 );
+const getMatchCountSaga = createRequestSaga(
+  GET_MATCH_COUNT,
+  randomApi.getMatchCount,
+);
 
 export function* randomSaga() {
   yield takeLatest(POST_RANDOM, postRandomMatchSaga);
   yield takeLatest(CANCEL_RANDOM, cancelRandomMatchSaga);
   yield takeLatest(GET_RANDOM, getRandomMatchSaga);
   yield takeLatest(GET_MATCH_INFO, getMatchConditionSaga);
+  yield takeLatest(GET_MATCH_COUNT, getMatchCountSaga);
 }
 
 const initialState = {
@@ -48,6 +56,7 @@ const initialState = {
   category: '',
   showBack: null,
   match: null,
+  count: 0,
 };
 
 const random = handleActions(
@@ -86,6 +95,14 @@ const random = handleActions(
       options,
     }),
     [GET_MATCH_INFO_FAILURE]: (state, { payload: e }) => ({
+      ...state,
+      requestError: e,
+    }),
+    [GET_MATCH_COUNT_SUCCESS]: (state, { payload: count }) => ({
+      ...state,
+      count: count.randomMatchCount,
+    }),
+    [GET_MATCH_COUNT_FAILURE]: (state, { payload: e }) => ({
       ...state,
       requestError: e,
     }),

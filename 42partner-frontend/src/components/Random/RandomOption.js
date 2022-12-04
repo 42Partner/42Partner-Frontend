@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core/index';
 import CheckBoxList from '../common/CheckBoxListRandom';
 import '../../styles/Option.scss';
-import { postRandomMatch } from '../../modules/random';
+import { postRandomMatch, getMatchCount } from '../../modules/random';
 
 const RandomOption = ({ topic }) => {
   const dispatch = useDispatch();
-  //   const { sendOption } = useSelector(({ random }) => ({
-  //     sendOption: random.option,
-  //   }));
+  const { count } = useSelector(({ random }) => ({
+    count: random.count,
+  }));
+  useEffect(() => {
+    dispatch(getMatchCount({ topic }));
+  }, []);
 
   const [options, setOptions] = useState({
     placeList: [
@@ -128,7 +131,7 @@ const RandomOption = ({ topic }) => {
   return (
     <div className="option-wrapper">
       <h3 className="option-description">
-        랜덤 매칭을 기다리는 사용자는 nn명 입니다.
+        랜덤 매칭을 기다리는 사용자는 {count}명 입니다.
       </h3>
       {topic === 'MEAL' ? (
         <div>

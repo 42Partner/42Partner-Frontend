@@ -34,8 +34,13 @@ const RandomMatching = ({ topic }) => {
                     <div className="matching-group">
                       <h3>장소</h3>
                       <span>
-                        {data.matchConditionRandomMatchDto.placeList.map((el) =>
-                          ConvertMap.get(el),
+                        {data.matchConditionRandomMatchDto.placeList.map(
+                          (el, index) =>
+                            index !==
+                            data.matchConditionRandomMatchDto.placeList.length -
+                              1
+                              ? `${ConvertMap.get(el)}, `
+                              : ConvertMap.get(el),
                         )}
                       </span>
                     </div>
@@ -43,7 +48,13 @@ const RandomMatching = ({ topic }) => {
                       <h3>식사 방식</h3>
                       <span>
                         {data.matchConditionRandomMatchDto.wayOfEatingList.map(
-                          (el) => ConvertMap.get(el),
+                          (el, index) =>
+                            index !==
+                            data.matchConditionRandomMatchDto.wayOfEatingList
+                              .length -
+                              1
+                              ? `${ConvertMap.get(el)}, `
+                              : ConvertMap.get(el),
                         )}
                       </span>
                     </div>
@@ -54,8 +65,13 @@ const RandomMatching = ({ topic }) => {
                     <div className="matching-group">
                       <h3>장소</h3>
                       <span>
-                        {data.matchConditionRandomMatchDto.placeList.map((el) =>
-                          ConvertMap.get(el),
+                        {data.matchConditionRandomMatchDto.placeList.map(
+                          (el, index) =>
+                            index !==
+                            data.matchConditionRandomMatchDto.placeList.length -
+                              1
+                              ? `${ConvertMap.get(el)}, `
+                              : ConvertMap.get(el),
                         )}
                       </span>
                     </div>
@@ -63,7 +79,13 @@ const RandomMatching = ({ topic }) => {
                       <h3>학습 종류</h3>
                       <span>
                         {data.matchConditionRandomMatchDto.typeOfStudyList.map(
-                          (el) => ConvertMap.get(el),
+                          (el, index) =>
+                            index !==
+                            data.matchConditionRandomMatchDto.typeOfStudyList
+                              .length -
+                              1
+                              ? `${ConvertMap.get(el)}, `
+                              : ConvertMap.get(el),
                         )}
                       </span>
                     </div>

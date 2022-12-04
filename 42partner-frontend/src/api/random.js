@@ -20,3 +20,9 @@ export const postRandomMatch = async ({ option }) => {
 export const cancelRandomMatch = ({ contentCategory }) => {
   return client.post(`/api/random-matches/mine`, { contentCategory });
 };
+
+export const getMatchCount = ({ topic }) => {
+  return client.get(
+    `/api/random-matches/members/count?contentCategory=${topic}`,
+  );
+};
