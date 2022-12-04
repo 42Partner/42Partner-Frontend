@@ -1,8 +1,25 @@
-@import './../styles/utils.scss';
+@import './utils.scss';
 
 .option-wrapper {
-  display: flex;
-  flex-direction: column;
+	span {
+		font-family: 'tway_air'
+	}
+	@include mobile {
+		span {
+			font-size: 13px;
+		}
+	  .option-group {
+		margin-left: 40px !important;
+		margin-right: 40px;
+	  }
+	  .option-btn {
+		padding-right: 60px !important;
+		padding-top: 25px;
+	  }
+	}
+	
+	display: flex;
+ 	flex-direction: column;
 
   .option-description {
 	padding-top: 20px;
