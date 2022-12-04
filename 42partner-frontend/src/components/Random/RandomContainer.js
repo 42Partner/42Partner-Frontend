@@ -13,9 +13,8 @@ const RandomContainer = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [topic, setTopic] = useState('MEAL');
-  const { showBack, requestError } = useSelector(({ random }) => ({
+  const { showBack } = useSelector(({ random }) => ({
     showBack: random.showBack,
-    requestError: random.requestError,
   }));
 
   useEffect(() => {
@@ -30,10 +29,6 @@ const RandomContainer = () => {
     const contentCategory = topic;
     dispatch(getRandomMatch({ contentCategory }));
   }, [topic]);
-
-  useEffect(() => {
-    console.log('requestError', requestError);
-  }, [requestError]);
 
   const url = topic.toLowerCase();
   return (

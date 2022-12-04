@@ -26,9 +26,6 @@ const RandomMatching = ({ topic }) => {
     dispatch(completeRandomMatch({ contentCategory }));
   }, [match]);
 
-  if (match) console.log(match);
-  else console.log('111');
-
   return (
     <div>
       <div className="matching-wrapper">

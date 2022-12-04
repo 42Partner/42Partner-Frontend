@@ -66,8 +66,8 @@ const HistroyItem = ({ matchId, content, method, date }) => {
   useEffect(() => {
     console.log(matchId);
     dispatch(getDetail({ matchId }));
-    console.log(detail);
   }, [matchId]);
+
   const [open, setOpen] = useState(false);
 
   const handleDetaileOpen = () => {

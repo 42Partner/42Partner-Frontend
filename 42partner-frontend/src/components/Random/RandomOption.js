@@ -118,7 +118,6 @@ const RandomOption = ({ topic }) => {
   }, [matchingOption]);
 
   const matchingHandler = () => {
-    console.log(option);
     dispatch(postRandomMatch({ option }));
   };
 
