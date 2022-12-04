@@ -10,7 +10,7 @@ $back-pink: #fef8fb;
 $lightPink: #fae8ea;
 $hashtag: #218aff;
 $matchingColor: #2f8f3f;
-$dawnPink:#F4EBE7;
+$dawnPink: #f4ebe7;
 
 @mixin mobile {
   @media (max-width: #{$tablet-size - 1}) {
@@ -20,6 +20,12 @@ $dawnPink:#F4EBE7;
 
 @mixin tablet {
   @media (min-width: #{$tablet-size}) and (max-width: #{$desktop-size}) {
+    @content;
+  }
+}
+
+@mixin pc {
+  @media (min-width: #{$desktop-size}) {
     @content;
   }
 }
