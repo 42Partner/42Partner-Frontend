@@ -1,6 +1,11 @@
 @import './utils.scss';
 
 .create-room-form {
+	span{ 
+
+		font-family: 'ubuntu-regular', 'tway_air';
+	}
+
   padding: 3rem;
 
   .check-option-wrapper {
