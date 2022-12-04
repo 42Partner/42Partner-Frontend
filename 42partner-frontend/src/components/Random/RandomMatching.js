@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@material-ui/core/index';
 import PropTypes from 'prop-types';
 import '../../styles/Matching.scss';
-// import LinearWithValueLabel from '../common/LinearWithValueLabel';
-import { cancelRandomMatch, completeRandomMatch } from '../../modules/random';
+import { cancelRandomMatch } from '../../modules/random';
 import ConvertMap from '../common/ConvertMap';
 import MatchingComplete from './MatchingComplete';
 
@@ -20,11 +19,6 @@ const RandomMatching = ({ topic }) => {
     const contentCategory = topic;
     dispatch(cancelRandomMatch({ contentCategory }));
   };
-
-  useEffect(() => {
-    const contentCategory = topic;
-    dispatch(completeRandomMatch({ contentCategory }));
-  }, [match]);
 
   return (
     <div>
