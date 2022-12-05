@@ -38,7 +38,7 @@ const HistroyItem = ({ matchId, detail }) => {
             variant="contained"
             onClick={handleDetaileOpen}
           >
-            리뷰
+            상세
           </Button>
           {!detail.isReviewed && detail.participantsOrAuthor.length !== 1 && (
             <ReviewButton matchId={matchId} detail={detail} />
