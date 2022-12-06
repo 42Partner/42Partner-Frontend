@@ -45,6 +45,19 @@
   .loading-icon {
     @include flex-center-sort;
   }
+
+  .people-count {
+    @include flex-vertical-center;
+    h3 {
+      margin-left: 10px;
+    }
+  }
+
+  .author-participant-info {
+    @include flex-edge-sort ;
+    align-items: center;
+    height: 20px;
+  }
 }
 
 @include mobile {

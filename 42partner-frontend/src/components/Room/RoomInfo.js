@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import GroupsIcon from '@mui/icons-material/Groups';
 import ConvertMap from '../common/ConvertMap';
 
 const RoomInfo = () => {
@@ -32,14 +33,18 @@ const RoomInfo = () => {
     };
   }, []);
 
-  useEffect(() => {
-    findAuthor();
-  }, [articleInfo]);
-
   return (
     <div>
       <h1 className="paragraph">{articleInfo.title}</h1>
-      <h3>{articleInfo.anonymity ? '익명' : author}</h3>
+      <span className="author-participant-info">
+        <h3>{articleInfo.anonymity ? '익명' : author}</h3>
+        <span className="people-count">
+          <GroupsIcon />
+          <h3>
+            {articleInfo.participantNum}/{articleInfo.participantNumMax}
+          </h3>
+        </span>
+      </span>
       <p>{articleInfo.content}</p>
       <div className="select-info-wrapper">
         <div>날짜 : {articleInfo.isToday ? '당일' : articleInfo.date}</div>
