@@ -1,18 +1,28 @@
 import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { getProfile } from '../../modules/mypage';
 
 const Profile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user } = useSelector(({ mypage }) => ({
     user: mypage.user,
   }));
+
   useEffect(() => {
     dispatch(getProfile());
   }, []);
 
+  const logoutHandler = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('userId');
+    navigate('/login');
+  };
+
   if (!user) return null;
+
   return (
     <div className="card profile-header">
       <div className="body">
@@ -39,6 +49,18 @@ const Profile = () => {
                 type="button"
               >
                 Intra profile
+              </Button>
+              <Button
+                style={{
+                  backgroundColor: 'lightpink',
+                  fontFamily: 'ubuntu-regular',
+                  marginLeft: '10px',
+                }}
+                variant="contained"
+                type="button"
+                onClick={logoutHandler}
+              >
+                Logout
               </Button>
             </div>
           </div>
