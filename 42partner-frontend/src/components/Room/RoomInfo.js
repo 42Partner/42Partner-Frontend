@@ -47,7 +47,7 @@ const RoomInfo = () => {
 
   return (
     <div>
-      <h1 className="paragraph">{articleInfo.title}</h1>
+      <h1>{articleInfo.title}</h1>
       <div className="people-info">
         <h3>{articleInfo.anonymity ? '익명' : author}</h3>
         <span className="people-count">
@@ -69,21 +69,44 @@ const RoomInfo = () => {
           </IconButton>
         </span>
       </div>
-      <p>{articleInfo.content}</p>
       <div className="select-info-wrapper">
-        <div>모임 일자 : {articleInfo.isToday ? '당일' : articleInfo.date}</div>
-        <div>장소 : {makeKorean(matchConditionDto.placeList)}</div>
+        <div className="two-info-wrapper">
+          <div className="select-info">
+            <div className="category">모임 일자</div>{' '}
+            {articleInfo.isToday ? '당일' : articleInfo.date}
+          </div>
+          <div className="select-info">
+            <div className="category">장소</div>{' '}
+            {makeKorean(matchConditionDto.placeList)}
+          </div>
+        </div>
         {articleInfo.contentCategory === 'MEAL' ? (
-          <div>
-            <div>시간대 : {makeKorean(matchConditionDto.timeOfEatingList)}</div>
-            <div>
-              식사 방식 : {makeKorean(matchConditionDto.wayOfEatingList)}
+          <div className="two-info-wrapper">
+            <div className="select-info">
+              <div className="category">시간대</div>{' '}
+              {makeKorean(matchConditionDto.timeOfEatingList)}
+            </div>
+            <div className="select-info">
+              <div className="category">식사 방식</div>{' '}
+              {makeKorean(matchConditionDto.wayOfEatingList)}
             </div>
           </div>
         ) : (
-          <div>주제 : {makeKorean(matchConditionDto.typeOfStudyList)}</div>
+          <div className="two-info-wrapper select-info">
+            <div className="category">주제</div>{' '}
+            {makeKorean(matchConditionDto.typeOfStudyList)}
+          </div>
         )}
       </div>
+      {articleInfo.content.split('\n').map((line, i) => {
+        return (
+          // eslint-disable-next-line react/no-array-index-key
+          <span key={i}>
+            {line}
+            <br />
+          </span>
+        );
+      })}
     </div>
   );
 };

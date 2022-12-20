@@ -18,10 +18,14 @@
   .people-info {
     @include flex-vertical-center;
     justify-content: space-between;
-    height: 20px;
+    height: 30px;
+    margin-bottom: 40px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
 
     svg {
       margin-right: 5px;
+      color: lightcoral;
     }
 
     .people-count {
@@ -30,11 +34,26 @@
   }
 
   .select-info-wrapper {
-    border: 1px solid lightpink;
-    border-radius: 10px;
-    padding: 1rem;
-    div + div {
-      margin-top: 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 50px;
+  }
+
+  .two-info-wrapper {
+    width: 45%;
+    margin-right: 5px;
+  }
+
+  .select-info {
+    @include flex-vertical-center;
+    margin-top: 10px;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 15px;
+
+    .category {
+      min-width: 80px;
+      font-weight: bold;
     }
   }
 

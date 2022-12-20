@@ -291,7 +291,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
           />
         )}
         <div className="option-field">
-          <h2>날짜</h2>
+          <h2>모임 일자</h2>
           <DatePicker
             dateFormat="yyyy년 MM월 dd일"
             locale={ko}
@@ -324,7 +324,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
         fullWidth
         placeholder="방 설명을 입력해 주세요 (필수)"
         multiline
-        inputProps={{ maxLength: 120 }}
+        inputProps={{ maxLength: 100000 }}
         value={article.content}
         name="content"
         onChange={articleHandler}
