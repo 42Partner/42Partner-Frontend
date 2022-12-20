@@ -16,6 +16,7 @@ import {
 import CustomColorButton from '../common/CustomColorButton';
 import DialogContainer from '../common/DialogContainer';
 import '../../styles/RoomDetailForm.scss';
+import { setUserId } from '../../modules/login';
 
 const RoomDetailForm = ({ articleId, roomInfoPart, commetPart, onClose }) => {
   const dispatch = useDispatch();
@@ -86,6 +87,8 @@ const RoomDetailForm = ({ articleId, roomInfoPart, commetPart, onClose }) => {
 
   useEffect(() => {
     dispatch(loadArticleInfo({ articleId }));
+    dispatch(setUserId(localStorage.getItem('userId')));
+
     isAlreadyJoin();
     isAleradyComplete();
 
