@@ -40,27 +40,6 @@ const RandomContainer = () => {
   const url = topic.toLowerCase();
   return (
     <div>
-      <Link to={`/${url}/room`} className="change-matching">
-        <div style={{ paddingBottom: '20px' }}>
-          <CustomColorButton
-            button={
-              <Button
-                style={{
-                  backgroundColor: 'lightpink',
-                  color: 'white',
-                  fontFamily: 'ubuntu-medium',
-                }}
-                sx={{ mt: 2 }}
-                fullWidth
-                variant="contained"
-              >
-                <MdMeetingRoom style={{ width: '30px', height: '30px' }} />
-                Room Matching
-              </Button>
-            }
-          />
-        </div>
-      </Link>
       <div className="flip-card-outer">
         <div
           className={cn('flip-card-inner', {
@@ -83,6 +62,27 @@ const RandomContainer = () => {
           </div>
         </div>
       </div>
+      <Link to={`/${url}/room`} className="change-matching">
+        <div style={{ paddingBottom: '20px' }}>
+          <CustomColorButton
+            button={
+              <Button
+                style={{
+                  backgroundColor: 'lightpink',
+                  color: 'white',
+                  fontFamily: 'ubuntu-medium',
+                }}
+                sx={{ mt: 2 }}
+                fullWidth
+                variant="contained"
+              >
+                <MdMeetingRoom style={{ width: '30px', height: '30px' }} />
+                Room Matching
+              </Button>
+            }
+          />
+        </div>
+      </Link>
     </div>
   );
 };

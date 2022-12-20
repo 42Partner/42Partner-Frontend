@@ -59,3 +59,9 @@
   justify-content: center;
   height: 80%;
 }
+
+@include mobile {
+  .random-content-wrapper {
+    height: auto;
+  }
+}

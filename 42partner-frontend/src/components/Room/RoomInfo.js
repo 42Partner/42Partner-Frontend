@@ -56,7 +56,11 @@ const RoomInfo = () => {
             <span>
               {articleInfo.participantNum}/{articleInfo.participantNumMax}
             </span>
-            <ModalTemplate open={show} onClose={participantListHandler}>
+            <ModalTemplate
+              open={show}
+              onClose={participantListHandler}
+              custom="member-list"
+            >
               <ParticipantList
                 memberList={articleInfo.participantsOrAuthor}
                 onClose={participantListHandler}

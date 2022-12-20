@@ -4,11 +4,17 @@ import Modal from '@mui/material/Modal';
 import PropTypes from 'prop-types';
 import '../../styles/ModalTemplate.scss';
 
-const ModalTemplate = ({ open, onClose, children }) => {
+const ModalTemplate = ({ open, onClose, children, custom }) => {
+  const customClassName = () => {
+    let name = 'modal-box ';
+    if (custom !== '') name += custom;
+    return name;
+  };
+
   return (
     <div className="modal-template">
       <Modal open={open} onClose={onClose}>
-        <Box className="modal-box">{children}</Box>
+        <Box className={customClassName()}>{children}</Box>
       </Modal>
     </div>
   );
@@ -21,6 +27,11 @@ ModalTemplate.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
+  custom: PropTypes.string,
+};
+
+ModalTemplate.defaultProps = {
+  custom: '',
 };
 
 export default ModalTemplate;
