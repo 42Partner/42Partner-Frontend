@@ -275,7 +275,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
             />
             <RadioButtonList
               list={options.wayOfEatingList}
-              topic="배달여부"
+              topic="식사 방식"
               type="wayOfEatingList"
               radioOption={radioOption}
               radioOptionHandler={radioOptionHandler}

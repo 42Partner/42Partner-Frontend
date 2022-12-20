@@ -42,7 +42,7 @@ const RoomInfo = () => {
       <h3>{articleInfo.anonymity ? '익명' : author}</h3>
       <p>{articleInfo.content}</p>
       <div className="select-info-wrapper">
-        <div>날짜 : {articleInfo.isToday ? '당일' : articleInfo.date}</div>
+        <div>모임 일자 : {articleInfo.isToday ? '당일' : articleInfo.date}</div>
         <div>장소 : {makeKorean(matchConditionDto.placeList)}</div>
         {articleInfo.contentCategory === 'MEAL' ? (
           <div>
