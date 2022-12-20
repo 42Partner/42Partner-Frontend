@@ -253,7 +253,7 @@ const CreateRoomForm = ({ articleId, topic, onClose, editMode }) => {
         className="title-text"
         variant="standard"
         placeholder="제목을 입력해 주세요 (필수)"
-        inputProps={{ maxLength: 30 }}
+        inputProps={{ maxLength: 50 }}
         value={article.title}
         name="title"
         onChange={articleHandler}

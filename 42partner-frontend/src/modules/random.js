@@ -57,6 +57,7 @@ const initialState = {
   showBack: null,
   match: null,
   count: 0,
+  requestError: null,
 };
 
 const random = handleActions(
@@ -68,6 +69,7 @@ const random = handleActions(
     [POST_RANDOM_SUCCESS]: (state) => ({
       ...state,
       showBack: true,
+      requestError: null,
     }),
     [POST_RANDOM_FAILURE]: (state, { payload: e }) => ({
       ...state,
@@ -77,6 +79,7 @@ const random = handleActions(
       ...state,
       category,
       showBack: false,
+      requestError: null,
     }),
     [CANCEL_RANDOM_FAILURE]: (state, { payload: e }) => ({
       ...state,
@@ -85,6 +88,7 @@ const random = handleActions(
     [GET_RANDOM_SUCCESS]: (state, { payload: isExist }) => ({
       ...state,
       showBack: isExist.isExist,
+      requestError: null,
     }),
     [GET_RANDOM_FAILURE]: (state, { payload: e }) => ({
       ...state,
@@ -93,6 +97,7 @@ const random = handleActions(
     [GET_MATCH_INFO_SUCCESS]: (state, { payload: options }) => ({
       ...state,
       options,
+      requestError: null,
     }),
     [GET_MATCH_INFO_FAILURE]: (state, { payload: e }) => ({
       ...state,
@@ -101,6 +106,7 @@ const random = handleActions(
     [GET_MATCH_COUNT_SUCCESS]: (state, { payload: count }) => ({
       ...state,
       count: count.randomMatchCount,
+      requestError: null,
     }),
     [GET_MATCH_COUNT_FAILURE]: (state, { payload: e }) => ({
       ...state,

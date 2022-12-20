@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 import { GiPerspectiveDiceSixFacesRandom } from 'react-icons/gi';
 import ModalTemplate from '../common/ModalTemplate';
 import CreateRoomForm from './CreateRoomForm';
@@ -13,6 +11,7 @@ import { loadRoomList } from '../../modules/rooms';
 import RoomList from './RoomList';
 import CustomColorButton from '../common/CustomColorButton';
 import '../../styles/RoomContainer.scss';
+import ErrorSnackBar from '../common/ErrorSnackBar';
 
 const RoomContainer = () => {
   const dispatch = useDispatch();
@@ -57,7 +56,7 @@ const RoomContainer = () => {
   }, [articleList]);
 
   useEffect(() => {
-    if (requestError && requestError.response.status) {
+    if (requestError) {
       setConflict(true);
     }
   }, [requestError]);
@@ -112,15 +111,13 @@ const RoomContainer = () => {
           />
         </div>
       </Link>
-      <Snackbar
-        open={conflict}
-        autoHideDuration={2000}
-        onClose={snackbarHandler}
-      >
-        <MuiAlert onClose={snackbarHandler} severity="error" variant="filled">
-          이미 처리된 요청입니다.
-        </MuiAlert>
-      </Snackbar>
+      {requestError && (
+        <ErrorSnackBar
+          open={conflict}
+          onClose={snackbarHandler}
+          message={requestError.response.data.message}
+        />
+      )}
     </div>
   );
 };

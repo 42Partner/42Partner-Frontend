@@ -9,14 +9,21 @@ import RandomOption from './RandomOption';
 import RandomMatching from './RandomMatching';
 import { getMatchCondition, getRandomMatch } from '../../modules/random';
 import CustomColorButton from '../common/CustomColorButton';
+import ErrorSnackBar from '../common/ErrorSnackBar';
 
 const RandomContainer = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [topic, setTopic] = useState('MEAL');
-  const { showBack } = useSelector(({ random }) => ({
+  const [conflict, setConflict] = useState(false);
+  const { showBack, requestError } = useSelector(({ random }) => ({
     showBack: random.showBack,
+    requestError: random.requestError,
   }));
+
+  const snackbarHandler = () => {
+    setConflict(false);
+  };
 
   useEffect(() => {
     if (location.pathname.includes('meal')) {
@@ -36,6 +43,12 @@ const RandomContainer = () => {
       dispatch(getMatchCondition({ topic }));
     }
   }, [showBack]);
+
+  useEffect(() => {
+    if (requestError) {
+      setConflict(true);
+    }
+  }, [requestError]);
 
   const url = topic.toLowerCase();
   return (
@@ -83,6 +96,13 @@ const RandomContainer = () => {
           />
         </div>
       </Link>
+      {requestError && (
+        <ErrorSnackBar
+          open={conflict}
+          onClose={snackbarHandler}
+          message={requestError.response.data.message}
+        />
+      )}
     </div>
   );
 };

@@ -31,10 +31,18 @@ const RoomItem = ({ articleInfo, hashtag }) => {
     }
   };
 
+  const sliceTitle = () => {
+    if (articleInfo.title.length <= 15) {
+      return articleInfo.title;
+    }
+
+    return `${articleInfo.title.slice(0, 15)}...`;
+  };
+
   return (
     <div className="room-item">
       <div className="sort-edge">
-        <span className="title-text">{articleInfo.title}</span>
+        <span className="title-text">{sliceTitle()}</span>
         <span className="people-count">
           <GroupsIcon />
           <span>
