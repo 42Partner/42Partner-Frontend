@@ -13,9 +13,9 @@ import {
   loadArticleInfo,
   resetArticleData,
 } from '../../modules/rooms';
-import '../../styles/RoomDetailForm.scss';
 import CustomColorButton from '../common/CustomColorButton';
 import DialogContainer from '../common/DialogContainer';
+import '../../styles/RoomDetailForm.scss';
 
 const RoomDetailForm = ({ articleId, roomInfoPart, commetPart, onClose }) => {
   const dispatch = useDispatch();

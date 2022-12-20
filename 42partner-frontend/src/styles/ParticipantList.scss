@@ -1,0 +1,19 @@
+@import './utils.scss';
+
+.participantList-wrapper {
+  margin: 2rem;
+  font-size: 20px;
+
+  .author {
+    color: #ffbb00;
+  }
+
+  .me {
+    color: #bb88ed;
+  }
+
+  h3 {
+    padding-bottom: 5px;
+    border-bottom: 1px solid darkgray;
+  }
+}

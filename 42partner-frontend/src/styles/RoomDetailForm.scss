@@ -1,15 +1,32 @@
 @import './utils.scss';
 
+.close-button {
+  @include flex-end-sort;
+}
+
 .room-detail-form {
   margin: 2rem;
 
-  .close-button,
   .button-wrapper {
     @include flex-end-sort;
   }
 
   .paragraph {
     border-bottom: 1px solid black;
+  }
+
+  .people-info {
+    @include flex-vertical-center;
+    justify-content: space-between;
+    height: 20px;
+
+    svg {
+      margin-right: 5px;
+    }
+
+    .people-count {
+      @include flex-vertical-center;
+    }
   }
 
   .select-info-wrapper {

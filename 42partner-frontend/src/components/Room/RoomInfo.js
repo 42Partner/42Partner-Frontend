@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import GroupsIcon from '@mui/icons-material/Groups';
+import IconButton from '@mui/material/IconButton';
 import ConvertMap from '../common/ConvertMap';
+import ModalTemplate from '../common/ModalTemplate';
+import ParticipantList from './ParticipantList';
 
 const RoomInfo = () => {
   const { articleInfo } = useSelector(({ rooms }) => ({
@@ -8,6 +12,7 @@ const RoomInfo = () => {
   }));
   const { matchConditionDto } = articleInfo;
   const [author, setAuthor] = useState('');
+  const [show, setShow] = useState(false);
 
   const makeKorean = useCallback((options) => {
     let res = '';
@@ -25,6 +30,10 @@ const RoomInfo = () => {
     );
   }, []);
 
+  const participantListHandler = () => {
+    setShow(!show);
+  };
+
   useEffect(() => {
     findAuthor();
     return () => {
@@ -39,7 +48,23 @@ const RoomInfo = () => {
   return (
     <div>
       <h1 className="paragraph">{articleInfo.title}</h1>
-      <h3>{articleInfo.anonymity ? '익명' : author}</h3>
+      <div className="people-info">
+        <h3>{articleInfo.anonymity ? '익명' : author}</h3>
+        <span className="people-count">
+          <IconButton size="small" onClick={participantListHandler}>
+            <GroupsIcon />
+            <span>
+              {articleInfo.participantNum}/{articleInfo.participantNumMax}
+            </span>
+            <ModalTemplate open={show} onClose={participantListHandler}>
+              <ParticipantList
+                memberList={articleInfo.participantsOrAuthor}
+                onClose={participantListHandler}
+              />
+            </ModalTemplate>
+          </IconButton>
+        </span>
+      </div>
       <p>{articleInfo.content}</p>
       <div className="select-info-wrapper">
         <div>모임 일자 : {articleInfo.isToday ? '당일' : articleInfo.date}</div>
