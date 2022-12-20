@@ -124,6 +124,9 @@ const rooms = handleActions(
     [JOIN_SUCCESS]: (state, { payload }) => ({
       ...state,
       articleInfo: payload,
+      roomList: state.roomList.map((room) =>
+        room.articleId === payload.articleId ? payload : room,
+      ),
     }),
     [JOIN_FAILURE]: (state, { payload: e }) => ({
       ...state,
@@ -134,6 +137,9 @@ const rooms = handleActions(
     [CANCLE_SUCCESS]: (state, { payload }) => ({
       ...state,
       articleInfo: payload,
+      roomList: state.roomList.map((room) =>
+        room.articleId === payload.articleId ? payload : room,
+      ),
     }),
     [CANCLE_FAILURE]: (state, { payload: e }) => ({
       ...state,
