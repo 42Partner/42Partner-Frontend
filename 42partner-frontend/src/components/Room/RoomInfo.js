@@ -98,15 +98,7 @@ const RoomInfo = () => {
           </div>
         )}
       </div>
-      {articleInfo.content.split('\n').map((line, i) => {
-        return (
-          // eslint-disable-next-line react/no-array-index-key
-          <span key={i}>
-            {line}
-            <br />
-          </span>
-        );
-      })}
+      {articleInfo.content}
     </div>
   );
 };
