@@ -48,7 +48,7 @@ const RoomInfo = () => {
           <div>
             <div>시간대 : {makeKorean(matchConditionDto.timeOfEatingList)}</div>
             <div>
-              배달여부 : {makeKorean(matchConditionDto.wayOfEatingList)}
+              식사 방식 : {makeKorean(matchConditionDto.wayOfEatingList)}
             </div>
           </div>
         ) : (

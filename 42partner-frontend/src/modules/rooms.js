@@ -121,8 +121,9 @@ const rooms = handleActions(
     }),
 
     // join
-    [JOIN_SUCCESS]: (state) => ({
+    [JOIN_SUCCESS]: (state, { payload }) => ({
       ...state,
+      articleInfo: payload,
     }),
     [JOIN_FAILURE]: (state, { payload: e }) => ({
       ...state,
@@ -130,11 +131,9 @@ const rooms = handleActions(
     }),
 
     // cancle
-    [CANCLE_SUCCESS]: (state, { payload: article }) => ({
+    [CANCLE_SUCCESS]: (state, { payload }) => ({
       ...state,
-      joinRoomList: state.joinRoomList.filter(
-        (room) => room.articleId !== article.articleId,
-      ),
+      articleInfo: payload,
     }),
     [CANCLE_FAILURE]: (state, { payload: e }) => ({
       ...state,

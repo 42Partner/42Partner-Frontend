@@ -39,7 +39,7 @@ const HistoryDetailContent = ({ detail }) => {
             {randomOrRoom === '랜덤매칭' ? null : (
               <div>시간대 : {timeToEat}</div>
             )}
-            <div>배달여부 : {wayToEat}</div>
+            <div>식사 방식 : {wayToEat}</div>
           </>
         ) : (
           <>

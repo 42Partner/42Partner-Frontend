@@ -26,12 +26,14 @@ export const editRoomInfo = async ({ article, articleId }) => {
   return getOneRoom({ articleId });
 };
 
-export const joinRoom = ({ articleId }) => {
-  return client.post(`/api/articles/${articleId}/participate`);
+export const joinRoom = async ({ articleId }) => {
+  await client.post(`/api/articles/${articleId}/participate`);
+  return getOneRoom({ articleId });
 };
 
-export const cancleRoom = ({ articleId }) => {
-  return client.post(`/api/articles/${articleId}/participate-cancel`);
+export const cancleRoom = async ({ articleId }) => {
+  await client.post(`/api/articles/${articleId}/participate-cancel`);
+  return getOneRoom({ articleId });
 };
 
 export const completeRoom = ({ articleId }) => {

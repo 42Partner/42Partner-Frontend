@@ -22,6 +22,7 @@ const RoomDetailForm = ({ articleId, roomInfoPart, commetPart, onClose }) => {
   const { articleInfo, completeRoomList, userId } = useSelector(
     ({ rooms, login }) => ({
       articleInfo: rooms.articleInfo,
+      payload: rooms.payload,
       completeRoomList: rooms.completeRoomList,
       userId: login.userId,
     }),
