@@ -156,8 +156,10 @@ const RoomDetailForm = ({ articleId, roomInfoPart, commetPart, onClose }) => {
                 button={
                   <Button
                     disabled={
-                      articleInfo.participantNum ===
-                      articleInfo.participantNumMax
+                      join
+                        ? complete
+                        : articleInfo.participantNum ===
+                          articleInfo.participantNumMax
                     }
                     className="button"
                     variant="contained"
