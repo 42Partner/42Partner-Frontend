@@ -5,6 +5,8 @@ import cn from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@material-ui/core/index';
 import { MdMeetingRoom } from 'react-icons/md';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import RandomOption from './RandomOption';
 import RandomMatching from './RandomMatching';
 import { getMatchCondition, getRandomMatch } from '../../modules/random';
@@ -52,7 +54,12 @@ const RandomContainer = () => {
 
   const url = topic.toLowerCase();
   return (
-    <div>
+    <div className="random-container">
+      {topic === 'MEAL' ? (
+        <RestaurantIcon className="icon" />
+      ) : (
+        <MenuBookIcon className="icon" />
+      )}
       <div className="flip-card-outer">
         <div
           className={cn('flip-card-inner', {

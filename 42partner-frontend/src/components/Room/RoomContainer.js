@@ -5,6 +5,8 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 import { GiPerspectiveDiceSixFacesRandom } from 'react-icons/gi';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ModalTemplate from '../common/ModalTemplate';
 import CreateRoomForm from './CreateRoomForm';
 import { loadRoomList } from '../../modules/rooms';
@@ -65,6 +67,11 @@ const RoomContainer = () => {
 
   return (
     <div className="room-container-wrapper">
+      {topic === 'MEAL' ? (
+        <RestaurantIcon className="icon" />
+      ) : (
+        <MenuBookIcon className="icon" />
+      )}
       <div className="room-container">
         <CustomColorButton
           button={

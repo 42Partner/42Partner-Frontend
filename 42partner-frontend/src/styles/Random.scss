@@ -1,5 +1,16 @@
 @import './utils.scss';
 
+.random-container {
+  @include flex-vertical-center;
+  flex-direction: column;
+
+  .icon {
+    margin-bottom: 30px;
+    font-size: 2rem;
+    color: rosybrown;
+  }
+}
+
 .change-matching {
   text-decoration: none;
   width: 100%;
