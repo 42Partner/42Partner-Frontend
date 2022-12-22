@@ -18,7 +18,6 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(sagaMiddleware)),
 );
 
-// eslint-disable-next-line no-unused-vars
 function loadUserData() {
   try {
     const token = localStorage.getItem('accessToken');

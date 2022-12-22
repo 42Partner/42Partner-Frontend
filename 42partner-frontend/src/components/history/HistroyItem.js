@@ -40,7 +40,7 @@ const HistroyItem = ({ matchId, detail }) => {
           >
             상세
           </Button>
-          {!detail.isReviewed && detail.participantsOrAuthor.length !== 1 && (
+          {!detail.isReviewed && detail.participantsOrAuthor.length > 1 && (
             <ReviewButton matchId={matchId} detail={detail} />
           )}
           <ModalTemplate open={open} onClose={handleDetaileClose}>

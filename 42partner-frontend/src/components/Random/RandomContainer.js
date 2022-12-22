@@ -47,7 +47,7 @@ const RandomContainer = () => {
   }, [showBack]);
 
   useEffect(() => {
-    if (requestError) {
+    if (requestError && 'response' in requestError) {
       setConflict(true);
     }
   }, [requestError]);
@@ -103,11 +103,11 @@ const RandomContainer = () => {
           />
         </div>
       </Link>
-      {requestError && (
+      {conflict && (
         <ErrorSnackBar
           open={conflict}
           onClose={snackbarHandler}
-          message={requestError.response.data.message}
+          response={requestError.response}
         />
       )}
     </div>

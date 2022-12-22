@@ -31,7 +31,7 @@ const ReviewButton = ({ matchId, detail }) => {
         variant="contained"
         onClick={writeModalOpen}
       >
-        상세
+        리뷰
       </Button>
 
       <ModalTemplate open={reviewOpen} onClose={writeModalClose}>
