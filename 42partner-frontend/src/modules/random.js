@@ -53,7 +53,6 @@ export function* randomSaga() {
 
 const initialState = {
   options: null,
-  category: '',
   showBack: null,
   match: null,
   count: 0,
@@ -75,11 +74,11 @@ const random = handleActions(
       ...state,
       requestError: e,
     }),
-    [CANCEL_RANDOM_SUCCESS]: (state, { payload: category }) => ({
+    [CANCEL_RANDOM_SUCCESS]: (state, { payload: { randomMatchCount } }) => ({
       ...state,
-      category,
       showBack: false,
       requestError: null,
+      count: randomMatchCount,
     }),
     [CANCEL_RANDOM_FAILURE]: (state, { payload: e }) => ({
       ...state,
