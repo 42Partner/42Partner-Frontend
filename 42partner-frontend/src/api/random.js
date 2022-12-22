@@ -17,18 +17,17 @@ export const postRandomMatch = async ({ option }) => {
   return getRandomMatch(option);
 };
 
+export const getMatchCount = ({ topic }) => {
+  return client.get(
+    `/api/random-matches/members/count?contentCategory=${topic}`,
+  );
+};
+
 export const cancelRandomMatch = async ({ contentCategory }) => {
   await client.post(`/api/random-matches/mine`, {
     contentCategory,
   });
   const category = { topic: contentCategory };
-  // eslint-disable-next-line no-use-before-define
   const res = await getMatchCount(category);
   return res;
-};
-
-export const getMatchCount = ({ topic }) => {
-  return client.get(
-    `/api/random-matches/members/count?contentCategory=${topic}`,
-  );
 };

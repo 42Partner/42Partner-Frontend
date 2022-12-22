@@ -1,11 +1,20 @@
 import React from 'react';
+// import { useDispatch } from 'react-redux';
 import Button from '@mui/material/Button';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import '../styles/LoginForm.scss';
+// import { requestLogin } from '../modules/login';
 
 const LoginForm = () => {
-  const requestLogin = () => {
+  // const dispatch = useDispatch();
+
+  const login = async () => {
+    // await dispatch(requestLogin());
+
+    // window.location.assign(
+    //   'https://api.42partner.com/oauth2/authorization/authclient',
+    // );
     window.location.href =
       'https://api.42partner.com/oauth2/authorization/authclient';
   };
@@ -17,7 +26,7 @@ const LoginForm = () => {
         <MenuBookIcon className="icon" />
       </div>
       <Button
-        onClick={requestLogin}
+        onClick={login}
         style={{
           color: 'white',
           backgroundColor: 'lightPink',
