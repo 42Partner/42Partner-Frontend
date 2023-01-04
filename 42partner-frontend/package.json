@@ -72,6 +72,5 @@
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.7.1"
   },
-  "proxy": "https://api.42partner.com/",
   "homepage": "https://42partner.s3-website.ap-northeast-2.amazonaws.com/"
 }
