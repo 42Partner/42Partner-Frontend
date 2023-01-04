@@ -8,6 +8,18 @@ const instance = axios.create({
   withCredentials: true,
 });
 
+instance.interceptors.response.use(
+  (res) => {
+    return res;
+  },
+  (error) => {
+    if (error.response.status === 401) {
+      window.location = '/login';
+    }
+    return Promise.reject(error);
+  },
+);
+
 // instance.defaults.withCredentials = true;
 
 // instance.interceptors.request.use(

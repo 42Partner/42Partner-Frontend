@@ -1,14 +1,17 @@
 import React from 'react';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import '../styles/LoginForm.scss';
 
 const LoginForm = () => {
-  const requestLogin = () => {
-    window.location.href =
-      'https://api.42partner.com/oauth2/authorization/authclient';
-  };
+  // axios로 교체
+  // 302 redirection referer: "42 authorization server"
+  // 302로 오는 promise를 예외 처리하여 href로 보내는 방법?
+  // const requestLogin = () => {
+  //   window.location.href =
+  //     'https://api.42partner.com/oauth2/authorization/authclient';
+  // };
 
   return (
     <div className="login-form">
@@ -16,8 +19,8 @@ const LoginForm = () => {
         <RestaurantIcon className="icon" />
         <MenuBookIcon className="icon" />
       </div>
-      <Button
-        onClick={requestLogin}
+      <a
+        href="https://api.42partner.com/oauth2/authorization/authclient"
         style={{
           color: 'white',
           backgroundColor: 'lightPink',
@@ -27,7 +30,7 @@ const LoginForm = () => {
         }}
       >
         Login with 42Intra
-      </Button>
+      </a>
     </div>
   );
 };
