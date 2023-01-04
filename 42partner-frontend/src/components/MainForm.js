@@ -17,8 +17,9 @@ const MainForm = () => {
     if (Object.keys(params).length !== 0) {
       localStorage.setItem('accessToken', params.access_token);
       localStorage.setItem('userId', params.userId);
+      /* eslint-disable dot-notation */
       client.defaults.headers.common[
-        'user-token'
+        'Authorization'
       ] = `Bearer ${params.access_token}`;
     }
     navigate('/select');
