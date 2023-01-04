@@ -27,7 +27,7 @@ function loadUserData() {
     if (!token || !userId) return;
 
     /* eslint-disable dot-notation */
-    instance.defaults.headers.common['user-token'] = `Bearer ${token}`;
+    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     store.dispatch(setToken(token));
     store.dispatch(setUserId(userId));
   } catch (e) {
