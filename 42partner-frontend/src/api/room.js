@@ -1,4 +1,4 @@
-import instance from './client';
+import instance from './api';
 
 export const getRoomList = () => {
   return instance.get(`/api/articles?isComplete=false`);
