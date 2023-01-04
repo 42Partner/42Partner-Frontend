@@ -10,7 +10,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import rootReducer, { rootSaga } from './modules';
 import { setToken, setUserId } from './modules/login';
-import client from './api/client';
+import instance from './api/api';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -27,7 +27,7 @@ function loadUserData() {
     if (!token || !userId) return;
 
     /* eslint-disable dot-notation */
-    client.defaults.headers.common['user-token'] = `Bearer ${token}`;
+    instance.defaults.headers.common['user-token'] = `Bearer ${token}`;
     store.dispatch(setToken(token));
     store.dispatch(setUserId(userId));
   } catch (e) {
