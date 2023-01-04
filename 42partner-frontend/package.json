@@ -44,8 +44,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "aws s3 sync ./build s3://42partner --profile=hyenam",
-    "invalidate": "aws cloudfront create-invalidation --profil=hyenam --distribution-id E2NGCK2VT0CNPL --paths /*",
+    "deploy": "aws s3 sync ./build s3://partner-fe-s3 --profile=partner",
+    "invalidate": "aws cloudfront create-invalidation --profil=partner --distribution-id E4PHDECA0XCB3 --paths /*",
     "all": "yarn build && yarn deploy && yarn invalidate"
   },
   "eslintConfig": {
