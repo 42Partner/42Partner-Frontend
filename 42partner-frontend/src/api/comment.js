@@ -1,15 +1,15 @@
-import client from './client';
+import instance from './api';
 
 export const getCommentList = ({ articleId }) => {
-  return client.get(`/api/articles/${articleId}/opinions`);
+  return instance.get(`/api/articles/${articleId}/opinions`);
 };
 
 export const getCommentInfo = ({ opinionId }) => {
-  return client.get(`/api/opinions/${opinionId}`);
+  return instance.get(`/api/opinions/${opinionId}`);
 };
 
 export const addNewComment = async ({ commentInfo }) => {
-  const opinionId = await client
+  const opinionId = await instance
     .post(`/api/opinions`, JSON.stringify(commentInfo))
     .then((res) => {
       return res.data;
@@ -21,10 +21,10 @@ export const addNewComment = async ({ commentInfo }) => {
 };
 
 export const deleteComment = ({ opinionId }) => {
-  return client.post(`/api/opinions/${opinionId}/recoverable-delete`);
+  return instance.post(`/api/opinions/${opinionId}/recoverable-delete`);
 };
 
 export const editComment = async ({ content, opinionId }) => {
-  await client.put(`/api/opinions/${opinionId}`, JSON.stringify(content));
+  await instance.put(`/api/opinions/${opinionId}`, JSON.stringify(content));
   return getCommentInfo({ opinionId });
 };

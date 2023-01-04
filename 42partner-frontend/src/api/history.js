@@ -1,5 +1,5 @@
 import ConvertMap from '../components/common/ConvertMap';
-import client from './client';
+import instance from './api';
 
 export const writeReview = ({ reviewList, matchId }) => {
   const memberReviewDtos = reviewList.map((m) => ({
@@ -7,7 +7,7 @@ export const writeReview = ({ reviewList, matchId }) => {
     activityMatchScore: ConvertMap.get(m.activityMatchScore),
   }));
 
-  return client.post(
+  return instance.post(
     `/api/matches/${matchId}/review`,
     JSON.stringify({
       matchId,

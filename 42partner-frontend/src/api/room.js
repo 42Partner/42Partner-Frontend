@@ -1,15 +1,15 @@
-import client from './client';
+import instance from './client';
 
 export const getRoomList = () => {
-  return client.get(`/api/articles?isComplete=false`);
+  return instance.get(`/api/articles?isComplete=false`);
 };
 
 export const getOneRoom = ({ articleId }) => {
-  return client.get(`/api/articles/${articleId}`);
+  return instance.get(`/api/articles/${articleId}`);
 };
 
 export const createRoom = async ({ article }) => {
-  const articleId = await client
+  const articleId = await instance
     .post(`/api/articles`, JSON.stringify(article))
     .then((res) => {
       return res.data;
@@ -18,22 +18,22 @@ export const createRoom = async ({ article }) => {
 };
 
 export const deleteRoom = ({ articleId }) => {
-  return client.post(`/api/articles/${articleId}/recoverable-delete`);
+  return instance.post(`/api/articles/${articleId}/recoverable-delete`);
 };
 
 export const editRoomInfo = async ({ article, articleId }) => {
-  await client.put(`/api/articles/${articleId}`, JSON.stringify(article));
+  await instance.put(`/api/articles/${articleId}`, JSON.stringify(article));
   return getOneRoom({ articleId });
 };
 
 export const joinRoom = ({ articleId }) => {
-  return client.post(`/api/articles/${articleId}/participate`);
+  return instance.post(`/api/articles/${articleId}/participate`);
 };
 
 export const cancleRoom = ({ articleId }) => {
-  return client.post(`/api/articles/${articleId}/participate-cancel`);
+  return instance.post(`/api/articles/${articleId}/participate-cancel`);
 };
 
 export const completeRoom = ({ articleId }) => {
-  return client.post(`/api/articles/${articleId}/complete`);
+  return instance.post(`/api/articles/${articleId}/complete`);
 };
