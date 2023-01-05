@@ -15,6 +15,11 @@ instance.interceptors.response.use(
   (error) => {
     if (error.response.status === 401) {
       window.location = '/login';
+    } else if (error.response.status === 404) {
+      // 1. 404 페이지를 따로 만들기
+      // 2. alert 혹은 다른 모달을 띄우고 초기 화면으로 이동
+      alert('로그인이 필요합니다.');
+      window.location = '/';
     }
     return Promise.reject(error);
   },
