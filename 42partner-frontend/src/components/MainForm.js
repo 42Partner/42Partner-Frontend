@@ -3,7 +3,7 @@ import qs from 'query-string';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setUserId, setToken } from '../modules/login';
-import client from '../api/client';
+import instance from '../api/api';
 
 const MainForm = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const MainForm = () => {
       localStorage.setItem('accessToken', params.access_token);
       localStorage.setItem('userId', params.userId);
       /* eslint-disable dot-notation */
-      client.defaults.headers.common[
+      instance.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${params.access_token}`;
     }
