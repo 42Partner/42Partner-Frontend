@@ -45,7 +45,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "aws s3 sync ./build s3://partner-fe-s3 --profile=partner",
-    "invalidate": "aws cloudfront create-invalidation --profile=partner --distribution-id E4PHDECA0XCB3 --paths /*",
+    "invalidate": "aws cloudfront create-invalidation --profile=partner --distribution-id E4PHDECA0XCB3 --paths '/*'",
     "all": "npm run build && npm run deploy && npm run invalidate"
   },
   "eslintConfig": {
