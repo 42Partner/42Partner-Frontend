@@ -5,9 +5,6 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import '../styles/LoginForm.scss';
 
 const LoginForm = () => {
-  // axios로 교체
-  // 302 redirection referer: "42 authorization server"
-  // 302로 오는 promise를 예외 처리하여 href로 보내는 방법?
   const requestLogin = () => {
     window.location.href =
       'https://api.42partner.com/oauth2/authorization/authclient';
