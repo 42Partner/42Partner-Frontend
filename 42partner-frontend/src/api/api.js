@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// const baseURL = process.env.REACT_APP_API_KEY;
 const apiURL = 'https://api.42partner.com';
 
 const instance = axios.create({
@@ -14,16 +13,51 @@ instance.interceptors.response.use(
   },
   (error) => {
     if (error.response.status === 401) {
-      window.location = '/login';
+      window.location.href = '/login';
+    } else if (
+      error.response.status === 403 &&
+      error.response.data.code === 'AU001'
+    ) {
+      // 함수화하기?
+      axios
+        .create({
+          baseURL: apiURL,
+          withCredentials: true,
+        })
+        .post(`api/token/refresh`)
+        .then((Response) => {
+          /* eslint-disable dot-notation */
+          const newAccessToken = Response.data.accessToken;
+          instance.defaults.headers.common[
+            'Authorization'
+          ] = `Bearer ${newAccessToken}`;
+          localStorage.setItem('accessToken', newAccessToken);
+          window.location.href = '/select';
+        })
+        .catch((Error) => {
+          console.log(Error);
+        });
     } else if (error.response.status === 404) {
-      // 1. 404 페이지를 따로 만들기
-      // 2. alert 혹은 다른 모달을 띄우고 초기 화면으로 이동
       alert('로그인이 필요합니다.');
-      window.location = '/';
+      window.location.href = '/';
     }
     return Promise.reject(error);
   },
 );
+
+// // 다른 axios instance로 사용해야 무한 루프에 빠지지 않음
+// refresh.interceptors.response.use(
+//   (res) => {
+//     console.log(res);
+//     return res;
+//   },
+//   (error) => {
+//     if (error.response.status === 401) {
+//       window.location = '/login';
+//     }
+//     return Promise.reject(error);
+//   },
+// );
 
 // instance.defaults.withCredentials = true;
 
