@@ -5,12 +5,12 @@ import MatchingHistory from './MatchingHistory';
 import Profile from './Profile';
 import '../../styles/Mypage.scss';
 
-const MypageContainer = () => {
+const MypageContainer = (flag) => {
   return (
     <div className="mypage-div">
       <h1>User Info.</h1>
       <div className="mypage-wrapper">
-        <Profile />
+        <Profile flag={flag} />
         <div className="activity-wrapper">
           <Activity />
           <History />

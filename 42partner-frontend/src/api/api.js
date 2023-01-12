@@ -22,65 +22,6 @@ const instance = axios.create({
 //   },
 // );
 
-const refreshToken = async (error) => {
-  const refresh = axios.create({
-    baseURL: apiURL,
-    withCredentials: true,
-  });
-
-  const retry = (errorConfig) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        if (errorConfig.method === 'get')
-          resolve(instance.get(errorConfig.url));
-        else if (errorConfig.method === 'post')
-          resolve(instance.post(errorConfig.url));
-      }, 500);
-    });
-  };
-
-  let response;
-
-  try {
-    response = await refresh.post(`api/token/refresh`);
-  } catch (e) {
-    alert(e);
-  }
-
-  const newAccessToken = response.data.accessToken;
-
-  /* eslint-disable dot-notation */
-  instance.defaults.headers.common[
-    'Authorization'
-  ] = `Bearer ${newAccessToken}`;
-  localStorage.setItem('accessToken', newAccessToken);
-  /* eslint-disable no-param-reassign */
-  error.config.headers.Authorization = `Bearer ${newAccessToken}`;
-  error.config.headers.withCredentials = true;
-  retry(error.config);
-  return Promise.reject(error);
-};
-
-instance.interceptors.response.use(
-  (res) => {
-    return res;
-  },
-  async (error) => {
-    if (error.response.status === 401) {
-      window.location.href = '/login';
-    } else if (
-      error.response.status === 403 &&
-      error.response.data.code === 'AU001'
-    ) {
-      return refreshToken(error);
-    } else if (error.response.status === 404) {
-      alert('로그인이 필요합니다.');
-      window.location.href = '/';
-    }
-    return Promise.reject(error);
-  },
-);
-
 export default instance;
 
 export const getMatches = () =>

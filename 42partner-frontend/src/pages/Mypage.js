@@ -1,10 +1,10 @@
 import React from 'react';
 import MypageContainer from '../components/mypage/MypageContainer';
 
-const Mypage = () => {
+const Mypage = (flag) => {
   return (
     <div>
-      <MypageContainer />
+      <MypageContainer flag={flag} />
     </div>
   );
 };

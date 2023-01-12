@@ -3,14 +3,14 @@ import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfile } from '../../modules/mypage';
 
-const Profile = () => {
+const Profile = (flag) => {
   const dispatch = useDispatch();
   const { user } = useSelector(({ mypage }) => ({
     user: mypage.user,
   }));
   useEffect(() => {
     dispatch(getProfile());
-  }, []);
+  }, [flag]);
 
   if (!user) return null;
   return (
