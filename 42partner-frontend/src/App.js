@@ -31,6 +31,14 @@ const App = () => {
             resolve(instance.get(errorConfig.url));
           else if (errorConfig.method === 'post')
             resolve(instance.post(errorConfig.url));
+          else if (errorConfig.method === 'put')
+            resolve(instance.put(errorConfig.url));
+          else if (errorConfig.method === 'delete')
+            resolve(instance.delete(errorConfig.url));
+          else if (errorConfig.method === 'patch')
+            resolve(instance.patch(errorConfig.url));
+          else if (errorConfig.method === 'options')
+            resolve(instance.options(errorConfig.url));
         }, 500);
       });
     };
@@ -40,7 +48,9 @@ const App = () => {
     try {
       response = await refresh.post(`api/token/refresh`);
     } catch (e) {
-      alert(e);
+      if (e.status === 401) {
+        window.location.href = '/login';
+      }
     }
 
     const newAccessToken = response.data.accessToken;
