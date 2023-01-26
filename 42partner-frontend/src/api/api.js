@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiURL = 'https://api.42partner.com';
+const apiURL = 'https://api.v2.42partner.com';
 
 const instance = axios.create({
   baseURL: apiURL,
