@@ -17,10 +17,10 @@ import './App.scss';
 import './styles/Layout.scss';
 
 const App = () => {
-  const [flag, setFlag] = useState(0);
+  const [flag, setFlag] = useState(false);
   const refreshToken = async (error) => {
     const refresh = axios.create({
-      baseURL: 'https://api.42partner.com',
+      baseURL: 'https://api.v2.42partner.com',
       withCredentials: true,
     });
 
@@ -60,7 +60,7 @@ const App = () => {
       'Authorization'
     ] = `Bearer ${newAccessToken}`;
     localStorage.setItem('accessToken', newAccessToken);
-    setFlag(flag + 1);
+    setFlag(true);
     /* eslint-disable no-param-reassign */
     error.config.headers.Authorization = `Bearer ${newAccessToken}`;
     error.config.headers.withCredentials = true;
