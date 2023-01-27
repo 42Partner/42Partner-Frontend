@@ -7,6 +7,7 @@ import StudyRoomPage from './pages/StudyRoomPage';
 import SelectPage from './pages/SelectPage';
 import Main from './pages/Main';
 import MyPage from './pages/Mypage';
+import AdminLoginPage from './pages/AdminLoginPage';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import MealRandomPage from './pages/MealRandomPage';
@@ -104,6 +105,7 @@ const App = () => {
             <Route path="study/random" element={<StudyRandomPage />} />
             <Route path="study/room" element={<StudyRoomPage />} />
             <Route path="mypage" element={<MyPage flag={flag} />} />
+            <Route path="admin/login" element={<AdminLoginPage />} />
           </Routes>
         </div>
       </div>
@@ -115,3 +117,6 @@ const App = () => {
 };
 
 export default App;
+
+// TODO : 로그인하고 지운다음 로그인이 필요합니다 창이 떠도 액세스 토큰을 저장하는 문제 처리
+// TODO : OAuth login=failure 날라올 때만, 처리해주기
